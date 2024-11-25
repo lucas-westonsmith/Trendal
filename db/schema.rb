@@ -10,9 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_25_141236) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_25_145951) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "favorites", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "trend_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trend_id"], name: "index_favorites_on_trend_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "prediction_trends", force: :cascade do |t|
+    t.bigint "trend_id", null: false
+    t.bigint "prediction_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["prediction_id"], name: "index_prediction_trends_on_prediction_id"
+    t.index ["trend_id"], name: "index_prediction_trends_on_trend_id"
+  end
+
+  create_table "predictions", force: :cascade do |t|
+    t.text "description"
+    t.integer "confidence_score"
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "trends", force: :cascade do |t|
+    t.string "title"
+    t.integer "engagement_count"
+    t.integer "count"
+    t.string "location"
+    t.string "platform"
+    t.text "description"
+    t.date "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -22,8 +60,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_25_141236) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.string "profession"
+    t.string "company"
+    t.date "date_of_birth"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "favorites", "trends"
+  add_foreign_key "favorites", "users"
+  add_foreign_key "prediction_trends", "predictions"
+  add_foreign_key "prediction_trends", "trends"
 end
