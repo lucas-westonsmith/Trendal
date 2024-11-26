@@ -1,6 +1,10 @@
 <div class="trend-banner text-start">
-  <h1 class="trend-display display-4 text-white"><%= @trend.title %> <span class="trend-highlight">Trend</span></h1>
-  <p class="trend-lead lead text-white">Insights from the last 7 days and overall performance</p>
+  <h1 class="trend-display display-4 text-white">
+    <%= @trend.title %> <span class="trend-highlight">Trend</span>
+  </h1>
+  <p class="trend-lead lead text-white">
+    Insights from the last 7 days and overall performance
+  </p>
 </div>
 
 <div class="trend-container container my-5">
@@ -11,15 +15,33 @@
       <p class="trend-metrics-count">
         <strong><%= @trend.formatted_count(@trend.count) %></strong> Last 7 days, all regions
       </p>
-
       <p class="trend-metrics-count">/</p>
-
       <p class="trend-metrics-count">
         <strong><%= @trend.formatted_count(@trend.count_overall) %></strong> Overall
       </p>
     </div>
   </div>
+
+  <div class="trend-country-stats mt-5">
+    <h3 class="trend-country-title">Performance by Country</h3>
+    <% @trend.counts.group_by(&:country).each do |country, counts| %>
+      <div class="country-section mb-4">
+        <h4 class="country-name">
+          <%= counts.first.country_name_with_flag %>
+        </h4>
+        <ul class="country-periods">
+          <% counts.each do |count| %>
+            <li>
+              <strong><%= count.period %> days:</strong> <%= count.formatted_number %> posts
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+
   <div class="trend-back-button mt-4">
-      <%= link_to "Back to Trends", trends_path, class: "btn btn-primary" %>
-    </div>
+    <%= link_to "Back to Trends", trends_path, class: "btn btn-primary" %>
+  </div>
 </div>
+
