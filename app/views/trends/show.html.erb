@@ -1,4 +1,5 @@
 <h2><%= @trend.title %></h2>
 <h3>Posts</h3>
-<p><%= @trend.count %> Last 7 days, all regions</p>
-<p><%= @trend.count_overall %> Overall</p>
+<p><%= @trend.formatted_count(@trend.count) %> Last 7 days, all regions</p>
+<p><%= @trend.formatted_count(@trend.count_overall) %> Overall</p>
+
