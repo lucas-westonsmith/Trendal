@@ -1,20 +1,25 @@
-<h1>TikTok Trends</h1>
+<div class="banner text-center">
+  <h1 class="display-4 text-white">Current <span class="highlight">Trends</span></h1>
+  <p class="lead text-white">Browse what's currently <span class="highlight">trending</span></p>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Rank</th>
-      <th>Hashtag</th>
-      <th>Posts</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @trends.each do |trend| %>
+<div class="container my-5">
+  <table class="table-custom">
+    <thead>
       <tr>
-        <td><%= trend.rank %></td>
-        <td><%= trend.title %></td>
-        <td><%= trend.count %></td>
+        <th scope="col">Rank</th>
+        <th scope="col">Hashtag</th>
+        <th scope="col">Posts</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @trends.each do |trend| %>
+        <tr>
+          <td><%= link_to trend.rank, trend_path(trend), class: 'text-decoration-none' %></td>
+          <td><%= link_to trend.title, trend_path(trend), class: 'text-decoration-none' %></td>
+          <td><%= link_to trend.count, trend_path(trend), class: 'text-decoration-none' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
