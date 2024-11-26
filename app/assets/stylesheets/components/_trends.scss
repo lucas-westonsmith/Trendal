@@ -1,0 +1,97 @@
+body {
+  background-color: white;
+}
+
+.table-custom {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  // Styling for the table header
+  thead {
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: bold;
+  }
+
+  // Make the header cells smaller by reducing padding
+  thead th {
+    padding: 20px 15px; // Reduce the padding to make header height smaller
+    font-size: 1rem; // Optional: You can also reduce the font size for a more compact look
+  }
+
+  // Table rows
+  tbody tr {
+    &:hover {
+      transition: 0.3s;
+      background-color: rgba(72, 13, 191, 0.15); /* #480DBF with more transparency */
+    }
+  }
+
+  // Table cells
+  th, td {
+    padding: 30px 15px;
+    text-align: left;
+  }
+
+  // Remove the bottom border from the last row
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  // Styling for the first column (Rank)
+  td:first-child {
+    font-size: 1.5rem; // Increase the font size for the "Rank" column
+    font-weight: bold; // Make the rank text bold
+  }
+
+  // Styling for the first row (headings)
+  th {
+    border-top: 1px solid #dee2e6;
+    border-bottom: 2px solid #dee2e6;
+  }
+}
+
+.banner {
+  background-color: black; // Replace with the actual path to your image
+  background-size: cover; // Ensures the image covers the entire div
+  background-position: center; // Centers the background image
+  height: 400px; // Set a fixed height for the banner
+  color: white; // Text color to contrast against the background image
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); // Adds a subtle shadow to the text for better readability
+  margin-bottom: 100px;
+
+  // Use flexbox to position the text
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; // Aligns the content to the left (flex-start)
+
+  padding: 0 20px; // Adds horizontal padding for some space on the left
+
+  h1 {
+    font-size: 5rem; // Adjust font size for the title
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 2rem; // Adjust font size for the subtitle
+    font-weight: bold;
+  }
+}
+
+
+.highlight {
+  color: #480DBF;
+  font-weight: bold;
+}
+.table-custom a {
+  text-decoration: none; /* Removes underline */
+  color: inherit; /* Inherits the text color from the parent */
+}
+
+.table-custom a:hover {
+  text-decoration: underline; /* Optional: Adds underline on hover */
+  color: #480DBF; /* Optional: Customize the hover color */
+}
