@@ -1,0 +1,20 @@
+<h1>TikTok Trends</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Hashtag</th>
+      <th>Posts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @trends.each do |trend| %>
+      <tr>
+        <td><%= trend.rank %></td>
+        <td><%= trend.title %></td>
+        <td><%= trend.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
