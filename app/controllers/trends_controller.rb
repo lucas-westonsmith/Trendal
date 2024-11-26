@@ -5,7 +5,7 @@ class TrendsController < ApplicationController
   end
 
   def show
-    @trend = Trend.find(params[:id]) # Retrieve the trend by ID
+    @trend = Trend.includes(:counts).find(params[:id])
   end
 
 end
