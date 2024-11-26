@@ -1,10 +1,27 @@
 // Define variables for your color scheme
 
-// For example:
-$red: #FD1015;
-$blue: #0D6EFD;
-$yellow: #FFC65A;
-$orange: #E67E22;
-$green: #1EDD88;
-$gray: #0E0000;
-$light-gray: #F4F4F4;
+// Boostrap colors//
+$blue: blue;
+$green: green;
+$gray: gray;
+$yellow: yellow;
+$red: red;
+$orange: orange;
+$light-gray: rgb(217, 217, 217);
+
+// Our colors //
+$card_background: white;
+$card_border: #F4F5F5;
+$text_p:#D1D5DB;
+$headers: black;
+$light_mode_text: #6B7280;
+$light_background: #F9FAFB;
+$medium_icons: #D9C7FF;
+$light_tags_buttons: #F2ECFE;
+$primary_color: #6E2DF0;
+
+
+// DO NOT UNCOMmENT THIS SECTION
+
+// background: linear-gradient(to bottom, #09090B, #6B7280); (home page background)
+// background: linear-gradient(to bottom, #2C0CC8, #CB94D7); (logo and icons)
