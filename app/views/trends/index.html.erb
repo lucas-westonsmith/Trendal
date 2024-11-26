@@ -2,9 +2,8 @@
   <h1 class="display-4 text-white">Current <span class="highlight">Trends</span></h1>
   <p class="lead text-white">Browse what's currently <span class="highlight">trending</span></p>
 </div>
-
 <div class="container my-5">
-  <table class="table-custom">
+  <table class="table-custom" data-controller="clickable-row">
     <thead>
       <tr>
         <th scope="col">Rank</th>
@@ -14,10 +13,10 @@
     </thead>
     <tbody>
       <% @trends.each do |trend| %>
-        <tr>
-          <td><%= link_to trend.rank, trend_path(trend), class: 'text-decoration-none' %></td>
-          <td><%= link_to trend.title, trend_path(trend), class: 'text-decoration-none' %></td>
-          <td><%= link_to trend.count, trend_path(trend), class: 'text-decoration-none' %></td>
+        <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
+          <td><%= trend.rank %></td>
+          <td><%= trend.title %></td>
+          <td><%= trend.formatted_count(trend.count) %></td>
         </tr>
       <% end %>
     </tbody>

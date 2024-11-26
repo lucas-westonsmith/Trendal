@@ -23,6 +23,7 @@ body {
 
   // Table rows
   tbody tr {
+    cursor: pointer;
     &:hover {
       transition: 0.3s;
       background-color: rgba(72, 13, 191, 0.15); /* #480DBF with more transparency */
@@ -80,18 +81,7 @@ body {
     font-weight: bold;
   }
 }
-
-
 .highlight {
   color: #480DBF;
   font-weight: bold;
-}
-.table-custom a {
-  text-decoration: none; /* Removes underline */
-  color: inherit; /* Inherits the text color from the parent */
-}
-
-.table-custom a:hover {
-  text-decoration: underline; /* Optional: Adds underline on hover */
-  color: #480DBF; /* Optional: Customize the hover color */
 }
