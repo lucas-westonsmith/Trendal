@@ -11,7 +11,7 @@ class TiktokScraper
 
     puts "Deleting all related videos from the database..."
     Video.delete_all
-    # Clear existing trends to avoid duplicates
+
     puts "Deleting all related counts from the database..."
     Count.delete_all
 

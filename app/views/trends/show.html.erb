@@ -2,11 +2,10 @@
   <h1 class="trend-display display-4 text-white">
     <% if @trend.platform == 'youtube' %>
       <span class="trend-highlight">YouTube - </span>
+    <% elsif @trend.platform == 'tiktok' %>
+      <span class="trend-highlight">TikTok Trend</span>
     <% end %>
     <%= @trend.title %>
-    <% if @trend.platform == 'tiktok' %>
-      <span class="trend-highlight">Trend</span>
-    <% end %>
   </h1>
   <p class="trend-lead lead text-white">
     Insights from the last 7 days and overall <span class="trend-highlight">performance</span>
@@ -31,9 +30,9 @@
             <strong><%= @trend.formatted_count(@trend.like_count) %></strong> Likes
           </p>
           <div class="youtube-details">
-            <p><strong>Duration:</strong> <%= @trend.video_duration %></p>
-            <p><strong>Published At:</strong> <%= @trend.published_at.strftime('%B %d, %Y') if @trend.published_at %></p>
-            <p><strong>Channel:</strong> <%= @trend.channel_name %></p>
+            <p>Duration: <strong><%= @trend.video_duration %></strong></p>
+            <p>Published At: <strong><%= @trend.published_at.strftime('%B %d, %Y') if @trend.published_at %></strong></p>
+            <p>Channel: <strong><%= @trend.channel_name %></strong></p>
           </div>
         </div>
       </div>
@@ -67,6 +66,40 @@
           <% end %>
         </div>
       </div>
+    </div>
+  <% elsif @trend.platform == 'tiktok' %>
+    <!-- TikTok-specific content -->
+    <div class="trend-details text-start">
+      <h2 class="trend-title"><%= @trend.title %></h2>
+      <h3 class="trend-metrics-title">Posts</h3>
+      <div class="d-flex">
+        <p class="trend-metrics-count">
+          <strong><%= @trend.formatted_count(@trend.count) %></strong> Last 7 days, all regions
+        </p>
+        <p class="trend-metrics-count">/</p>
+        <p class="trend-metrics-count">
+          <strong><%= @trend.formatted_count(@trend.count_overall) %></strong> Overall
+        </p>
+      </div>
+    </div>
+
+    <!-- Performance by Country (Only for TikTok) -->
+    <div class="trend-country-stats mt-5">
+      <h3 class="trend-country-title">Performance by Country</h3>
+      <% @trend.counts.group_by(&:country).each do |country, counts| %>
+        <div class="country-section mb-4">
+          <h4 class="country-name">
+            <%= counts.first.country_name_with_flag %>
+          </h4>
+          <ul class="country-periods">
+            <% counts.each do |count| %>
+              <li>
+                <strong><%= count.period %> days:</strong> <%= count.formatted_number %> posts
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
     </div>
   <% end %>
 
