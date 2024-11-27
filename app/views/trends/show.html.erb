@@ -1,47 +1,76 @@
 <div class="trend-banner text-start">
   <h1 class="trend-display display-4 text-white">
-    <%= @trend.title %> <span class="trend-highlight">Trend</span>
+    <% if @trend.platform == 'youtube' %>
+      <span class="trend-highlight">YouTube - </span>
+    <% end %>
+    <%= @trend.title %>
+    <% if @trend.platform == 'tiktok' %>
+      <span class="trend-highlight">Trend</span>
+    <% end %>
   </h1>
   <p class="trend-lead lead text-white">
-    Insights from the last 7 days and overall performance
+    Insights from the last 7 days and overall <span class="trend-highlight">performance</span>
   </p>
 </div>
 
 <div class="trend-container container my-5">
-  <div class="trend-details text-start">
-    <h2 class="trend-title"><%= @trend.title %></h2>
-    <h3 class="trend-metrics-title">Posts</h3>
-    <div class="d-flex">
-      <p class="trend-metrics-count">
-        <strong><%= @trend.formatted_count(@trend.count) %></strong> Last 7 days, all regions
-      </p>
-      <p class="trend-metrics-count">/</p>
-      <p class="trend-metrics-count">
-        <strong><%= @trend.formatted_count(@trend.count_overall) %></strong> Overall
-      </p>
-    </div>
-  </div>
-
-  <div class="trend-country-stats mt-5">
-    <h3 class="trend-country-title">Performance by Country</h3>
-    <% @trend.counts.group_by(&:country).each do |country, counts| %>
-      <div class="country-section mb-4">
-        <h4 class="country-name">
-          <%= counts.first.country_name_with_flag %>
-        </h4>
-        <ul class="country-periods">
-          <% counts.each do |count| %>
-            <li>
-              <strong><%= count.period %> days:</strong> <%= count.formatted_number %> posts
-            </li>
-          <% end %>
-        </ul>
+  <% if @trend.platform == 'youtube' %>
+    <!-- YouTube-specific content -->
+    <h3 class="trend-metrics-title">Trend details</h3>
+    <div class="trend-content d-flex justify-content-between">
+      <!-- Trend Details (Title and Metrics) -->
+      <div class="trend-details text-start">
+        <h2 class="trend-title"><%= @trend.title %></h2>
+        <h3 class="trend-metrics-title">Views</h3>
+        <div class="d-flex">
+          <p class="trend-metrics-count">
+            <strong><%= @trend.formatted_count(@trend.view_count) %></strong> Views
+          </p>
+          <p class="trend-metrics-count">/</p>
+          <p class="trend-metrics-count">
+            <strong><%= @trend.formatted_count(@trend.like_count) %></strong> Likes
+          </p>
+          <div class="youtube-details">
+            <p><strong>Duration:</strong> <%= @trend.video_duration %></p>
+            <p><strong>Published At:</strong> <%= @trend.published_at.strftime('%B %d, %Y') if @trend.published_at %></p>
+            <p><strong>Channel:</strong> <%= @trend.channel_name %></p>
+          </div>
+        </div>
       </div>
-    <% end %>
-  </div>
+
+      <!-- YouTube Video and Hashtags Section -->
+      <div class="youtube-content">
+        <!-- YouTube Video -->
+        <div class="youtube-video">
+          <h3 class="trend-metrics-title">Watch the video</h3>
+          <iframe width="600" height="315"
+                  src="<%= @trend.video_url.gsub('watch?v=', 'embed/') %>"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+          </iframe>
+        </div>
+
+        <!-- YouTube Hashtags Section -->
+        <div class="youtube-hashtags">
+          <h3 class="trend-metrics-title">Hashtags</h3>
+          <% if @trend.hashtags.present? %>
+            <div class="hashtag-boxes">
+              <% @trend.hashtags.split(', ').each do |hashtag| %>
+                <div class="hashtag-box">
+                  <%= hashtag %>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <p>No hashtags available</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
   <div class="trend-back-button mt-4">
     <%= link_to "Back to Trends", trends_path, class: "btn btn-primary" %>
   </div>
 </div>
-
