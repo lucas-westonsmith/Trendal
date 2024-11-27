@@ -16,4 +16,3 @@ class Trend < ApplicationRecord
     end
   end
 end
-

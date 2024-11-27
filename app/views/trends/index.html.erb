@@ -9,6 +9,7 @@
         <th scope="col">Rank</th>
         <th scope="col">Hashtag</th>
         <th scope="col">Posts</th>
+        <th scope="col">Engagement Count</th> <!-- New header for Engagement Count -->
       </tr>
     </thead>
     <tbody>
@@ -16,7 +17,20 @@
         <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
           <td><%= trend.rank %></td>
           <td><%= trend.title %></td>
-          <td><%= trend.formatted_count(trend.count) %></td>
+          <td>
+            <% if trend.count.present? && trend.count > 0 %>
+              <%= trend.formatted_count(trend.count) %>
+            <% else %>
+              <!-- You can leave it empty or display a placeholder if count is nil or 0 -->
+            <% end %>
+          </td>
+          <td>
+            <% if trend.engagement_count.present? && trend.engagement_count > 0 %>
+              <%= trend.formatted_count(trend.engagement_count) %> <!-- Display Engagement Count -->
+            <% else %>
+              <!-- You can leave it empty or display a placeholder if engagement count is nil or 0 -->
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>
