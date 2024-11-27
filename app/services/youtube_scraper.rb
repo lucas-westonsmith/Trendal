@@ -2,7 +2,7 @@ class YoutubeScraper
   require 'rest-client'
   require 'json'
 
-  API_KEY = 'AIzaSyCN7iVp8jk11jmj6x-DnTvVIyWT2FakfiU'  # Replace with your actual API key
+  API_KEY = ENV['YOUTUBE_API_KEY']  # Replace with your actual API key
   API_URL = "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&chart=mostPopular&regionCode=PT&maxResults=50&key=#{API_KEY}"
 
   def call
