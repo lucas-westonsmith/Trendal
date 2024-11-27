@@ -35,7 +35,7 @@ class TiktokScraper
       puts "Posts: #{posts} for #{hashtag_without_hash}"
 
       # Save Trend
-      trend = Trend.create(rank: rank, title: hashtag, count: posts)
+      trend = Trend.create(rank: rank, title: hashtag, count: posts, platform: 'tiktok')
       puts "Saved Trend ##{trend.id} - #{trend.title}"
 
       # Fetch country and period-specific data
@@ -111,4 +111,3 @@ class TiktokScraper
     end
   end
 end
-
