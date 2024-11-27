@@ -1,8 +1,9 @@
 class Trend < ApplicationRecord
   has_many :predictions, through: :prediction_trends
-  has_many :counts
+  has_many :counts, dependent: :destroy
   has_many :favorites_trends
   has_many :favorites, through: :favorites_trends
+  has_many :videos, through: :counts
 
   # Méthode pour formater le nombre avec suffixe K ou M
   def formatted_count(count)
