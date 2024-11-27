@@ -6,9 +6,6 @@
       <span class="trend-highlight">TikTok Trend</span>
     <% end %>
     <%= @trend.title %>
-    <% if @trend.platform == 'tiktok' %>
-      <span class="trend-highlight">Trend</span>
-    <% end %>
   </h1>
   <p class="trend-lead lead text-white">
     Insights from the last 7 days and overall <span class="trend-highlight">performance</span>
@@ -33,9 +30,9 @@
             <strong><%= @trend.formatted_count(@trend.like_count) %></strong> Likes
           </p>
           <div class="youtube-details">
-            <p><strong>Duration:</strong> <%= @trend.video_duration %></p>
-            <p><strong>Published At:</strong> <%= @trend.published_at.strftime('%B %d, %Y') if @trend.published_at %></p>
-            <p><strong>Channel:</strong> <%= @trend.channel_name %></p>
+            <p>Duration: <strong><%= @trend.video_duration %></strong></p>
+            <p>Published At: <strong><%= @trend.published_at.strftime('%B %d, %Y') if @trend.published_at %></strong></p>
+            <p>Channel: <strong><%= @trend.channel_name %></strong></p>
           </div>
         </div>
       </div>
@@ -73,7 +70,7 @@
   <% elsif @trend.platform == 'tiktok' %>
     <!-- TikTok-specific content -->
     <div class="trend-details text-start">
-      <h2 class="trend-title">TikTok Hashtag: <%= @trend.title %></h2>
+      <h2 class="trend-title"><%= @trend.title %></h2>
       <h3 class="trend-metrics-title">Posts</h3>
       <div class="d-flex">
         <p class="trend-metrics-count">
