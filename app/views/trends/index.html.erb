@@ -24,7 +24,6 @@
           <th scope="col">Rank</th>
           <th scope="col">Hashtag</th>
           <th scope="col">Posts</th>
-          <th scope="col">Engagement Count</th>
         </tr>
       </thead>
       <tbody>
@@ -33,7 +32,6 @@
             <td><%= trend.rank %></td>
             <td><%= trend.title %></td>
             <td><%= trend.formatted_count(trend.count) if trend.count.present? %></td>
-            <td><%= trend.formatted_count(trend.view_count) %> <%= trend.formatted_count(trend.like_count) %></td>
           </tr>
         <% end %>
       </tbody>
