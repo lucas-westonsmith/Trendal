@@ -23,6 +23,7 @@
         <tr>
           <th scope="col">Rank</th>
           <th scope="col">Hashtag</th>
+          <th scope="col">Industry</th>
           <th scope="col">Posts</th>
         </tr>
       </thead>
@@ -31,6 +32,7 @@
           <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
             <td><%= trend.rank %></td>
             <td><%= trend.title %></td>
+            <td><%= trend.industry.present? ? trend.industry : 'N/A' %></td>
             <td><%= trend.formatted_count(trend.count) if trend.count.present? %></td>
           </tr>
         <% end %>
@@ -38,6 +40,7 @@
     </table>
   </div>
 <% end %>
+
 
 <!-- YouTube Trends Table -->
 <% if @youtube_trends.present? %>
