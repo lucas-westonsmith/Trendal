@@ -34,9 +34,18 @@ class TiktokScraper
       posts = convert_to_numeric(posts_text)
       puts "Posts: #{posts} for #{hashtag_without_hash}"
 
+      # Extract Industry (if present)
+      industry = card.at_css('span.CardPc_industryTag__XYZABC')&.text&.strip
+      industry = "" if industry.nil? # Si l'industrie n'est pas présente, sauvegarder un champ vide
+      puts "Industry: '#{industry}'"
+
       # Save Trend
-      trend = Trend.create(rank: rank, title: hashtag, count: posts)
-      puts "Saved Trend ##{trend.id} - #{trend.title}"
+      trend = Trend.create(rank: rank, title: hashtag, count: posts, industry: industry)
+      puts "Saved Trend ##{trend.id} - #{trend.title} (Industry: #{trend.industry})"
+    end
+  rescue => e
+    puts "Error in main scraper process: #{e.message}"
+    puts e.backtrace
 
       # Fetch country and period-specific data
       begin
@@ -111,4 +120,3 @@ class TiktokScraper
     end
   end
 end
-
