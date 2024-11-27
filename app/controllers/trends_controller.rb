@@ -1,13 +1,15 @@
 class TrendsController < ApplicationController
 
   def index
-    # Default to TikTok trends if no platform is selected
+    # Fetch trends based on the platform parameter, defaulting to TikTok
     if params[:platform] == 'youtube'
       @youtube_trends = Trend.where(platform: 'youtube')
-      @tiktok_trends = nil  # Don't display TikTok trends
+                             
+      @tiktok_trends = nil
     else
       @tiktok_trends = Trend.where(platform: 'tiktok')
-      @youtube_trends = nil  # Don't display YouTube trends
+                            .order(:rank) # Order by rank
+      @youtube_trends = nil
     end
   end
 
