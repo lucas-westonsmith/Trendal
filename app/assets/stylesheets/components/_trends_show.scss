@@ -15,10 +15,10 @@
 }
 
 .trend-details {
- background-color: #F8F8F8;
- padding: 20px;
- border-radius: 10px;
- width: 600px;
+  background-color: #F8F8F8;
+  padding: 20px;
+  border-radius: 10px;
+  width: 600px; /* Fixed width for the trend details */
 }
 
 .trend-display {
@@ -43,7 +43,7 @@
 
 /* Trend Title */
 .trend-title {
-  font-size: 3rem;
+  font-size: 40px;
   color: #495057;
   font-weight: bold;
   margin-bottom: 20px;
@@ -82,4 +82,78 @@
 
 .trend-back-button .btn:hover {
   background-color: #350c91;
+}
+
+/* YouTube Content (Side by Side) */
+.trend-content {
+  display: flex; /* Flexbox to place content side by side */
+  justify-content: space-between; /* Space between content */
+  align-items: flex-start; /* Align content at the top */
+  flex-wrap: wrap; /* Allow content to wrap on smaller screens */
+}
+
+.trend-details {
+  width: 45%; /* Adjust width to fit side by side */
+}
+
+.youtube-content {
+  width: 45%; /* Adjust width to fit side by side */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.youtube-video iframe {
+  width: 100%; /* Make iframe responsive */
+  height: 315px;
+  border: none;
+}
+
+/* YouTube Hashtags Section */
+.youtube-hashtags .hashtag-boxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hashtag-box {
+  background-color: #f1f1f1;
+  padding: 8px 12px;
+  margin: 5px;
+  border-radius: 15px;
+  font-size: 14px;
+  color: #333;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.hashtag-box:hover {
+  background-color: #000;
+  color: #fff;
+  transform: scale(1.1);
+}
+
+
+
+
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+  .trend-content {
+    flex-direction: column; /* Stack content vertically on smaller screens */
+    align-items: center; /* Center content */
+  }
+
+  .trend-details, .youtube-content {
+    width: 100%; /* Full width on smaller screens */
+    margin-bottom: 20px; /* Space between stacked sections */
+  }
+
+  .youtube-video iframe {
+    height: 200px; /* Smaller iframe height on mobile */
+  }
+}
+
+.youtube-video {
+  margin-top: -30px;
 }

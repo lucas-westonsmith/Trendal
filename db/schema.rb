@@ -11,6 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_11_27_121145) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,6 +72,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_121145) do
     t.integer "count_overall"
     t.integer "view_count"
     t.integer "like_count"
+    t.string "hashtags"
+    t.string "video_duration"
+    t.datetime "published_at"
+    t.string "channel_name"
+    t.string "video_url"
     t.string "industry"
   end
 

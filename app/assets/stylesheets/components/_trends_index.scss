@@ -85,3 +85,54 @@ body {
   color: #480DBF;
   font-weight: bold;
 }
+
+
+
+
+/* Container for the form */
+.custom-form {
+  max-width: 400px; /* Adjust width */
+  padding: 15px; /* Add some padding */
+  border-radius: 15px; /* Rounded corners */
+  float: left; /* Align to the left */
+  margin-top: 20px; /* Add some top margin if needed */
+  display: flex; /* Use flexbox for side-by-side layout */
+  align-items: center; /* Vertically align items */
+  gap: 30px; /* Space between select and button */
+}
+
+/* Form inputs and select */
+.custom-form .form-group {
+  margin-bottom: 0; /* Remove bottom margin */
+  flex-grow: 1; /* Allow the select to take up available space */
+}
+
+.custom-form label {
+  font-size: 14px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.custom-select {
+  width: 100%; /* Full width for select */
+  padding: 8px 12px; /* Smaller padding */
+  font-size: 17px; /* Smaller text */
+  border-radius: 20px; /* Rounded select */
+  background-color: #fff; /* White background */
+  border: 1px solid #480DBE; /* Light border */
+}
+
+.custom-btn {
+  border-radius: 20px; /* Rounded corners for the button */
+  padding: 8px 20px; /* Button padding */
+  font-size: 14px; /* Smaller text size */
+  background-color: #480DBE; /* Primary color */
+  border: none; /* Remove default border */
+  color: #fff; /* Text color */
+  transition: background-color 0.3s ease;
+  margin-top: 30px;
+}
+
+.custom-btn:hover {
+  background-color: #420bb0; /* Darker button on hover */
+}
