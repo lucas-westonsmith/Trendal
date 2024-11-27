@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema[7.1].define(version: 2024_11_27_112857) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_27_121145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,11 +27,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_112857) do
 
   create_table "favorites", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "favorites_trends", force: :cascade do |t|
+    t.bigint "favorite_id", null: false
     t.bigint "trend_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["trend_id"], name: "index_favorites_on_trend_id"
-    t.index ["user_id"], name: "index_favorites_on_user_id"
+    t.index ["favorite_id"], name: "index_favorites_trends_on_favorite_id"
+    t.index ["trend_id"], name: "index_favorites_trends_on_trend_id"
   end
 
   create_table "prediction_trends", force: :cascade do |t|
@@ -92,8 +98,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_112857) do
   end
 
   add_foreign_key "counts", "trends"
-  add_foreign_key "favorites", "trends"
   add_foreign_key "favorites", "users"
+  add_foreign_key "favorites_trends", "favorites"
+  add_foreign_key "favorites_trends", "trends"
   add_foreign_key "prediction_trends", "predictions"
   add_foreign_key "prediction_trends", "trends"
 end

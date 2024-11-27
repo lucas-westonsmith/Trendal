@@ -1,0 +1,12 @@
+  <% if @favorite.trends.empty? %>
+    <div class>
+      <h2>Uh-oh, your collection is feeling lonely! 😔</h2>
+      <p>Time to fill it with some epic trends! 📈✨ Start exploring and improve your communication strategy! 🎉</p>
+      <%= link_to 'Browse trends', trends_path %>
+    </div>
+  <% else %>
+    <h2>Your favorite trends:</h2>
+    <% @favorite.trends.each do |trend| %>
+      <strong>Trend:</strong> <%= trend.title %><br>
+    <% end %>
+  <% end %>
