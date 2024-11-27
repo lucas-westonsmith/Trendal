@@ -1,6 +1,6 @@
 class Count < ApplicationRecord
   belongs_to :trend
-  has_many :videos # Un Count peut avoir plusieurs vidéos
+  has_many :videos
 
   COUNTRY_MAPPING = {
     'PT' => ['Portugal', '🇵🇹'],

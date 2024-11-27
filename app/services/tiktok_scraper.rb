@@ -40,7 +40,7 @@ class TiktokScraper
       puts "Posts: #{posts} for #{hashtag_without_hash}"
 
       # Extract Industry (if present)
-      industry = card.at_css('span.CardPc_industryTag__XYZABC')&.text&.strip
+      industry = card.at_css('div.CardPc_infoContent__qtNzO span:nth-child(2)')&.text&.strip
       industry = "" if industry.nil?
       puts "Industry: '#{industry}'"
 
