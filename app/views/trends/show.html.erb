@@ -260,27 +260,27 @@
       <% end %>
     </div>
 
-    <!-- Display filtered videos -->
-    <% if @filtered_videos.present? %>
-      <div class="trend-videos mt-5">
-        <h3>Videos for <%= @selected_country %> - <%= @selected_period %> Days</h3>
-        <div class="video-list">
-          <% @filtered_videos.each do |video| %>
-            <div class="video-item">
-              <h4>Video URL: <%= video.url %></h4>
-              <iframe width="600" height="315"
-                      src="<%= video.url.gsub('watch?v=', 'embed/') %>"
-                      frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowfullscreen>
-              </iframe>
-            </div>
-          <% end %>
+<!-- Display filtered videos -->
+<% if @filtered_videos.present? %>
+  <div class="trend-videos mt-5">
+    <h3>Videos for <%= @selected_country %> - <%= @selected_period %> Days</h3>
+    <div class="video-list">
+      <% @filtered_videos.each do |video| %>
+        <div class="video-item">
+          <iframe class="video-iframe"
+                  src="<%= video.url.gsub('watch?v=', 'embed/') %>"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+          </iframe>
         </div>
-      </div>
-    <% else %>
-      <p>No videos found for this country and period.</p>
-    <% end %>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <p>No videos found for this country and period.</p>
+<% end %>
+
 
     <!-- Move Add to favorites button here -->
     <%= button_to 'Add to favorites',
