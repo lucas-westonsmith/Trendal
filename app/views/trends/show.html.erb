@@ -92,35 +92,51 @@
       </div>
     </div>
 
-<!-- Performance by Country (Only for TikTok) -->
 <div class="trend-country-stats mt-5">
   <h3 class="trend-country-title">Performance by Country</h3>
 
-  <!-- Graphique pour les 7 jours -->
+  <!-- PERIOD 7 DAYS -->
   <div class="period-graph mb-5">
     <h4>7 days performance</h4>
     <%= bar_chart @graph_data_7_days,
       height: "300px",
+      thousands: ",",
+      colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"],
       library: {
         title: { text: "Performance by country (7 days)" },
-        plugins: {
-          datalabels: {
-            anchor: 'end',
-            align: 'top',
-            formatter: ->(value) { "#{value} posts" } # Affiche le montant à côté de la barre
-          }
-        },
         scales: {
           x: {
             title: {
               display: true,
-              text: 'Number of posts'  # L'axe X représente le nombre de posts
+              text: "Number of posts",
+              font: {
+                size: 18,
+                weight: "bold"
+              }
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 16
+              }
+            },
+            grid: {
+              drawTicks: false,
             }
           },
           y: {
             title: {
-              display: false,  # Ne pas afficher le titre des pays
-              text: 'Countries'
+              display: false
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 16
+              },
+              padding: 10
+            },
+            grid: {
+              drawTicks: false,
             }
           }
         }
@@ -128,31 +144,48 @@
     %>
   </div>
 
-  <!-- Graphique pour les 30 jours -->
+  <!-- PERIOD 30 DAYS -->
   <div class="period-graph mb-5">
     <h4>30 days performance</h4>
     <%= bar_chart @graph_data_30_days,
       height: "300px",
+      thousands: ",",
+      colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"],
       library: {
         title: { text: "Performance by country (30 days)" },
-        plugins: {
-          datalabels: {
-            anchor: 'end',
-            align: 'top',
-            formatter: ->(value) { "#{value} posts" } # Affiche le montant à côté de la barre
-          }
-        },
         scales: {
           x: {
             title: {
               display: true,
-              text: 'Number of posts'  # L'axe X représente le nombre de posts
+              text: "Number of posts",
+              font: {
+                size: 18,
+                weight: "bold"
+              }
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 16
+              }
+            },
+            grid: {
+              drawTicks: false,
             }
           },
           y: {
             title: {
-              display: false,  # Ne pas afficher le titre des pays
-              text: 'Countries'
+              display: false
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 16
+              },
+              padding: 10
+            },
+            grid: {
+              drawTicks: false,
             }
           }
         }
@@ -160,31 +193,48 @@
     %>
   </div>
 
-  <!-- Graphique pour les 120 jours -->
+  <!-- PERIOD 120 DAYS -->
   <div class="period-graph mb-5">
     <h4>120 days performance</h4>
     <%= bar_chart @graph_data_120_days,
       height: "300px",
+      thousands: ",",
+      colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"],
       library: {
         title: { text: "Performance by country (120 days)" },
-        plugins: {
-          datalabels: {
-            anchor: 'end',
-            align: 'top',
-            formatter: ->(value) { "#{value} posts" } # Affiche le montant à côté de la barre
-          }
-        },
         scales: {
           x: {
             title: {
               display: true,
-              text: 'Number of posts'  # L'axe X représente le nombre de posts
+              text: "Number of posts",
+              font: {
+                size: 18,
+                weight: "bold"
+              }
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 16
+              }
+            },
+            grid: {
+              drawTicks: false,
             }
           },
           y: {
             title: {
-              display: false,  # Ne pas afficher le titre des pays
-              text: 'Countries'
+              display: false
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 16
+              },
+              padding: 10
+            },
+            grid: {
+              drawTicks: false,
             }
           }
         }
@@ -192,11 +242,6 @@
     %>
   </div>
 </div>
-
-
-
-
-
 
 
     <div class="container mt-4">
