@@ -25,6 +25,7 @@
           <th scope="col">Hashtag</th>
           <th scope="col">Industry</th>
           <th scope="col">Posts</th>
+          <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -34,13 +35,15 @@
             <td><%= trend.title %></td>
             <td><%= trend.industry.present? ? trend.industry : 'N/A' %></td>
             <td><%= trend.formatted_count(trend.count) if trend.count.present? %></td>
+            <td>
+              <%= link_to 'Add to Favorites', favorite_add_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id), method: :post, class: 'btn btn-success' %>
+            </td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
 <% end %>
-
 
 <!-- YouTube Trends Table -->
 <% if @youtube_trends.present? %>
@@ -53,6 +56,7 @@
           <th scope="col">Title</th>
           <th scope="col">Views</th>
           <th scope="col">Likes</th>
+          <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -62,6 +66,9 @@
             <td><%= trend.title %></td>
             <td><%= trend.formatted_count(trend.view_count) if trend.view_count.present? %></td>
             <td><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
+            <td>
+              <%= link_to 'Add to Favorites', favorite_add_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id), method: :post, class: 'btn btn-success' %>
+            </td>
           </tr>
         <% end %>
       </tbody>

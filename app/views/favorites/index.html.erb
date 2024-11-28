@@ -1,12 +1,69 @@
-  <% if @favorite.trends.empty? %>
-    <div class>
-      <h2>Uh-oh, your collection is feeling lonely! 😔</h2>
-      <p>Time to fill it with some epic trends! 📈✨ Start exploring and improve your communication strategy! 🎉</p>
-      <%= link_to 'Browse trends', trends_path %>
+<div class="banner text-center">
+  <h1 class="display-4 text-white">Your <span class="highlight">Favorites</span></h1>
+  <p class="lead text-white">Browse your favorite trending topics from various platforms.</p>
+</div>
+
+<!-- Platform Selector -->
+<div class="container">
+  <%= form_with url: favorites_path, method: :get, local: true, class: "form-inline custom-form" do %>
+    <div class="form-group">
+      <%= label_tag :platform, 'Select Platform:', class: 'mr-2' %>
+      <%= select_tag :platform, options_for_select([['TikTok', 'tiktok'], ['YouTube', 'youtube']], selected: params[:platform]), class: 'form-control custom-select' %>
     </div>
-  <% else %>
-    <h2>Your favorite trends:</h2>
-    <% @favorite.trends.each do |trend| %>
-      <strong>Trend:</strong> <%= trend.title %><br>
-    <% end %>
+    <%= submit_tag 'Filter', class: 'btn btn-primary ml-2 custom-btn' %>
   <% end %>
+</div>
+
+<!-- Display Favorite Trends -->
+<% if @favorite.trends.present? %>
+  <div class="container my-5">
+    <h2>Your Favorite Trends:</h2>
+
+    <!-- Display content based on platform selection -->
+    <% if params[:platform] == 'tiktok' %>
+      <div class="row">
+        <% @favorite.trends.where(platform: 'tiktok').each do |trend| %>
+          <div class="col-md-4">
+            <div class="card">
+              <img src="<%= trend.image_url %>" alt="<%= trend.title %>" class="card-img-top" />
+              <div class="card-body">
+                <h5 class="card-title"><%= trend.title %></h5>
+                <p class="card-text"><%= trend.industry.present? ? trend.industry : 'N/A' %></p>
+                <p class="card-text"><%= trend.formatted_count(trend.count) if trend.count.present? %></p>
+                <%= link_to 'Remove from Favorites', remove_trend_favorite_path(trend.id), method: :delete, class: 'btn btn-danger' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+    <% elsif params[:platform] == 'youtube' %>
+      <div class="row">
+        <% @favorite.trends.where(platform: 'youtube').each do |trend| %>
+          <div class="col-md-4">
+            <div class="card">
+              <img src="<%= trend.image_url %>" alt="<%= trend.title %>" class="card-img-top" />
+              <div class="card-body">
+                <h5 class="card-title"><%= trend.title %></h5>
+                <p class="card-text"><%= trend.formatted_count(trend.view_count) if trend.view_count.present? %></p>
+                <p class="card-text"><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></p>
+                <%= link_to 'Remove from Favorites', remove_trend_favorite_path(trend.id), method: :delete, class: 'btn btn-danger' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="alert alert-info">
+        <p>Select a platform to see your favorite trends.</p>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="container my-5">
+    <h2>Uh-oh, your collection is feeling lonely! 😔</h2>
+    <p>Time to fill it with some epic trends! 📈✨ Start exploring and improve your communication strategy! 🎉</p>
+    <%= link_to 'Browse trends', trends_path, class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
