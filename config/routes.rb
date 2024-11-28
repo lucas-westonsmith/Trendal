@@ -1,17 +1,20 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
-  resources :trends
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # Routes for trends
+  resources :trends
+
+  # Health check route to verify the app status
   get "up" => "rails/health#show", as: :rails_health_check
 
-  resources :favorites, only: [:index]
-  post 'favorites/add_trend/:trend_id', to: 'favorites#add_trend', as: :add_trend
-  delete 'favorites/remove_trend/:trend_id', to: 'favorites#remove_trend', as: :remove_trend
+  # Routes for favorites
+  resources :favorites, only: [:index] do
+    # Routes to add and remove a trend from favorites
+    post 'add_trend/:trend_id', to: 'favorites#add_trend', as: :add_trend
+    delete 'remove_trend/:trend_id', to: 'favorites#remove_trend', as: :remove_trend
+  end
 
-  # Defines the root path route ("/")
+  # Other possible routes
   # root "posts#index"
 end

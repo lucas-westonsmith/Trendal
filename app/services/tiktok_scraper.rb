@@ -15,8 +15,13 @@ class TiktokScraper
     puts "Deleting all related counts from the database..."
     Count.delete_all
 
-    puts "Deleting all existing trends from the database..."
-    Trend.delete_all
+    # Delete former trends that are not in the current ranking
+    existing_trends = Trend.all.pluck(:title)  # Get all existing trend titles
+    puts "Deleting trends that are not in the current ranking..."
+
+    # Delete trends that are not in the current ranking
+    Trend.where.not(title: doc.css('span.CardPc_titleText__RYOWo').map(&:text).map(&:strip)).destroy_all
+    puts "Old trends deleted."
 
     hashtag_cards = doc.css('div.CommonDataList_cardWrapper__kHTJP')
     puts "Found #{hashtag_cards.length} hashtag cards."
@@ -44,9 +49,14 @@ class TiktokScraper
       industry = "" if industry.nil?
       puts "Industry: '#{industry}'"
 
-      # Save Trend
-      trend = Trend.create(rank: rank, title: hashtag, count: posts, industry: industry, platform: 'tiktok')
-      puts "Saved Trend ##{trend.id} - #{trend.title} (Industry: #{trend.industry})"
+      # Find or initialize the trend
+      trend = Trend.find_or_initialize_by(title: hashtag)
+      trend.rank = rank
+      trend.count = posts
+      trend.industry = industry
+      trend.platform = 'tiktok'
+      trend.save!
+      puts "Saved/Updated Trend ##{trend.id} - #{trend.title} (Industry: #{trend.industry})"
 
       # Fetch country and period-specific data
       begin
@@ -137,7 +147,6 @@ class TiktokScraper
       )
     end
   end
-
 
   # Helper method to convert the post value (e.g., '947K', '8M') to a numeric value
   def convert_to_numeric(value)
