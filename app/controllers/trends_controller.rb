@@ -19,6 +19,7 @@ class TrendsController < ApplicationController
     @selected_country = params[:country]
     @selected_period = params[:period]
 
+    # Afficher les paramètres dans les logs
     Rails.logger.debug "Selected Country: #{@selected_country}, Selected Period: #{@selected_period}"
 
     # Préparer les données pour le graphique
@@ -28,9 +29,8 @@ class TrendsController < ApplicationController
 
     # Regrouper les counts par pays et période
     @trend.counts.group_by(&:country).each do |country, counts|
-      # Pour chaque pays, on récupère les counts pour chaque période (7, 30, 120 jours)
       counts.each do |count|
-        country_name_with_flag = count.country_name_with_flag # Utilise la méthode pour avoir le nom complet et le drapeau
+        country_name_with_flag = count.country_name_with_flag
 
         case count.period
         when 7
@@ -43,14 +43,19 @@ class TrendsController < ApplicationController
       end
     end
 
+    # Loguer l'array de vidéos avant le filtrage
+    Rails.logger.debug "Videos before filtering: #{@trend.videos.inspect}"
+
     # Filtrer les vidéos en fonction du pays et de la période si spécifié
     if @selected_country.present? && @selected_period.present?
       @filtered_videos = @trend.videos.joins(:count)
                                       .where(counts: { country: @selected_country, period: @selected_period })
 
+      # Afficher les vidéos filtrées dans les logs
       Rails.logger.debug "Filtered Videos: #{@filtered_videos.inspect}"
     else
       @filtered_videos = @trend.videos
     end
   end
+
 end

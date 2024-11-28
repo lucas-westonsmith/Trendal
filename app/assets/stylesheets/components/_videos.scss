@@ -1,0 +1,29 @@
+/* Styles pour la liste de vidéos */
+.trend-videos {
+  margin-top: 20px;
+}
+
+.video-list {
+  display: flex;
+  flex-wrap: wrap;          /* Permet aux vidéos de passer à la ligne si nécessaire */
+  gap: 20px;                /* Espacement entre les vidéos */
+  justify-content: center;  /* Centre les vidéos horizontalement */
+}
+
+.video-item {
+  width: 160px; /* Largeur de chaque vidéo, ajustable selon tes préférences */
+  height: 284px; /* Hauteur des vidéos pour conserver le ratio 9:16 */
+}
+
+.video-iframe {
+  width: 100%;  /* L'iframe occupe 100% de la largeur de son conteneur */
+  height: 100%; /* L'iframe occupe 100% de la hauteur de son conteneur */
+  border-radius: 8px;  /* Coins arrondis pour un effet plus esthétique */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère pour les vidéos */
+  transition: transform 0.3s ease;  /* Animation au survol */
+}
+
+.video-iframe:hover {
+  transform: scale(1.05);  /* Zoom léger au survol */
+}
+
