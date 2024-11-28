@@ -99,13 +99,28 @@ body{
   display: flex;
   }
 
-  .nav-link{
-  margin-left: 40px;
-
-  color: $links_buttons;
+  .nav-link {
+    position: relative;
+    display: inline-block;
+    color: $links_buttons; /* Adjust as needed */
+    text-decoration: none;
+    margin-left: 40px;
   }
-  .nav-link:hover{
-  color:white;
+
+  .nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px; /* Underline thickness */
+    background-color: #6E2DF0; /* Underline color */
+    transition: width 0.3s ease-in-out;
+  }
+
+  .nav-link.active::before,
+  .nav-link:hover::before {
+    width: 100%; /* Full width underline */
   }
 
 .nav-link.button{
