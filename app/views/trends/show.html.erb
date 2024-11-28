@@ -1,4 +1,27 @@
 <div class="trend-banner text-start">
+  <h1 class="trend-display display-4 text-white"><%= @trend.title %> <span class="trend-highlight">Trend</span></h1>
+  <p class="trend-lead lead text-white">Insights from the last 7 days and overall performance</p>
+</div>
+
+<div class="trend-container container my-5">
+  <div class="trend-details text-start">
+    <h2 class="trend-title"><%= @trend.title %></h2>
+    <h3 class="trend-metrics-title">Posts</h3>
+    <div class="d-flex">
+      <p class="trend-metrics-count">
+        <strong><%= @trend.formatted_count(@trend.count) %></strong> Last 7 days, all regions
+      </p>
+
+      <p class="trend-metrics-count">/</p>
+
+      <p class="trend-metrics-count">
+        <strong><%= @trend.formatted_count(@trend.count_overall) %></strong> Overall
+      </p>
+    </div>
+  </div>
+  <div class="trend-back-button mt-4">
+      <%= link_to "Back to Trends", trends_path, class: "btn btn-primary" %>
+    </div>
   <h1 class="trend-display display-4 text-white">
     <% if @trend.platform == 'youtube' %>
       <span class="trend-highlight">YouTube - </span>

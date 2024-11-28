@@ -1,5 +1,6 @@
 class Count < ApplicationRecord
   belongs_to :trend
+
   has_many :videos
 
   COUNTRY_MAPPING = {
@@ -33,4 +34,5 @@ class Count < ApplicationRecord
       number.to_s
     end
   end
+
 end
