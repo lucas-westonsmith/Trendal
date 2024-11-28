@@ -1,0 +1,45 @@
+// login form layout
+
+.sign-in{
+  text-align: center;
+  margin-top: 25px;
+
+  }
+
+  .login-form{
+  padding-bottom: 25px;
+  padding-top: 25px;
+  }
+
+  // background color
+
+  .contentonly{
+  background-color: #F9FAFB;
+  }
+
+  // login button
+
+  .btn.loginmenu-button {
+  text-align: center;
+  width:110px;
+  height: 45px;
+  border-radius: 5px;
+  border-width: 1px;
+  border: solid;
+  transition: 0s color;
+  background-color: #A379F6;
+  color: white;
+  border-color: #6925f1;
+  padding-top: 8px;
+  }
+
+  .loginmenu-button:hover{
+  background-color: #6E2DF0;
+  color: white;
+  }
+
+  // sign-up-link remove underline
+
+  .sign-up-link{
+  text-decoration: none;
+  }
