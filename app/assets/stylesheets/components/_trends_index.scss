@@ -105,6 +105,7 @@ body {
 .custom-form .form-group {
   margin-bottom: 0; /* Remove bottom margin */
   flex-grow: 1; /* Allow the select to take up available space */
+  gap: 30px;
 }
 
 .custom-form label {
@@ -135,4 +136,16 @@ body {
 
 .custom-btn:hover {
   background-color: #420bb0; /* Darker button on hover */
+}
+
+
+
+.custom-input {
+  border-radius: 25px; /* Adjust value to make the corners more or less rounded */
+  height: 50px;
+  margin-top: 27px;
+}
+
+.crazy {
+  height: 38px;
 }

@@ -83,6 +83,10 @@
         <p class="trend-metrics-count">
           <strong><%= @trend.formatted_count(@trend.count_overall) %></strong> Overall
         </p>
+        <%= link_to 'Add to Wishlist',
+            favorite_add_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),
+            method: :post,
+            class: 'btn btn-warning' %>
       </div>
     </div>
 
