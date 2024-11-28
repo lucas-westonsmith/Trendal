@@ -3,9 +3,13 @@ class Count < ApplicationRecord
   has_many :videos
 
   COUNTRY_MAPPING = {
+    'BR' => ['Brazil', '🇧🇷'],
+    'DE' => ['Germany', '🇩🇪'],
     'FR' => ['France', '🇫🇷'],
     'IT' => ['Italy', '🇮🇹'],
+    'JP' => ['Japan', '🇯🇵'],
     'PT' => ['Portugal', '🇵🇹'],
+    'ZA' => ['South Africa', '🇿🇦'],
     'ES' => ['Spain', '🇪🇸'],
     'GB' => ['United Kingdom', '🇬🇧'],
     'US' => ['United States', '🇺🇸']

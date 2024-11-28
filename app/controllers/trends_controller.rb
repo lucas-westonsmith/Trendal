@@ -16,8 +16,8 @@ class TrendsController < ApplicationController
   def show
     @trend = Trend.includes(:counts, :videos).find(params[:id])
 
-    @selected_country = params[:country]
-    @selected_period = params[:period]
+    @selected_country = params[:country] || 'US'
+    @selected_period = params[:period] || '7'
 
     # Afficher les paramètres dans les logs
     Rails.logger.debug "Selected Country: #{@selected_country}, Selected Period: #{@selected_period}"
@@ -26,6 +26,7 @@ class TrendsController < ApplicationController
     @graph_data_7_days = {}
     @graph_data_30_days = {}
     @graph_data_120_days = {}
+    @graph_data_365_days = {}
 
     # Regrouper les counts par pays et période
     @trend.counts.group_by(&:country).each do |country, counts|
@@ -39,6 +40,8 @@ class TrendsController < ApplicationController
           @graph_data_30_days[country_name_with_flag] = count.number
         when 120
           @graph_data_120_days[country_name_with_flag] = count.number
+        when 365
+          @graph_data_365_days[country_name_with_flag] = count.number
         end
       end
     end
@@ -57,5 +60,4 @@ class TrendsController < ApplicationController
       @filtered_videos = @trend.videos
     end
   end
-
 end
