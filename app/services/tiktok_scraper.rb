@@ -1,5 +1,5 @@
 class TiktokScraper
-  COUNTRIES = %w[PT US GB FR ES IT].freeze
+  COUNTRIES = %w[FR IT PT ES GB US].freeze
   PERIODS = %w[7 30 120].freeze
 
   def call
@@ -108,7 +108,7 @@ class TiktokScraper
       puts "Extracted post count for #{country} (#{period} days): #{post_count_in_period_converted}"
 
       # Save the post count
-      Count.create(
+      count = Count.create(
         country: country,
         period: period,
         number: post_count_in_period_converted,
@@ -117,7 +117,7 @@ class TiktokScraper
       puts "Saved Count for Trend ##{trend.id} - Country: #{country}, Period: #{period}"
 
       # Extract and save video links
-      fetch_video_links(doc, trend)
+      fetch_video_links(doc, trend, count)
 
     rescue => e
       puts "Error fetching country data for #{trend.title} (#{country}, #{period}): #{e.message}"
@@ -129,6 +129,9 @@ class TiktokScraper
     # Vérifiez que count est valide si vous souhaitez le passer
     if count.nil?
       puts "Skipping count association as no valid count was provided."
+      return
+    else
+      puts "Creating videos for count: #{count.id}, trend: #{trend.title}"
     end
 
     # Extraire jusqu'à 5 liens vidéo depuis le document HTML

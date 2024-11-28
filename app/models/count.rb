@@ -3,12 +3,12 @@ class Count < ApplicationRecord
   has_many :videos
 
   COUNTRY_MAPPING = {
-    'PT' => ['Portugal', '🇵🇹'],
-    'US' => ['United States', '🇺🇸'],
-    'GB' => ['United Kingdom', '🇬🇧'],
     'FR' => ['France', '🇫🇷'],
+    'IT' => ['Italy', '🇮🇹'],
+    'PT' => ['Portugal', '🇵🇹'],
     'ES' => ['Spain', '🇪🇸'],
-    'IT' => ['Italy', '🇮🇹']
+    'GB' => ['United Kingdom', '🇬🇧'],
+    'US' => ['United States', '🇺🇸']
   }.freeze
 
   # Retourne le nom complet et le drapeau du pays

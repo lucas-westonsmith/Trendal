@@ -99,24 +99,157 @@
       </div>
     </div>
 
-    <!-- Performance by Country (Only for TikTok) -->
-    <div class="trend-country-stats mt-5">
-      <h3 class="trend-country-title">Performance by Country</h3>
-      <% @trend.counts.group_by(&:country).each do |country, counts| %>
-        <div class="country-section mb-4">
-          <h4 class="country-name">
-            <%= counts.first.country_name_with_flag %>
-          </h4>
-          <ul class="country-periods">
-            <% counts.each do |count| %>
-              <li>
-                <strong><%= count.period %> days:</strong> <%= count.formatted_number %> posts
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-    </div>
+<div class="trend-country-stats mt-5">
+  <h3 class="trend-country-title">Performance by Country</h3>
+
+  <!-- PERIOD 7 DAYS -->
+  <div class="period-graph mb-5">
+    <h4>7 days performance</h4>
+    <%= bar_chart @graph_data_7_days,
+      height: "300px",
+      thousands: ",",
+      colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"],
+      library: {
+        title: { text: "Performance by country (7 days)" },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Number of posts",
+              font: {
+                size: 18,
+                weight: "bold"
+              }
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 16
+              }
+            },
+            grid: {
+              drawTicks: false,
+            }
+          },
+          y: {
+            title: {
+              display: false
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 16
+              },
+              padding: 10
+            },
+            grid: {
+              drawTicks: false,
+            }
+          }
+        }
+      }
+    %>
+  </div>
+
+  <!-- PERIOD 30 DAYS -->
+  <div class="period-graph mb-5">
+    <h4>30 days performance</h4>
+    <%= bar_chart @graph_data_30_days,
+      height: "300px",
+      thousands: ",",
+      colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"],
+      library: {
+        title: { text: "Performance by country (30 days)" },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Number of posts",
+              font: {
+                size: 18,
+                weight: "bold"
+              }
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 16
+              }
+            },
+            grid: {
+              drawTicks: false,
+            }
+          },
+          y: {
+            title: {
+              display: false
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 16
+              },
+              padding: 10
+            },
+            grid: {
+              drawTicks: false,
+            }
+          }
+        }
+      }
+    %>
+  </div>
+
+  <!-- PERIOD 120 DAYS -->
+  <div class="period-graph mb-5">
+    <h4>120 days performance</h4>
+    <%= bar_chart @graph_data_120_days,
+      height: "300px",
+      thousands: ",",
+      colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"],
+      library: {
+        title: { text: "Performance by country (120 days)" },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Number of posts",
+              font: {
+                size: 18,
+                weight: "bold"
+              }
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 16
+              }
+            },
+            grid: {
+              drawTicks: false,
+            }
+          },
+          y: {
+            title: {
+              display: false
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 16
+              },
+              padding: 10
+            },
+            grid: {
+              drawTicks: false,
+            }
+          }
+        }
+      }
+    %>
+  </div>
+</div>
+
 
     <div class="container mt-4">
       <%= form_with url: trend_path(@trend), method: :get, local: true, class: "form-inline custom-form" do %>
@@ -132,27 +265,27 @@
       <% end %>
     </div>
 
-    <!-- Display filtered videos -->
-    <% if @filtered_videos.present? %>
-      <div class="trend-videos mt-5">
-        <h3>Videos for <%= @selected_country %> - <%= @selected_period %> Days</h3>
-        <div class="video-list">
-          <% @filtered_videos.each do |video| %>
-            <div class="video-item">
-              <h4>Video URL: <%= video.url %></h4>
-              <iframe width="600" height="315"
-                      src="<%= video.url.gsub('watch?v=', 'embed/') %>"
-                      frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowfullscreen>
-              </iframe>
-            </div>
-          <% end %>
+<!-- Display filtered videos -->
+<% if @filtered_videos.present? %>
+  <div class="trend-videos mt-5">
+    <h3>Videos for <%= @selected_country %> - <%= @selected_period %> Days</h3>
+    <div class="video-list">
+      <% @filtered_videos.each do |video| %>
+        <div class="video-item">
+          <iframe class="video-iframe"
+                  src="<%= video.url.gsub('watch?v=', 'embed/') %>"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+          </iframe>
         </div>
-      </div>
-    <% else %>
-      <p>No videos found for this country and period.</p>
-    <% end %>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <p>No videos found for this country and period.</p>
+<% end %>
+
 
     <!-- Add to Favorites button for TikTok -->
     <% if current_user.favorite.trends.exists?(id: @trend.id) %>
