@@ -4,7 +4,9 @@
 
 p{
   font-size: 16px;
+
   color: rgb(20, 20, 20);
+
 }
 
 h1{
@@ -15,8 +17,13 @@ h2{
   font-size: 24px;
 }
 
+
 .footer-links {
   color: $links_buttons;
+
+a {
+  color: $light_tags_buttons;
+
   text-decoration: none;
   font-size: 14px;
 }
@@ -25,6 +32,7 @@ h2{
   color: white;
 }
 
+
 body{
   background-color: white;
 }
@@ -32,11 +40,18 @@ body{
 .section {
   flex-direction: column;
   align-items: center;
+
   padding: 80px 40px;
   justify-content: center;
   display: flex;
   overflow: hidden;
   height: 750px;
+
+  justify-content: center;
+  display: flex;
+  overflow: hidden;
+  height: 760px;
+
   width: 100%;
 
   &.gradient {
@@ -45,12 +60,21 @@ body{
   }
 }
 
+
 .content {
   max-width: 1200px;
   text-align: center;
   padding: 20px;
   margin-top: -200px;
 }
+
+  .content {
+    max-width: 1200px;
+    text-align: center;
+    padding: 20px;
+    margin-top: -200px;
+  }
+
 
 .section.white{
   height: 500px;
@@ -65,8 +89,15 @@ body{
   color: white;
 }
 
+
 .container-fluid{
   height: 75px;
+}
+
+
+
+.navbar.navbar-expand-sm.navbar-dark.bg-black.navbar-lewagon{
+  height: 100px;
 }
 
 
@@ -77,10 +108,15 @@ body{
 
 .nav-link{
   margin-left: 40px;
+
   color: $links_buttons;
 }
 .nav-link:hover{
   color:white;
+}
+
+
+
 }
 
 
@@ -153,7 +189,9 @@ body{
   background-color: #651ff0 ;
 }
 
+
 .avatar{
   margin-right: 10px;
   margin-left: 15px;
 }
+

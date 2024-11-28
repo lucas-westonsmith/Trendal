@@ -22,4 +22,157 @@
   <div class="trend-back-button mt-4">
       <%= link_to "Back to Trends", trends_path, class: "btn btn-primary" %>
     </div>
+  <h1 class="trend-display display-4 text-white">
+    <% if @trend.platform == 'youtube' %>
+      <span class="trend-highlight">YouTube - </span>
+    <% elsif @trend.platform == 'tiktok' %>
+      <span class="trend-highlight">TikTok Trend</span>
+    <% end %>
+    <%= @trend.title %>
+  </h1>
+  <p class="trend-lead lead text-white">
+    Insights from the last 7 days and overall <span class="trend-highlight">performance</span>
+  </p>
+</div>
+
+<div class="trend-container container my-5">
+  <% if @trend.platform == 'youtube' %>
+    <!-- YouTube-specific content -->
+    <h3 class="trend-metrics-title">Trend details</h3>
+    <div class="trend-content d-flex justify-content-between">
+      <!-- Trend Details (Title and Metrics) -->
+      <div class="trend-details text-start">
+        <h2 class="trend-title"><%= @trend.title %></h2>
+        <h3 class="trend-metrics-title">Views</h3>
+        <div class="d-flex">
+          <p class="trend-metrics-count">
+            <strong><%= @trend.formatted_count(@trend.view_count) %></strong> Views
+          </p>
+          <p class="trend-metrics-count">/</p>
+          <p class="trend-metrics-count">
+            <strong><%= @trend.formatted_count(@trend.like_count) %></strong> Likes
+          </p>
+          <div class="youtube-details">
+            <p>Duration: <strong><%= @trend.video_duration %></strong></p>
+            <p>Published At: <strong><%= @trend.published_at.strftime('%B %d, %Y') if @trend.published_at %></strong></p>
+            <p>Channel: <strong><%= @trend.channel_name %></strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- YouTube Video and Hashtags Section -->
+      <div class="youtube-content">
+        <!-- YouTube Video -->
+        <div class="youtube-video">
+          <h3 class="trend-metrics-title">Watch the video</h3>
+          <iframe width="600" height="315"
+                  src="<%= @trend.video_url.gsub('watch?v=', 'embed/') %>"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+          </iframe>
+        </div>
+
+        <!-- YouTube Hashtags Section -->
+        <div class="youtube-hashtags">
+          <h3 class="trend-metrics-title">Hashtags</h3>
+          <% if @trend.hashtags.present? %>
+            <div class="hashtag-boxes">
+              <% @trend.hashtags.split(', ').each do |hashtag| %>
+                <div class="hashtag-box">
+                  <%= hashtag %>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <p>No hashtags available</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% elsif @trend.platform == 'tiktok' %>
+    <!-- TikTok-specific content -->
+    <div class="trend-details text-start">
+      <h2 class="trend-title"><%= @trend.title %></h2>
+      <% if @trend.industry.present? %>
+        <p><strong>Industry:</strong> <%= @trend.industry %></p>
+      <% end %>
+      <h3 class="trend-metrics-title">Posts</h3>
+      <div class="d-flex">
+        <p class="trend-metrics-count">
+          <strong><%= @trend.formatted_count(@trend.count) %></strong> Last 7 days, all regions
+        </p>
+        <p class="trend-metrics-count">/</p>
+        <p class="trend-metrics-count">
+          <strong><%= @trend.formatted_count(@trend.count_overall) %></strong> Overall
+        </p>
+      </div>
+    </div>
+
+
+    <!-- Performance by Country (Only for TikTok) -->
+    <div class="trend-country-stats mt-5">
+      <h3 class="trend-country-title">Performance by Country</h3>
+      <% @trend.counts.group_by(&:country).each do |country, counts| %>
+        <div class="country-section mb-4">
+          <h4 class="country-name">
+            <%= counts.first.country_name_with_flag %>
+          </h4>
+          <ul class="country-periods">
+            <% counts.each do |count| %>
+              <li>
+                <strong><%= count.period %> days:</strong> <%= count.formatted_number %> posts
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="container mt-4">
+      <%= form_with url: trend_path(@trend), method: :get, local: true, class: "form-inline custom-form" do %>
+        <div class="form-group mr-3">
+          <%= label_tag :country, 'Select Country:', class: 'mr-2' %>
+          <%= select_tag :country, options_for_select([['Portugal', 'PT'], ['United States', 'US'], ['United Kingdom', 'GB'], ['France', 'FR'], ['Spain', 'ES'], ['Italy', 'IT']], selected: params[:country]), class: 'form-control custom-select' %>
+        </div>
+
+        <div class="form-group mr-3">
+          <%= label_tag :period, 'Select Period (Days):', class: 'mr-2' %>
+          <%= select_tag :period, options_for_select([['7 Days', '7'], ['30 Days', '30'], ['120 Days', '120']], selected: params[:period]), class: 'form-control custom-select' %>
+        </div>
+
+        <%= submit_tag 'Filter', class: 'btn btn-primary ml-2 custom-btn' %>
+      <% end %>
+    </div>
+
+    <!-- Display filtered videos -->
+    <% if @filtered_videos.present? %>
+      <div class="trend-videos mt-5">
+        <h3>Videos for <%= @selected_country %> - <%= @selected_period %> Days</h3>
+        <div class="video-list">
+          <% @filtered_videos.each do |video| %>
+            <div class="video-item">
+              <h4>Video URL: <%= video.url %></h4>
+              <iframe width="600" height="315"
+                      src="<%= video.url.gsub('watch?v=', 'embed/') %>"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen>
+              </iframe>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+      <p>No videos found for this country and period.</p>
+    <% end %>
+
+
+
+  <% end %>
+
+  <!-- Back to Trends Button - SHOULD NOT BE PART OF TIKTOK OR YOUTUBE -->
+  <div class="trend-back-button mt-4">
+    <%= link_to "Back to Trends", trends_path, class: "btn btn-primary" %>
+  </div>
 </div>

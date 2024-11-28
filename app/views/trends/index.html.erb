@@ -2,23 +2,69 @@
   <h1 class="display-4 text-white">Current <span class="highlight">Trends</span></h1>
   <p class="lead text-white">Browse what's currently <span class="highlight">trending</span></p>
 </div>
-<div class="container my-5">
-  <table class="table-custom" data-controller="clickable-row">
-    <thead>
-      <tr>
-        <th scope="col">Rank</th>
-        <th scope="col">Hashtag</th>
-        <th scope="col">Posts</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @trends.each do |trend| %>
-        <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
-          <td><%= trend.rank %></td>
-          <td><%= trend.title %></td>
-          <td><%= trend.formatted_count(trend.count) %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+<!-- Platform Selector -->
+<div class="container">
+  <%= form_with url: trends_path, method: :get, local: true, class: "form-inline custom-form" do %>
+    <div class="form-group">
+      <%= label_tag :platform, 'Select Platform:', class: 'mr-2' %>
+      <%= select_tag :platform, options_for_select([['TikTok', 'tiktok'], ['YouTube', 'youtube']], selected: params[:platform]), class: 'form-control custom-select' %>
+    </div>
+    <%= submit_tag 'Filter', class: 'btn btn-primary ml-2 custom-btn' %>
+  <% end %>
 </div>
+
+<!-- TikTok Trends Table -->
+<% if @tiktok_trends.present? %>
+  <div class="container my-5">
+    <h2>Trending on TikTok</h2>
+    <table class="table-custom" data-controller="clickable-row">
+      <thead>
+        <tr>
+          <th scope="col">Rank</th>
+          <th scope="col">Hashtag</th>
+          <th scope="col">Industry</th>
+          <th scope="col">Posts</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @tiktok_trends.each do |trend| %>
+          <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
+            <td><%= trend.rank %></td>
+            <td><%= trend.title %></td>
+            <td><%= trend.industry.present? ? trend.industry : 'N/A' %></td>
+            <td><%= trend.formatted_count(trend.count) if trend.count.present? %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+
+<!-- YouTube Trends Table -->
+<% if @youtube_trends.present? %>
+  <div class="container my-5">
+    <h2>Trending on YouTube</h2>
+    <table class="table-custom" data-controller="clickable-row">
+      <thead>
+        <tr>
+          <th scope="col">Rank</th>
+          <th scope="col">Title</th>
+          <th scope="col">Views</th>
+          <th scope="col">Likes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @youtube_trends.each_with_index do |trend, index| %>
+          <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
+            <td><%= index + 1 %></td>
+            <td><%= trend.title %></td>
+            <td><%= trend.formatted_count(trend.view_count) if trend.view_count.present? %></td>
+            <td><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+>>>>>>> master

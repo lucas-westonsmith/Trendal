@@ -123,13 +123,23 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    domain_name (0.6.20240107)
     dotenv (3.1.4)
     dotenv-rails (3.1.4)
       dotenv (= 3.1.4)
       railties (>= 6.1)
     drb (2.2.1)
     erubi (1.13.0)
+    event_stream_parser (1.0.0)
     execjs (2.10.0)
+    faraday (2.12.1)
+      faraday-net_http (>= 2.0, < 3.5)
+      json
+      logger
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
+    faraday-net_http (3.4.0)
+      net-http (>= 0.5.0)
     ffi (1.17.0-aarch64-linux-gnu)
     ffi (1.17.0-aarch64-linux-musl)
     ffi (1.17.0-arm-linux-gnu)
@@ -144,6 +154,9 @@ GEM
       sassc (~> 2.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    http-accept (1.7.0)
+    http-cookie (1.0.7)
+      domain_name (~> 0.5)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.0.3)
@@ -157,6 +170,7 @@ GEM
     jbuilder (2.13.0)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    json (2.8.2)
     logger (1.6.1)
     loofah (2.23.1)
       crass (~> 1.0.2)
@@ -168,10 +182,17 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
+    mime-types (3.6.0)
+      logger
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2024.1105)
     mini_mime (1.1.5)
     minitest (5.25.2)
     msgpack (1.7.5)
+    multipart-post (2.4.1)
     mutex_m (0.3.0)
+    net-http (0.5.0)
+      uri
     net-imap (0.5.1)
       date
       net-protocol
@@ -181,6 +202,7 @@ GEM
       timeout
     net-smtp (0.5.0)
       net-protocol
+    netrc (0.11.0)
     nio4r (2.7.4)
     nokogiri (1.16.7-aarch64-linux)
       racc (~> 1.4)
@@ -252,7 +274,16 @@ GEM
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
+    rest-client (2.1.0)
+      http-accept (>= 1.7.0, < 2.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rexml (3.3.9)
+    ruby-openai (7.3.1)
+      event_stream_parser (>= 0.3.0, < 2.0.0)
+      faraday (>= 1)
+      faraday-multipart (>= 1)
     rubyzip (2.3.2)
     sassc (2.4.0)
       ffi (~> 1.9)
@@ -337,6 +368,8 @@ DEPENDENCIES
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.1.5)
+  rest-client
+  ruby-openai
   sassc-rails
   selenium-webdriver
   simple_form!
