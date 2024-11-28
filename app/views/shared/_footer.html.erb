@@ -5,22 +5,22 @@
     <!-- Section: Social media -->
     <section class="mb-4">
       <!-- Facebook -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="https://www.facebook.com/lewagonfrance/?brand_redir=1544432682516659" target="_blank" role="button"
         ><i class="fab fa-facebook-f fa-lg"></i
       ></a>
 
       <!-- Instagram -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="https://www.instagram.com/lewagonportugal/" target="_blank" role="button"
         ><i class="fab fa-instagram fa-xl"></i
       ></a>
 
       <!-- Linkedin -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="https://www.linkedin.com/showcase/lewagonportugal/?originalSubdomain=pt" target="_blank" role="button"
         ><i class="fab fa-linkedin-in fa-xl"></i
       ></a>
 
       <!-- Github -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="https://github.com/lucas-westonsmith/Trendal" target="_blank" role="button"
         ><i class="fab fa-github fa-xl"></i
       ></a>
     </section>
@@ -40,10 +40,10 @@
         <div class="col-3">
           <ul class="list-unstyled mb-0">
             <li>
-              <%= link_to "Home", root_path%>
+              <%= link_to "Home", root_path, class: "footer-links"%>
             </li>
             <li>
-              <%= link_to "Login", new_user_session_path%>
+              <%= link_to "Login", new_user_session_path, class: "footer-links"%>
             </li>
           </ul>
         </div>
@@ -53,16 +53,16 @@
         <div class="col-3">
           <ul class="list-unstyled mb-0">
             <li>
-              <a class="text-body" href="#!">Browse trends</a>
+              <%= link_to "Browse trends",trends_path, class: "footer-links" %>
             </li>
             <li>
-              <a class="text-body" href="#!">Predict trends</a>
+              <%= link_to "Predict trends", new_user_session_path, class: "footer-links"%>
             </li>
             <li>
-              <a class="text-body" href="#!">Favorites</a>
+              <%= link_to "Favorites", new_user_session_path, class: "footer-links"%>
             </li>
             <li>
-              <a class="text-body" href="#!">Link 4</a>
+              <%= link_to "More stuff", new_user_session_path, class: "footer-links"%>
             </li>
           </ul>
         </div>
