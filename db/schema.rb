@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_27_163440) do
-
+ActiveRecord::Schema[7.1].define(version: 2024_11_28_092408) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,6 +38,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_163440) do
     t.datetime "updated_at", null: false
     t.index ["favorite_id"], name: "index_favorites_trends_on_favorite_id"
     t.index ["trend_id"], name: "index_favorites_trends_on_trend_id"
+  end
+
+  create_table "predict_trends", force: :cascade do |t|
+    t.string "platform"
+    t.string "industry"
+    t.text "hashtags", default: [], array: true
+    t.text "prediction_result"
+    t.bigint "prediction_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["prediction_id"], name: "index_predict_trends_on_prediction_id"
   end
 
   create_table "prediction_trends", force: :cascade do |t|
@@ -72,12 +82,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_163440) do
     t.integer "count_overall"
     t.integer "view_count"
     t.integer "like_count"
-    t.string "industry"
     t.string "hashtags"
     t.string "video_duration"
     t.datetime "published_at"
     t.string "channel_name"
     t.string "video_url"
+    t.string "industry"
+    t.string "keyword"
   end
 
   create_table "users", force: :cascade do |t|
@@ -111,6 +122,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_27_163440) do
   add_foreign_key "favorites", "users"
   add_foreign_key "favorites_trends", "favorites"
   add_foreign_key "favorites_trends", "trends"
+  add_foreign_key "predict_trends", "predictions"
   add_foreign_key "prediction_trends", "predictions"
   add_foreign_key "prediction_trends", "trends"
   add_foreign_key "videos", "counts"
