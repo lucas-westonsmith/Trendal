@@ -16,18 +16,14 @@ h2{
 
 .footer-links {
   color: $links_buttons;
-
-  a {
-  color: $light_tags_buttons;
-
   text-decoration: none;
   font-size: 14px;
-  }
-
-  .footer-links:hover {
-  color: white;
-  }
 }
+
+.footer-links:hover {
+  color: white;
+}
+
 
 body{
   background-color: white;
