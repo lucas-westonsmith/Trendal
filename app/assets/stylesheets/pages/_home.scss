@@ -7,11 +7,11 @@ p{
 }
 
 h1{
-  font-size: 48px;
+  font-size: 56px;
 }
 
 h2{
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .footer-links {
@@ -99,13 +99,28 @@ body{
   display: flex;
   }
 
-  .nav-link{
-  margin-left: 40px;
-
-  color: $links_buttons;
+  .nav-link {
+    position: relative;
+    display: inline-block;
+    color: $links_buttons; /* Adjust as needed */
+    text-decoration: none;
+    margin-left: 40px;
   }
-  .nav-link:hover{
-  color:white;
+
+  .nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px; /* Underline thickness */
+    background-color: #6E2DF0; /* Underline color */
+    transition: width 0.3s ease-in-out;
+  }
+
+  .nav-link.active::before,
+  .nav-link:hover::before {
+    width: 100%; /* Full width underline */
   }
 
 .nav-link.button{
@@ -177,7 +192,15 @@ body{
   background-color: #651ff0 ;
 }
 
-.avatar{
-  margin-right: 10px;
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
   margin-left: 15px;
-  }
+}
+
+.avatar:hover{
+  cursor: pointer;
+}
