@@ -1,0 +1,125 @@
+// Acount details
+
+.profile-info{
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 2px;
+  border-color: rgba(164, 162, 162, 0.284);
+  width: 600px;
+  margin-bottom: 50px;
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  margin-left: 425px;
+}
+
+// Edit account form layout
+
+.edit-form{
+  padding-bottom: 25px;
+  padding-top: 25px;
+}
+
+.edit-div{
+  margin-bottom: 50px;
+}
+
+.edit-user-title{
+  text-align: center;
+  padding-top: 25px;
+}
+
+.simple_form.edit_user{
+  border-style: solid;
+  border-radius: 5px;
+  border-color: #ccc;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#edit_user{
+  width: 535px;
+  padding: 50px, 125px;
+}
+
+// profile buttons
+
+.delete-button{
+  width: 85px;
+  border-radius: 5px;
+  border-width: 1px;
+}
+
+.delete-button:hover{
+  background-color: rgba(255, 0, 0, 0.545);
+}
+
+.delete-title{
+  text-align: center;
+  margin-top: 5px;
+  border-top-color: rgba(164, 162, 162, 0.284);
+  border-top-style: solid;
+  padding-top: 25px;
+}
+
+.edit-button{
+  width:110px;
+  border-radius: 5px;
+  border-width: 1px;
+  text-align: center;
+  border: solid;
+  border-color: #6925f1;
+  background-color: #A379F6;
+  height: 43px;
+  text-decoration: none;
+  color: white;
+  padding-top: 8px;
+}
+
+.edit-button:hover{
+  background-color: #6E2DF0;
+  color: white ;
+}
+
+.btn.update-button {
+  text-align: center;
+  width:110px;
+  height: 43px;
+  border-radius: 5px;
+  border-width: 1px;
+  border: solid;
+  transition: 0s color;
+  background-color: #A379F6;
+  color: white;
+  border-color: #6925f1;
+  padding-top: 8px;
+}
+
+.update-button:hover{
+  background-color: #6E2DF0;
+  color: white;
+}
+
+.update{
+  text-align: center;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.profile-details-avatar{
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 10px;
+  width: 225px;
+  height: 200px;
+  border-style: solid;
+  border-radius: 25px;
+}
+
+.profile-info-text{
+  margin-left: 15px;
+}

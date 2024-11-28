@@ -1,35 +1,42 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="edit-page">
+  <div class="edit-container">
+    <div class="edit-form-wrapper">
+      <h2>Update account information</h2>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
+        <div class="edit-form-inputs">
+          <div>
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+            <% end %>
+            <%= f.input :first_name, required: false, input_html: { autocomplete: "first name" } %>
+            <%= f.input :last_name, required: false, input_html: { autocomplete: "last name" } %>
+            <%= f.input :date_of_birth, as: :string, required: true, input_html: { data: { autocomplete: "date of birth", controller: "datepicker" } } %>
+            <%= f.input :profession, required: false, input_html: { autocomplete: "profession" } %>
+            <%= f.input :company, required: false, input_html: { autocomplete: "company" } %>
+          </div>
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
+          <div>
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+            <% end %>
+            <%= f.input :email, required: true, autofocus: true %>
+            <%= f.input :password, required: false, input_html: { autocomplete: "new-password" } %>
+            <%= f.input :password_confirmation, required: false, input_html: { autocomplete: "new-password" } %>
+            <%= f.input :current_password, required: true, input_html: { autocomplete: "current-password" } %>
+          </div>
+        </div>
 
-    <%= f.input :password,
-                hint: "leave it blank if you don't want to change it",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :current_password,
-                hint: "we need your current password to confirm your changes",
-                required: true,
-                input_html: { autocomplete: "current-password" } %>
+        <div class="edit-form-actions">
+          <%= f.button :submit, "Update", class: "signup-btn"  %>
+        </div>
+      <% end %>
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
+  <div class="edit-image">
+    <img src="https://www.vibe.co/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbg-variant-3.f59d5e97.jpeg&w=1920&q=90" alt="Edit Image" />
   </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>
+</div>

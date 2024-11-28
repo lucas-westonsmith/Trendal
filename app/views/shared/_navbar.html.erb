@@ -11,28 +11,27 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
-        <% if user_signed_in? %>
-          <li class="nav-item active">
-          <%= link_to favorites_path, class: "nav-link" do %>
-          <i class="fa-solid fa-bookmark fa-xl bookmark" style="color: #6E2DF0;"></i>
-          Favorites
-        <% end %>
-        </li>
-        <li class="nav-item dropdown">
-        <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", alt: "dropdown menu" %>
-        </a>
-        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-          <%= link_to "Profile", "#", class: "dropdown-item", style: "color: black" %>
-          <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" , style: "color: black" %>
-        </div>
-        </li>
-        <% else %>
-          <li class="nav-item">
-          <%= link_to "Login", new_user_session_path, class: "nav-link button" %>
-        </li>
-        <% end %>
+      <ul class="navbar-nav">
+  <% if user_signed_in? %>
+    <!-- Avatar Dropdown -->
+    <li class="nav-item dropdown">
+      <% if current_user.avatar.attached? %>
+        <%= image_tag current_user.avatar, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+      <% else %>
+        <%= image_tag "default-avatar.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+      <% end %>
+
+      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+        <%= link_to "Profile", profile_path, class: "dropdown-item" %>
+        <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", data: { turbo_method: :delete } %>
+      </div>
+    </li>
+  <% else %>
+    <!-- Login Button -->
+    <li class="nav-item">
+      <%= link_to "Login", new_user_session_path, class: "nav-link text-white login" %> <!-- Bouton Login -->
+    </li>
+  <% end %>
       </ul>
     </div>
   </div>

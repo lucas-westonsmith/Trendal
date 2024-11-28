@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   # Health check route to verify the app status
   get "up" => "rails/health#show", as: :rails_health_check
+  get "/profile", to: "pages#profile"
 
   # Routes for favorites
   resources :favorites, only: [:index] do

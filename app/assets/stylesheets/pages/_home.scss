@@ -177,7 +177,9 @@ body{
   background-color: #651ff0 ;
 }
 
-.avatar{
-  margin-right: 10px;
-  margin-left: 15px;
-  }
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
