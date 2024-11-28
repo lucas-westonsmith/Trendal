@@ -10,7 +10,9 @@
       <%= label_tag :platform, 'Select Platform:', class: 'mr-2' %>
       <%= select_tag :platform, options_for_select([['TikTok', 'tiktok'], ['YouTube', 'youtube']], selected: params[:platform]), class: 'form-control custom-select' %>
     </div>
-    <%= submit_tag 'Filter', class: 'btn btn-primary ml-2 custom-btn' %>
+     <% if current_user.present? %>
+       <%= submit_tag 'Filter', class: 'btn btn-primary ml-2 custom-btn' %>
+     <% end %>
   <% end %>
 </div>
 

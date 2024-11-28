@@ -40,10 +40,10 @@
         <div class="col-3">
           <ul class="list-unstyled mb-0">
             <li>
-              <%= link_to "Home", root_path%>
+              <%= link_to "Home", root_path, class: "footer-links"  %>
             </li>
             <li>
-              <%= link_to "Login", new_user_session_path%>
+              <%= link_to "Login", new_user_session_path, class: "footer-links" %>
             </li>
           </ul>
         </div>
@@ -53,16 +53,18 @@
         <div class="col-3">
           <ul class="list-unstyled mb-0">
             <li>
-              <a class="text-body" href="#!">Browse trends</a>
+              <%= link_to "Browse tends", trends_path, class: "footer-links" %>
             </li>
             <li>
-              <a class="text-body" href="#!">Predict trends</a>
+              <%= link_to "Predict tends", trends_path, class: "footer-links" %>
             </li>
+            <% if current_user.present? %>
+              <li>
+                <%= link_to "Favorites", trends_path, class: "footer-links" %>
+              </li>
+            <% end %>
             <li>
-              <a class="text-body" href="#!">Favorites</a>
-            </li>
-            <li>
-              <a class="text-body" href="#!">Link 4</a>
+              <%= link_to "Browse tends", trends_path, class: "footer-links" %>
             </li>
           </ul>
         </div>
