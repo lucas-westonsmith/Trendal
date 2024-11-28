@@ -39,6 +39,7 @@
         <div></div>
         <div class="col-3">
           <ul class="list-unstyled mb-0">
+            <strong><p style= "color: #6925f1">About us</p></strong>
             <li>
               <%= link_to "Home", root_path, class: "footer-links"  %>
             </li>
@@ -52,6 +53,7 @@
         <!--Grid column-->
         <div class="col-3">
           <ul class="list-unstyled mb-0">
+            <strong><p style= "color: #6925f1">Features</p></strong>
             <li>
               <%= link_to "Browse tends", trends_path, class: "footer-links" %>
             </li>
@@ -60,12 +62,9 @@
             </li>
             <% if current_user.present? %>
               <li>
-                <%= link_to "Favorites", trends_path, class: "footer-links" %>
+                <%= link_to "Favorites", favorites_path, class: "footer-links" %>
               </li>
             <% end %>
-            <li>
-              <%= link_to "Browse tends", trends_path, class: "footer-links" %>
-            </li>
           </ul>
         </div>
         <!--Grid column-->
