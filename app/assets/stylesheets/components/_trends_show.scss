@@ -15,17 +15,10 @@
 }
 
 .trend-details {
-
- background-color: #F8F8F8;
- padding: 20px;
- border-radius: 10px;
- width: 600px;
-
   background-color: #F8F8F8;
   padding: 20px;
   border-radius: 10px;
   width: 600px; /* Fixed width for the trend details */
-
 }
 
 .trend-display {
@@ -50,11 +43,7 @@
 
 /* Trend Title */
 .trend-title {
-
-  font-size: 3rem;
-
   font-size: 40px;
-
   color: #495057;
   font-weight: bold;
   margin-bottom: 20px;
@@ -94,7 +83,6 @@
 .trend-back-button .btn:hover {
   background-color: #350c91;
 }
-
 
 /* YouTube Content (Side by Side) */
 .trend-content {
@@ -173,4 +161,3 @@
 .youtube-video {
   margin-top: -30px;
 }
-
