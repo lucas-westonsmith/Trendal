@@ -6,20 +6,42 @@ class YoutubeScraper
   API_KEY = ENV['YOUTUBE_API_KEY']  # Replace with your actual API key
   API_URL = "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&chart=mostPopular&regionCode=PT&maxResults=50&key=#{API_KEY}"
 
+  def initialize(keyword = nil)
+    @keyword = keyword
+  end
+
   def call
-    # Fetch YouTube trending videos
-    response = RestClient.get(API_URL)
+    # Construct API URL based on the presence of a keyword
+    url = if @keyword
+            "https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=#{@keyword}&regionCode=PT&maxResults=50&key=#{API_KEY}"
+          else
+            API_URL
+          end
+
+    # Fetch YouTube trending videos or search results
+    response = RestClient.get(url)
 
     # Parse the JSON response
     video_data = JSON.parse(response.body)
 
+    # If a keyword was provided, fetch detailed video information
+    if @keyword
+      # Extract video IDs from the search results
+      video_ids = video_data['items'].map { |video| video['id']['videoId'] }.join(',')
+
+      # Fetch detailed video data using the video IDs
+      detailed_url = "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=#{video_ids}&key=#{API_KEY}"
+      detailed_response = RestClient.get(detailed_url)
+      video_data = JSON.parse(detailed_response.body)
+    end
+
     # Process and save each video
     video_data['items'].each do |video|
       title = video['snippet']['title']
-      view_count = video['statistics']['viewCount'].to_i
-      like_count = video['statistics']['likeCount'].to_i
+      view_count = video['statistics'] ? video['statistics']['viewCount'].to_i : 0
+      like_count = video['statistics'] ? video['statistics']['likeCount'].to_i : 0
       description = video['snippet']['description']
-      video_duration = video['contentDetails']['duration']
+      video_duration = video['contentDetails'] ? video['contentDetails']['duration'] : ''
       published_at = video['snippet']['publishedAt']
       channel_name = video['snippet']['channelTitle']
       tags = video['snippet']['tags'] || []  # Extract tags, defaults to empty array if not present
@@ -56,6 +78,7 @@ class YoutubeScraper
 
   # Helper method to format video duration from ISO 8601 format
   def format_duration(duration)
+    return "0:00" if duration.nil? || duration.empty?
     # Example: PT15M33S -> 15:33
     match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/)
     hours = match[1].to_i if match[1]

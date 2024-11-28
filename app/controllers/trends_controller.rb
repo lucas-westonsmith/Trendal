@@ -1,6 +1,9 @@
 class TrendsController < ApplicationController
 
   def index
+    @keyword = params[:keyword]
+    scraper = YoutubeScraper.new(@keyword)
+    scraper.call
     # Fetch trends based on the platform parameter, defaulting to TikTok
     if params[:platform] == 'youtube'
       @youtube_trends = Trend.where(platform: 'youtube')
