@@ -1,5 +1,5 @@
 class TiktokScraper
-  COUNTRIES = %w[PT US GB FR ES IT].freeze
+  COUNTRIES = %w[FR IT PT ES GB US].freeze
   PERIODS = %w[7 30 120].freeze
 
   def call
