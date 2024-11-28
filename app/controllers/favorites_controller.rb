@@ -3,6 +3,10 @@ class FavoritesController < ApplicationController
 
   def index
     @favorite = current_user.favorite || current_user.create_favorite
+
+    if params[:platform].present?
+      @favorite.trends = @favorite.trends.where(platform: params[:platform])
+    end
   end
 
   def add_trend
