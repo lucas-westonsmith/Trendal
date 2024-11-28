@@ -67,6 +67,12 @@
         </div>
       </div>
     </div>
+    <!-- Move Add to favorites button here -->
+    <%= button_to 'Add to favorites',
+      favorite_add_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),
+      method: :post,
+      class: 'btn btn-warning mt-3' %>
+
   <% elsif @trend.platform == 'tiktok' %>
     <!-- TikTok-specific content -->
     <div class="trend-details text-start">
@@ -83,13 +89,8 @@
         <p class="trend-metrics-count">
           <strong><%= @trend.formatted_count(@trend.count_overall) %></strong> Overall
         </p>
-        <%= link_to 'Add to Wishlist',
-            favorite_add_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),
-            method: :post,
-            class: 'btn btn-warning' %>
       </div>
     </div>
-
 
     <!-- Performance by Country (Only for TikTok) -->
     <div class="trend-country-stats mt-5">
@@ -148,11 +149,14 @@
       <p>No videos found for this country and period.</p>
     <% end %>
 
-
-
+    <!-- Move Add to favorites button here -->
+    <%= button_to 'Add to favorites',
+      favorite_add_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),
+      method: :post,
+      class: 'btn btn-warning mt-3' %>
   <% end %>
 
-  <!-- Back to Trends Button - SHOULD NOT BE PART OF TIKTOK OR YOUTUBE -->
+  <!-- Back to Trends Button -->
   <div class="trend-back-button mt-4">
     <%= link_to "Back to Trends", trends_path, class: "btn btn-primary" %>
   </div>

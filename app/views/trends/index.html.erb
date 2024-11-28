@@ -21,7 +21,7 @@
 <!-- TikTok Trends Table -->
 <% if @tiktok_trends.present? %>
   <div class="container my-5">
-    <h2>Trending on TikTok</h2>
+    <h2 class="esquerda">Trending on TikTok</h2>
     <table class="table-custom" data-controller="clickable-row">
       <thead>
         <tr>
@@ -61,7 +61,7 @@
   </div>
 
   <div class="container my-5">
-    <h2>Trending on YouTube</h2>
+    <h2 class="esquerda">Trending on YouTube</h2>
     <table class="table-custom" data-controller="clickable-row">
       <thead>
         <tr>
@@ -80,7 +80,8 @@
             <td><%= trend.formatted_count(trend.view_count) if trend.view_count.present? %></td>
             <td><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
             <td>
-              <%= link_to 'Add to Favorites', favorite_add_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id), method: :post, class: 'btn btn-success' %>
+              <%= button_to 'Add to Favorites', favorite_add_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id), method: :post, class: 'btn btn-success' %>
+
             </td>
           </tr>
         <% end %>
