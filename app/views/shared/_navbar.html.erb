@@ -14,6 +14,11 @@
       <ul class="navbar-nav">
   <% if user_signed_in? %>
     <!-- Avatar Dropdown -->
+    <li class="nav-item active">
+    <%= link_to favorites_path, class: "nav-link" do %>
+      <i class="fa-solid fa-bookmark fa-xl bookmark" style="color: #6E2DF0;"></i>
+    Favorites
+    <% end %>
     <li class="nav-item dropdown">
       <% if current_user.avatar.attached? %>
         <%= image_tag current_user.avatar, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>

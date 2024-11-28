@@ -1,7 +1,7 @@
 <div class="edit-page">
   <div class="edit-container">
     <div class="edit-form-wrapper">
-      <h2>Update account information</h2>
+      <h2 style= "color: black">Update account information</h2>
 
       <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <%= f.error_notification %>
@@ -11,11 +11,11 @@
             <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
               <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
             <% end %>
-            <%= f.input :first_name, required: false, input_html: { autocomplete: "first name" } %>
-            <%= f.input :last_name, required: false, input_html: { autocomplete: "last name" } %>
+            <strong style="color: black"><%= f.input :first_name, required: false, input_html: { autocomplete: "first name" } %></strong>
+            <strong style="color: black"><%= f.input :last_name, required: false, input_html: { autocomplete: "last name" } %></strong>
             <%= f.input :date_of_birth, as: :string, required: true, input_html: { data: { autocomplete: "date of birth", controller: "datepicker" } } %>
-            <%= f.input :profession, required: false, input_html: { autocomplete: "profession" } %>
-            <%= f.input :company, required: false, input_html: { autocomplete: "company" } %>
+            <strong style="color: black"><%= f.input :profession, required: false, input_html: { autocomplete: "profession" } %></strong>
+            <strong style="color: black"><%= f.input :company, required: false, input_html: { autocomplete: "company" } %></strong>
           </div>
 
           <div>
@@ -26,6 +26,7 @@
             <%= f.input :password, required: false, input_html: { autocomplete: "new-password" } %>
             <%= f.input :password_confirmation, required: false, input_html: { autocomplete: "new-password" } %>
             <%= f.input :current_password, required: true, input_html: { autocomplete: "current-password" } %>
+            <%= f.input :avatar, as: :file, label: "Profile Picture", input_html: { accept: "image/*" } %>
           </div>
         </div>
 
@@ -37,6 +38,10 @@
   </div>
 
   <div class="edit-image">
-    <img src="https://www.vibe.co/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbg-variant-3.f59d5e97.jpeg&w=1920&q=90" alt="Edit Image" />
+     <% if current_user.avatar.attached? %>
+      <%= image_tag current_user.avatar, class: "profile-details-avatar"%>
+    <% else %>
+      <%= image_tag "default-avatar.png" , class: "profile-details-avatar"%>
+    <% end %>
   </div>
 </div>

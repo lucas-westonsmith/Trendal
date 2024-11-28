@@ -182,4 +182,10 @@ body{
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.avatar:hover{
+  cursor: pointer;
 }

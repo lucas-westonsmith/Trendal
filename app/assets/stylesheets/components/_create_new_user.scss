@@ -141,13 +141,13 @@
 .edit-page {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   padding: 20px;
 }
 
 .edit-container {
   flex: 1;
-  max-width: 60%;  /* Increase max width to give more space to the form */
+  max-width: 40%;  /* Increase max width to give more space to the form */
   padding-right: 20px; /* Add some space between the form and the image */
 }
 
@@ -156,7 +156,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 800px;
+  width: 650px;
 }
 
 .edit-form-inputs {
@@ -178,13 +178,14 @@
 
 .edit-image {
   flex: 1;
-  max-width: 40%;  /* Decrease max width for image to create more space for form */
+  max-width: 60%;  /* Decrease max width for image to create more space for form */
   padding-left: 20px;
+  margin-right: -50px;
 }
 
 .edit-image img {
-  width: 100%;
-  height: auto;
+  width: 50%;
+  height: 50%;
   border-radius: 8px;
 }
 
