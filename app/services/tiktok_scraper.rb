@@ -1,6 +1,6 @@
 class TiktokScraper
-  COUNTRIES = %w[FR IT PT ES GB US].freeze
-  PERIODS = %w[7 30 120].freeze
+  COUNTRIES = %w[BR DE FR IT JP PT ZA ES GB US].freeze
+  PERIODS = %w[7 30 120 365].freeze
 
   def call
     puts "Starting to scrape TikTok hashtags..."

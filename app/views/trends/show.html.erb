@@ -248,22 +248,76 @@
       }
     %>
   </div>
+
+  <!-- PERIOD 365 DAYS (added for 365 days) -->
+  <div class="period-graph mb-5">
+    <h4>365 days performance</h4>
+    <%= bar_chart @graph_data_365_days,
+      height: "300px",
+      thousands: ",",
+      colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"],
+      library: {
+        title: { text: "Performance by country (365 days)" },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Number of posts",
+              font: {
+                size: 18,
+                weight: "bold"
+              }
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 16
+              }
+            },
+            grid: {
+              drawTicks: false,
+            }
+          },
+          y: {
+            title: {
+              display: false
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 16
+              },
+              padding: 10
+            },
+            grid: {
+              drawTicks: false,
+            }
+          }
+        }
+      }
+    %>
+  </div>
 </div>
 
 
-    <div class="container mt-4">
-      <%= form_with url: trend_path(@trend), method: :get, local: true, class: "form-inline custom-form" do %>
-        <div class="form-group mr-3">
-          <%= label_tag :country, 'Select Country:', class: 'mr-2' %>
-          <%= select_tag :country, options_for_select([['Portugal', 'PT'], ['United States', 'US'], ['United Kingdom', 'GB'], ['France', 'FR'], ['Spain', 'ES'], ['Italy', 'IT']], selected: params[:country]), class: 'form-control custom-select' %>
-        </div>
-        <div class="form-group mr-3">
-          <%= label_tag :period, 'Select Period (Days):', class: 'mr-2' %>
-          <%= select_tag :period, options_for_select([['7 Days', '7'], ['30 Days', '30'], ['120 Days', '120']], selected: params[:period]), class: 'form-control custom-select' %>
-        </div>
-        <%= submit_tag 'Filter', class: 'btn btn-primary ml-2 custom-btn' %>
-      <% end %>
+<div class="container mt-4">
+  <%= form_with url: trend_path(@trend), method: :get, local: true, class: "form-inline custom-form" do %>
+    <div class="form-group mr-3">
+      <%= label_tag :country, 'Select Country:', class: 'mr-2' %>
+      <%= select_tag :country, options_for_select(
+        Count::COUNTRY_MAPPING.map { |code, (name, flag)| ["#{name} #{flag}", code] },
+        selected: params[:country] || 'US'  # Définit 'US' par défaut si params[:country] est vide
+      ), class: 'form-control custom-select' %>
     </div>
+    <div class="form-group mr-3">
+      <%= label_tag :period, 'Select Period (Days):', class: 'mr-2' %>
+      <%= select_tag :period, options_for_select([['7 Days', '7'], ['30 Days', '30'], ['120 Days', '120'], ['365 Days', '365']], selected: params[:period] || '7'), class: 'form-control custom-select' %>
+    </div>
+    <%= submit_tag 'Filter', class: 'btn btn-primary ml-2 custom-btn' %>
+  <% end %>
+</div>
+
+
 
 <!-- Display filtered videos -->
 <% if @filtered_videos.present? %>
