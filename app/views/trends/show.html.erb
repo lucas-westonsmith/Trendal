@@ -124,20 +124,192 @@
     </div>
     <!-- Country-based performance graphs -->
     <div class="trend-country-stats mt-5">
-      <h3 class="trend-country-title">Performance by Country</h3>
+      <h3 class="trend-country-title" style="color: #480DBF;">Performance by Country</h3>
       <% if @selected_period == '7' %>
-        <%= bar_chart @graph_data_7_days, height: "300px", thousands: ",", colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"], library: { title: { text: "7 Days Performance" } } %>
-      <% elsif @selected_period == '30' %>
-        <%= bar_chart @graph_data_30_days, height: "300px", thousands: ",", colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"], library: { title: { text: "30 Days Performance" } } %>
-      <% elsif @selected_period == '120' %>
-        <%= bar_chart @graph_data_120_days, height: "300px", thousands: ",", colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"], library: { title: { text: "120 Days Performance" } } %>
-      <% elsif @selected_period == '365' %>
-        <%= bar_chart @graph_data_365_days, height: "300px", thousands: ",", colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"], library: { title: { text: "365 Days Performance" } } %>
-      <% end %>
+        <%= bar_chart @graph_data_7_days,
+        height: "300px",
+        thousands: ",",
+        colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"],
+        library: {
+          title: { text: "Performance by country (7 days)" },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: "Number of posts",
+                font: {
+                  size: 18,
+                  weight: "bold"
+                }
+              },
+              ticks: {
+                display: true,
+                font: {
+                  size: 16
+                }
+              },
+              grid: {
+                drawTicks: false,
+              }
+            },
+            y: {
+              title: {
+                display: false
+              },
+              ticks: {
+                display: true,
+                font: {
+                  size: 16
+                },
+                padding: 10
+              },
+              grid: {
+                drawTicks: false,
+              }
+            }
+          }
+        }
+    %>
+    <% elsif @selected_period == '30' %>
+    <%= bar_chart @graph_data_30_days,
+      height: "300px",
+      thousands: ",",
+      colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"],
+      library: {
+        title: { text: "Performance by country (7 days)" },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Number of posts",
+              font: {
+                size: 18,
+                weight: "bold"
+              }
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 16
+              }
+            },
+            grid: {
+              drawTicks: false,
+            }
+          },
+          y: {
+            title: {
+              display: false
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 16
+              },
+              padding: 10
+            },
+            grid: {
+              drawTicks: false,
+            }
+          }
+        }
+      }
+    %>
+    <% elsif @selected_period == '120' %>
+      <%= bar_chart @graph_data_120_days,
+      height: "300px",
+      thousands: ",",
+      colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"],
+      library: {
+        title: { text: "Performance by country (7 days)" },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Number of posts",
+              font: {
+                size: 18,
+                weight: "bold"
+              }
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 16
+              }
+            },
+            grid: {
+              drawTicks: false,
+            }
+          },
+          y: {
+            title: {
+              display: false
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 16
+              },
+              padding: 10
+            },
+            grid: {
+              drawTicks: false,
+            }
+          }
+        }
+      }
+    %>
+    <% elsif @selected_period == '365' %>
+      <%= bar_chart @graph_data_365_days,
+      height: "300px",
+      thousands: ",",
+      colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"],
+      library: {
+        title: { text: "Performance by country (7 days)" },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Number of posts",
+              font: {
+                size: 18,
+                weight: "bold"
+              }
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 16
+              }
+            },
+            grid: {
+              drawTicks: false,
+            }
+          },
+          y: {
+            title: {
+              display: false
+            },
+            ticks: {
+              display: true,
+              font: {
+                size: 16
+              },
+              padding: 10
+            },
+            grid: {
+              drawTicks: false,
+            }
+          }
+        }
+      }
+    %>
+    <% end %>
     </div>
     <!-- Add margin to the video section -->
     <div class="trend-videos">
-      <h3 class="idk">Videos for <%= @selected_country %> - <%= @selected_period %> Days</h3>
+      <h3 class="idk" style="color: #480DBF;">Videos for <%= @selected_country %> - <%= @selected_period %> Days</h3>
       <div class="video-list">
         <% @filtered_videos.each do |video| %>
           <div class="video-item">

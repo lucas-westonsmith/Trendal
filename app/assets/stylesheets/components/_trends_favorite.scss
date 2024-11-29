@@ -1,0 +1,39 @@
+/* See Analytics button - keeping the same form but without margin-top */
+.custom-btn-analytics {
+  border-radius: 20px; /* Rounded corners for the button */
+  padding: 8px 20px; /* Button padding */
+  font-size: 14px; /* Smaller text size */
+  background-color: #480DBE; /* Primary color */
+  border: none; /* Remove default border */
+  color: #fff; /* Text color */
+  transition: background-color 0.3s ease;
+  height: 38px; /* Ensure button height stays consistent */
+}
+
+.custom-btn-analytics:hover {
+  background-color: #420bb0; /* Darker button on hover */
+}
+
+.custom-btn-analytics:active {
+  background-color: #420bb0; /* Keep dark color on click */
+}
+
+/* Remove button - Red color, no margin-top */
+.custom-btn-remove {
+  border-radius: 20px; /* Rounded corners for the button */
+  padding: 8px 20px; /* Button padding */
+  font-size: 14px; /* Smaller text size */
+  background-color: #dc3545; /* Red color for remove */
+  border: none; /* Remove default border */
+  color: #fff; /* Text color */
+  transition: background-color 0.3s ease;
+  height: 38px; /* Ensure button height stays consistent */
+}
+
+.custom-btn-remove:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+.custom-btn-remove:active {
+  background-color: #c82333; /* Keep dark red on click */
+}
