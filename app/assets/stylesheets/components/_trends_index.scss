@@ -101,6 +101,8 @@ body {
   gap: 30px; /* Space between select and button */
 }
 
+
+
 /* Form inputs and select */
 .custom-form .form-group {
   margin-bottom: 0; /* Remove bottom margin */
@@ -109,7 +111,7 @@ body {
 }
 
 .custom-form label {
-  font-size: 14px;
+  font-size: 24px;
   margin-right: 10px;
   margin-bottom: 10px;
 }
@@ -117,7 +119,7 @@ body {
 .custom-select {
   width: 100%; /* Full width for select */
   padding: 8px 12px; /* Smaller padding */
-  font-size: 17px; /* Smaller text */
+  font-size: 14px; /* Smaller text */
   border-radius: 20px; /* Rounded select */
   background-color: #fff; /* White background */
   border: 1px solid #480DBE; /* Light border */
@@ -131,23 +133,30 @@ body {
   border: none; /* Remove default border */
   color: #fff; /* Text color */
   transition: background-color 0.3s ease;
-  margin-top: 30px;
+  margin-top: 40px;
+  height: 38px;
 }
 
 .custom-btn:hover {
   background-color: #420bb0; /* Darker button on hover */
 }
 
+.custon-btn:active {
+  background-color: #420bb0;
+}
 
 
 .custom-input {
   border-radius: 25px; /* Adjust value to make the corners more or less rounded */
   height: 50px;
-  margin-top: 27px;
+  margin-top: 38px;
+  font-size: 14px;
+  width: 250px;
 }
 
 .crazy {
   height: 38px;
+  margin-top: 44px;
 }
 
 
@@ -155,8 +164,12 @@ body {
   position: absolute;
   margin-left: 10px;
   margin-top: -50px;
+  font-size: 48px;
 }
 
+.esquerda strong {
+  color: #420bb0;
+}
 
 .override {
   margin-top: -8px;

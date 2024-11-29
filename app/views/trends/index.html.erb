@@ -21,7 +21,7 @@
 <!-- TikTok Trends Table -->
 <% if @tiktok_trends.present? %>
   <div class="container my-5">
-    <h2 class="esquerda">Trending on TikTok</h2>
+    <h2 class="esquerda">Trending on <strong>TikTok</strong></h2>
     <table class="table-custom" data-controller="clickable-row">
       <thead>
         <tr>
@@ -52,14 +52,14 @@
   <div class="container my-4">
     <%= form_with url: trends_path, method: :get, local: true, class: "form-inline custom-form" do |f| %>
       <div class="form-group d-flex">
-        <%= f.text_field :keyword, placeholder: "Search for trending videos...", class: "form-control custom-input" %>
-        <%= f.submit "Search", class: 'btn btn-success ml-2 custom-btn crazy' %>
+        <%= f.text_field :keyword, placeholder: "Search for trending videos...", class: "form-control custom-input", required: true %>
+        <%= f.submit "Search", class: 'btn btn-primary ml-2 custom-btn' %>
       </div>
     <% end %>
   </div>
 
   <div class="container my-5">
-    <h2 class="esquerda">Trending on YouTube</h2>
+    <h2 class="esquerda">Trending on <strong>YouTube</strong></h2>
     <table class="table-custom" data-controller="clickable-row">
       <thead>
         <tr>

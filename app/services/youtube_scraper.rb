@@ -69,7 +69,7 @@ class YoutubeScraper
         video_duration: formatted_duration,
         published_at: published_at,
         channel_name: channel_name,
-        video_url: video_url  # Save the video URL
+        video_url: video_url
       )
     end
   end
