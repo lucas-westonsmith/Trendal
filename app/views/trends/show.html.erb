@@ -8,10 +8,9 @@
     <%= @trend.title %>
   </h1>
   <p class="trend-lead lead text-white">
-    Insights from the last 7 days and overall <span class="trend-highlight">performance</span>
+    Insights from the last days and overall <span class="trend-highlight">performance</span>
   </p>
 </div>
-
 <div class="trend-container container my-5">
   <% if @trend.platform == 'youtube' %>
     <!-- YouTube-specific content -->
@@ -35,7 +34,6 @@
           </div>
         </div>
       </div>
-
       <!-- YouTube Video and Hashtags Section -->
       <div class="youtube-content">
         <div class="youtube-video">
@@ -47,7 +45,6 @@
                   allowfullscreen>
           </iframe>
         </div>
-
         <div class="youtube-hashtags">
           <h3 class="trend-metrics-title">Hashtags</h3>
           <% if @trend.hashtags.present? %>
@@ -64,21 +61,7 @@
         </div>
       </div>
     </div>
-
     <!-- Add to Favorites button -->
-     <% if current_user.favorite.trends.exists?(id: @trend.id) %>
-      <!-- If the trend is already in favorites, show Remove button -->
-      <%= button_to 'Remove from Favorites',
-                    favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),
-                    method: :delete,
-                    class: 'btn btn-danger mt-3' %>
-    <% else %>
-      <!-- If the trend is not in favorites, show Add button -->
-      <%= button_to 'Add to Favorites',
-                    favorite_add_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),
-                    method: :post,
-                    class: 'btn btn-warning mt-3' %>
-    <% end %>
 
   <% elsif @trend.platform == 'tiktok' %>
     <!-- TikTok-specific content -->
@@ -98,268 +81,65 @@
         </p>
       </div>
     </div>
-
-<div class="trend-country-stats mt-5">
-  <h3 class="trend-country-title">Performance by Country</h3>
-
-  <!-- PERIOD 7 DAYS -->
-  <div class="period-graph mb-5">
-    <h4>7 days performance</h4>
-    <%= bar_chart @graph_data_7_days,
-      height: "300px",
-      thousands: ",",
-      colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"],
-      library: {
-        title: { text: "Performance by country (7 days)" },
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: "Number of posts",
-              font: {
-                size: 18,
-                weight: "bold"
-              }
-            },
-            ticks: {
-              display: true,
-              font: {
-                size: 16
-              }
-            },
-            grid: {
-              drawTicks: false,
-            }
-          },
-          y: {
-            title: {
-              display: false
-            },
-            ticks: {
-              display: true,
-              font: {
-                size: 16
-              },
-              padding: 10
-            },
-            grid: {
-              drawTicks: false,
-            }
-          }
-        }
-      }
-    %>
-  </div>
-
-  <!-- PERIOD 30 DAYS -->
-  <div class="period-graph mb-5">
-    <h4>30 days performance</h4>
-    <%= bar_chart @graph_data_30_days,
-      height: "300px",
-      thousands: ",",
-      colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"],
-      library: {
-        title: { text: "Performance by country (30 days)" },
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: "Number of posts",
-              font: {
-                size: 18,
-                weight: "bold"
-              }
-            },
-            ticks: {
-              display: true,
-              font: {
-                size: 16
-              }
-            },
-            grid: {
-              drawTicks: false,
-            }
-          },
-          y: {
-            title: {
-              display: false
-            },
-            ticks: {
-              display: true,
-              font: {
-                size: 16
-              },
-              padding: 10
-            },
-            grid: {
-              drawTicks: false,
-            }
-          }
-        }
-      }
-    %>
-  </div>
-
-  <!-- PERIOD 120 DAYS -->
-  <div class="period-graph mb-5">
-    <h4>120 days performance</h4>
-    <%= bar_chart @graph_data_120_days,
-      height: "300px",
-      thousands: ",",
-      colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"],
-      library: {
-        title: { text: "Performance by country (120 days)" },
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: "Number of posts",
-              font: {
-                size: 18,
-                weight: "bold"
-              }
-            },
-            ticks: {
-              display: true,
-              font: {
-                size: 16
-              }
-            },
-            grid: {
-              drawTicks: false,
-            }
-          },
-          y: {
-            title: {
-              display: false
-            },
-            ticks: {
-              display: true,
-              font: {
-                size: 16
-              },
-              padding: 10
-            },
-            grid: {
-              drawTicks: false,
-            }
-          }
-        }
-      }
-    %>
-  </div>
-
-  <!-- PERIOD 365 DAYS (added for 365 days) -->
-  <div class="period-graph mb-5">
-    <h4>365 days performance</h4>
-    <%= bar_chart @graph_data_365_days,
-      height: "300px",
-      thousands: ",",
-      colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"],
-      library: {
-        title: { text: "Performance by country (365 days)" },
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: "Number of posts",
-              font: {
-                size: 18,
-                weight: "bold"
-              }
-            },
-            ticks: {
-              display: true,
-              font: {
-                size: 16
-              }
-            },
-            grid: {
-              drawTicks: false,
-            }
-          },
-          y: {
-            title: {
-              display: false
-            },
-            ticks: {
-              display: true,
-              font: {
-                size: 16
-              },
-              padding: 10
-            },
-            grid: {
-              drawTicks: false,
-            }
-          }
-        }
-      }
-    %>
-  </div>
-</div>
-
-
-<div class="container mt-4">
-  <%= form_with url: trend_path(@trend), method: :get, local: true, class: "form-inline custom-form" do %>
-    <div class="form-group mr-3">
-      <%= label_tag :country, 'Select Country:', class: 'mr-2' %>
-      <%= select_tag :country, options_for_select(
-        Count::COUNTRY_MAPPING.map { |code, (name, flag)| ["#{name} #{flag}", code] },
-        selected: params[:country] || 'US'  # Définit 'US' par défaut si params[:country] est vide
-      ), class: 'form-control custom-select' %>
-    </div>
-    <div class="form-group mr-3">
-      <%= label_tag :period, 'Select Period (Days):', class: 'mr-2' %>
-      <%= select_tag :period, options_for_select([['7 Days', '7'], ['30 Days', '30'], ['120 Days', '120'], ['365 Days', '365']], selected: params[:period] || '7'), class: 'form-control custom-select' %>
-    </div>
-    <%= submit_tag 'Filter', class: 'btn btn-primary ml-2 custom-btn' %>
-  <% end %>
-</div>
-
-
-
-<!-- Display filtered videos -->
-<% if @filtered_videos.present? %>
-  <div class="trend-videos mt-5">
-    <h3>Videos for <%= @selected_country %> - <%= @selected_period %> Days</h3>
-    <div class="video-list">
-      <% @filtered_videos.each do |video| %>
-        <div class="video-item">
-          <iframe class="video-iframe"
-                  src="<%= video.url.gsub('watch?v=', 'embed/') %>"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen>
-          </iframe>
+    <!-- Period selection form -->
+    <div class="container mt-4">
+      <%= form_with url: trend_path(@trend), method: :get, local: true, class: "form-inline custom-form" do %>
+        <div class="form-group mr-3">
+          <%= label_tag :period, 'Select Period:', class: 'mr-2' %>
+          <%= select_tag :period, options_for_select(
+            { '7 Days' => 7, '30 Days' => 30, '120 Days' => 120, '365 Days' => 365 },
+            selected: params[:period] || 7
+          ), class: 'form-control custom-select' %>
         </div>
+        <div class="form-group mr-3">
+          <%= label_tag :country, 'Select Country:', class: 'mr-2' %>
+          <%= select_tag :country, options_for_select(
+            Count::COUNTRY_MAPPING.map { |code, (name, flag)| ["#{name} #{flag}", code] },
+            selected: params[:country] || 'US'
+          ), class: 'form-control custom-select' %>
+        </div>
+        <%= submit_tag 'Filter', class: 'btn btn-primary ml-2 custom-btn' %>
       <% end %>
     </div>
-  </div>
-<% else %>
-  <p>No videos found for this country and period.</p>
-<% end %>
-
-
-    <!-- Add to Favorites button for TikTok -->
+    <!-- Country-based performance graphs -->
+    <div class="trend-country-stats mt-5">
+      <h3 class="trend-country-title">Performance by Country</h3>
+      <% if @selected_period == '7' %>
+        <%= bar_chart @graph_data_7_days, height: "300px", thousands: ",", colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"], library: { title: { text: "7 Days Performance" } } %>
+      <% elsif @selected_period == '30' %>
+        <%= bar_chart @graph_data_30_days, height: "300px", thousands: ",", colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"], library: { title: { text: "30 Days Performance" } } %>
+      <% elsif @selected_period == '120' %>
+        <%= bar_chart @graph_data_120_days, height: "300px", thousands: ",", colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"], library: { title: { text: "120 Days Performance" } } %>
+      <% elsif @selected_period == '365' %>
+        <%= bar_chart @graph_data_365_days, height: "300px", thousands: ",", colors: ["#6A0DAD", "#B1B1B1", "#1A1A1A", "#FF007F", "#00FFFF", "#A349A4"], library: { title: { text: "365 Days Performance" } } %>
+      <% end %>
+    </div>
+    <!-- Add margin to the video section -->
+    <div class="trend-videos">
+      <h3 class="idk">Videos for <%= @selected_country %> - <%= @selected_period %> Days</h3>
+      <div class="video-list">
+        <% @filtered_videos.each do |video| %>
+          <div class="video-item">
+            <iframe class="video-iframe"
+              src="<%= video.url.gsub('watch?v=', 'embed/') %>"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+        <% end %>
+      </div>
+    </div>
     <% if current_user.favorite.trends.exists?(id: @trend.id) %>
-      <!-- If the trend is already in favorites, show Remove button -->
       <%= button_to 'Remove from Favorites',
                     favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),
                     method: :delete,
                     class: 'btn btn-danger mt-3' %>
     <% else %>
-      <!-- If the trend is not in favorites, show Add button -->
       <%= button_to 'Add to Favorites',
                     favorite_add_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),
                     method: :post,
                     class: 'btn btn-warning mt-3' %>
     <% end %>
-
   <% end %>
-
-  <!-- Back to Trends Button -->
-  <div class="trend-back-button mt-4">
-    <%= link_to "Back to Trends", trends_path, class: "btn btn-primary" %>
-  </div>
 </div>
