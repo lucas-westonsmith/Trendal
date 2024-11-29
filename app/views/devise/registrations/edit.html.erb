@@ -1,7 +1,7 @@
 <div class="edit-page">
   <div class="edit-container">
     <div class="edit-form-wrapper">
-      <h2 style= "color: black">Update account information</h2>
+      <h3 style= "color: black">Update account information</h3>
 
       <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <%= f.error_notification %>
@@ -14,7 +14,10 @@
             <strong style="color: black"><%= f.input :first_name, required: false, input_html: { autocomplete: "first name" } %></strong>
             <strong style="color: black"><%= f.input :last_name, required: false, input_html: { autocomplete: "last name" } %></strong>
             <%= f.input :date_of_birth, as: :string, required: true, input_html: { data: { autocomplete: "date of birth", controller: "datepicker" } } %>
-            <strong style="color: black"><%= f.input :profession, required: false, input_html: { autocomplete: "profession" } %></strong>
+            <strong class="form-label">
+            <%= f.input :profession, as: :select, collection: ['Social Media Data Analyst', 'Digital Marketing Specialist', 'Content Strategist', 'SEO/SEM Specialist', 'UX/UI Designer', 'Growth Hacker', 'Data Scientist (Social Media Focus)','Influencer Marketing Manager','Community Manager','Product Manager (Social Media Tools)', 'Other'],
+               include_blank: 'Select a profession', required: false %>
+            </strong>
             <strong style="color: black"><%= f.input :company, required: false, input_html: { autocomplete: "company" } %></strong>
           </div>
 

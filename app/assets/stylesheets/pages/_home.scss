@@ -7,10 +7,24 @@ p{
 }
 
 h1{
-  font-size: 56px;
+  font-size: 70px;
+  text-align: center;
+  margin: 0;
 }
 
 h2{
+  font-size: 48px;
+  text-align: center;
+  margin: 0;
+}
+
+h3{
+  font-size: 24px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+h4{
   font-size: 18px;
 }
 
@@ -29,29 +43,6 @@ body{
   background-color: white;
   }
 
-  .section {
-  flex-direction: column;
-  align-items: center;
-
-  padding: 80px 40px;
-  justify-content: center;
-  display: flex;
-  overflow: hidden;
-  height: 750px;
-
-  justify-content: center;
-  display: flex;
-  overflow: hidden;
-  height: 760px;
-
-  width: 100%;
-
-  &.gradient {
-  background: rgb(0,0,0);
-  background: linear-gradient(180deg, rgba(0,0,0,1) 5%, rgba(110,45,240,1) 50%, rgba(0,0,0,1) 90%);
-  }
-  }
-
 .section {
   flex-direction: column;
   align-items: center;
@@ -63,14 +54,13 @@ body{
 
   &.gradient {
     background: rgb(0,0,0);
-    background: linear-gradient(180deg, rgba(0,0,0,1) 5%, rgba(110,45,240,1) 50%, rgba(0,0,0,1) 90%);
+    background: linear-gradient(180deg, rgba(0,0,0,1) 5%, #480DBF 50%, rgba(0,0,0,1) 90%);
   }
 }
   .content {
     max-width: 1200px;
     text-align: center;
-    padding: 20px;
-    margin-top: -200px;
+    padding-bottom: 85px;
   }
 
 .section.white{
@@ -107,6 +97,10 @@ body{
     margin-left: 40px;
   }
 
+  .nav-link:hover{
+    color: white;
+  }
+
   .nav-link::before {
     content: '';
     position: absolute;
@@ -121,6 +115,7 @@ body{
   .nav-link.active::before,
   .nav-link:hover::before {
     width: 100%; /* Full width underline */
+
   }
 
 .nav-link.button{
@@ -176,20 +171,23 @@ body{
 }
 
 .btn.btn-primary.btn-sm.mt-4{
-  background-color: $primary_color;
-  border-color: $primary_color;
-  color: white;
-  padding: 8px 20px;
-  border-radius: 5px;
+  background-color: rgba(117, 48, 255, 0.489); /* Vibrant purple to contrast with the background */
+  color: #ffffff; /* White text for good contrast */
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
   font-weight: bold;
-  transition: background-color 0.3s ease;
-  display: inline-block;
-  width: auto;
-  margin-top: 50px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(20, 19, 19, 0.2); /* Adds depth */
 }
 
+
 .btn.btn-primary.btn-sm.mt-4:hover{
-  background-color: #651ff0 ;
+  background: linear-gradient(135deg, rgba(117, 48, 255, 0.8), rgba(143, 50, 255, 0.9), rgba(117, 48, 255, 0.8)); /* Purple gradient */
+  transform: translateY(-3px); /* Lift effect */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .avatar {
@@ -198,9 +196,123 @@ body{
   border-radius: 50%;
   object-fit: cover;
   margin-right: 15px;
-  margin-left: 15px;
+  margin-left: 25px;
 }
 
 .avatar:hover{
   cursor: pointer;
+}
+
+/* Wrapper for the dropdown and arrow */
+.language-select-wrapper {
+  position: relative;
+  display: inline-block;
+  width: auto;
+}
+
+/* Style for the select dropdown */
+.language-select {
+  -webkit-appearance: none;  /* Remove default browser styling */
+  -moz-appearance: none;     /* Remove default Firefox styling */
+  appearance: none;          /* Remove default styling in other browsers */
+  background-color: transparent;  /* Ensure transparent background */
+  color: #333;               /* Text color */
+  font-size: 14px;
+  font-weight: 400;
+  font-family: Arial, sans-serif;
+  border: none;              /* No border */
+  outline: none;             /* Remove focus outline */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transitions */
+  margin-top: 10px;
+  align-items: center;
+  text-align: center;
+  margin-right: -10px;
+}
+
+/* Hover or focus effect - no background, just rotate the arrow */
+.language-select:hover,
+.language-select:focus {
+  background-color: transparent;  /* Ensure no background color */
+  color: white;
+}
+
+/* Remove default drop-down arrow in Internet Explorer */
+.language-select::-ms-expand {
+  display: none;
+}
+
+/* Container for the scrolling banner */
+/* Container for the scrolling banner */
+/* First scrolling banner (left to right) */
+.scrolling-banner-left {
+  width: 100%;
+  background: rgb(0,0,0);
+  background: linear-gradient(180deg, rgba(0,0,0,1) 5%, #480DBF 95%);
+  color: $links_buttons;           /* Text color */      /* Adjust padding for better visual */
+  overflow: hidden;       /* Hide overflow text */
+  position: relative;
+  text-align: center;
+  padding-bottom: 100px; /* Center align the text horizontally */    /* Height of the scrolling banner */
+}
+
+
+.scrolling-text-left {
+  display: inline-block;
+  white-space: nowrap;    /* Prevent the text from wrapping */
+  animation: scroll-left 400s linear infinite; /* Smoother scrolling with a longer duration */
+  font-size: 22px;        /* Font size of the text */
+  font-weight: bold;      /* Make the text bold */
+  line-height: 100px;     /* Vertically center the text */  /* Increase space between each text element */
+}
+
+.scrolling-text-left span {
+  margin-right: 50px;    /* Add space between each text element */
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(-1%); /* Start off-screen to the right */
+  }
+  100% {
+    transform: translateX(-100%); /* Move to off-screen to the left */
+  }
+}
+
+/* Second scrolling banner (right to left) */
+.scrolling-banner-right {
+  width: 100%;
+  background: rgb(0,0,0);
+  background: linear-gradient(180deg, #480DBF 5%, rgba(0,0,0,1) 95%);
+  color: $links_buttons;           /* Text color */
+  overflow: hidden;       /* Hide overflow text */
+  position: relative;
+  text-align: center;     /* Center align the text horizontally */
+  padding-bottom: 100px;         /* Height of the scrolling banner */
+}
+
+.scrolling-text-right {
+  display: inline-block;
+  white-space: nowrap;    /* Prevent the text from wrapping */
+  animation: scroll-right 700s linear infinite; /* Smoother scrolling with a longer duration */
+  font-size: 22px;        /* Font size of the text */
+  font-weight: bold;      /* Make the text bold */
+  line-height: 100px;     /* Vertically center the text */
+}
+
+.scrolling-text-right span {
+  margin-right: 50px;    /* Add space between each text element */
+}
+
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-90%); /* Start off-screen to the left */
+  }
+  100% {
+    transform: translateX(100%); /* Move to off-screen to the right */
+  }
+}
+
+.bottom-banner{
+  background-color: black;
 }
