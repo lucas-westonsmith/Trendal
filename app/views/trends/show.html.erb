@@ -36,6 +36,17 @@
       </div>
       <!-- YouTube Video and Hashtags Section -->
       <div class="youtube-content">
+      <% if current_user.favorite.trends.exists?(id: @trend.id) %>
+      <%= button_to 'Remove from Favorites',
+                    favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),
+                    method: :delete,
+                    class: 'btn btn-danger go-top' %>
+    <% else %>
+      <%= button_to 'Add to Favorites',
+                    favorite_add_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),
+                    method: :post,
+                    class: 'btn btn-warning go-top' %>
+    <% end %>
         <div class="youtube-video">
           <h3 class="trend-metrics-title">Watch the video</h3>
           <iframe width="600" height="315"
@@ -62,7 +73,6 @@
       </div>
     </div>
     <!-- Add to Favorites button -->
-
   <% elsif @trend.platform == 'tiktok' %>
     <!-- TikTok-specific content -->
     <div class="trend-details text-start">
@@ -81,6 +91,17 @@
         </p>
       </div>
     </div>
+     <% if current_user.favorite.trends.exists?(id: @trend.id) %>
+      <%= button_to 'Remove from Favorites',
+                    favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),
+                    method: :delete,
+                    class: 'btn btn-outline-danger mt-3 go-top rounded' %>
+    <% else %>
+      <%= button_to 'Add to Favorites',
+                    favorite_add_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),
+                    method: :post,
+                    class: 'btn btn-warning mt-3 go-top' %>
+    <% end %>
     <!-- Period selection form -->
     <div class="container mt-4">
       <%= form_with url: trend_path(@trend), method: :get, local: true, class: "form-inline custom-form" do %>
@@ -130,16 +151,5 @@
         <% end %>
       </div>
     </div>
-    <% if current_user.favorite.trends.exists?(id: @trend.id) %>
-      <%= button_to 'Remove from Favorites',
-                    favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),
-                    method: :delete,
-                    class: 'btn btn-danger mt-3' %>
-    <% else %>
-      <%= button_to 'Add to Favorites',
-                    favorite_add_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),
-                    method: :post,
-                    class: 'btn btn-warning mt-3' %>
-    <% end %>
   <% end %>
 </div>
