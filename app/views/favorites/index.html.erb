@@ -6,7 +6,7 @@
 <!-- Display Favorite TikTok Trends -->
 <% if @favorite.trends.present? %>
   <div class="container my-5">
-    <h2>Your favorite TikTok trends:</h2>
+    <h3 class="trend-metrics-title">Your favorite TikTok trends</h3> <!-- Updated title -->
     <table class="table-custom" data-controller="clickable-row">
       <thead>
         <tr>
@@ -27,13 +27,13 @@
               <td><%= trend.industry.present? ? trend.industry : 'N/A' %></td>
               <td><%= trend.formatted_count(trend.count) if trend.count.present? %></td>
               <td>
-                <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn' %> <!-- See analytics button -->
+                <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %> <!-- See analytics button -->
               </td>
               <td>
-                <%= button_to 'Remove from Favorites',
+                <%= button_to 'Remove',
                       favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
                       method: :delete,
-                      class: 'btn btn-danger btn-sm custom-btn' %> <!-- Remove from favorites button -->
+                      class: 'btn btn-danger btn-sm custom-btn-remove' %> <!-- Remove button -->
               </td>
             </tr>
           <% end %>
@@ -44,7 +44,7 @@
 
   <!-- Display Favorite YouTube Trends -->
   <div class="container my-5">
-    <h2>Your favorite YouTube trends:</h2>
+    <h3 class="trend-metrics-title">Your favorite YouTube trends</h3> <!-- Updated title -->
     <table class="table-custom" data-controller="clickable-row">
       <thead>
         <tr>
@@ -65,13 +65,13 @@
               <td><%= trend.formatted_count(trend.view_count) if trend.view_count.present? %></td>
               <td><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
               <td>
-                <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn' %> <!-- See analytics button -->
+                <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %> <!-- See analytics button -->
               </td>
               <td>
-                <%= button_to 'Remove from Favorites',
+                <%= button_to 'Remove',
                       favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
                       method: :delete,
-                      class: 'btn btn-danger btn-sm custom-btn' %> <!-- Remove from favorites button -->
+                      class: 'btn btn-danger btn-sm custom-btn-remove' %> <!-- Remove button -->
               </td>
             </tr>
           <% end %>
