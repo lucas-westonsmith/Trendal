@@ -184,8 +184,8 @@
 }
 
 .edit-image img {
-  width: 50%;
-  height: 50%;
+  width: 60%;
+  height: 60%;
   border-radius: 8px;
 }
 
@@ -200,4 +200,35 @@
   border: 1px solid #A379F6; /* Border color when focused */
   background-color: #f5f5f5; /* Light grey background when focused */
   color: #000000; /* Keep the text color dark when focused */
+}
+
+/* Style the select element */
+.edit-form-inputs select {
+  width: 100%;  /* Ensure it takes up full width of container */
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+/* Add scrollbar to dropdown options */
+.edit-form-inputs select {
+  max-height: 150px;  /* Adjust as needed for dropdown height */
+  overflow-y: auto;   /* Add vertical scrollbar */
+}
+
+/* Custom scrollbar for the select options */
+.edit-form-inputs select::-webkit-scrollbar {
+  width: 8px; /* Width of scrollbar */
+}
+
+.edit-form-inputs select::-webkit-scrollbar-thumb {
+  background-color: #9c27b0; /* Purple thumb */
+  border-radius: 4px;
+}
+
+.edit-form-inputs select::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Light gray track */
 }

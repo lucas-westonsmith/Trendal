@@ -1,42 +1,65 @@
 <div class="navbar navbar-expand-sm navbar-dark bg-black navbar-lewagon">
   <div class="container-fluid">
-      <%= link_to root_path, class: "#" do %>
-        <%= image_tag "Idea 1 logo.png", class: "logo" %>
-      <% end %>
-    <div style = "display: flex;">
+    <%= link_to root_path, class: "#" do %>
+      <%= image_tag "Idea 1 logo.png", class: "logo" %>
+    <% end %>
+    <div style="display: flex;">
       <%= link_to "Browse trends", trends_path, class: "nav-link #{'active' if current_page?(trends_path)}"%>
-      <%= link_to "Predict trends", new_user_session_path, class: "nav-link #{'active' if current_page?(new_user_session_path)}" %>
+      <%= link_to "Predict trends", "#", class: "nav-link #{'active' if current_page?("#")}" %>
     </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav">
-  <% if user_signed_in? %>
-    <!-- Avatar Dropdown -->
-    <li class="nav-item active">
-    <%= link_to favorites_path, class: "nav-link" do %>
-      <i class="fa-solid fa-bookmark fa-xl bookmark" style="color: #6E2DF0;"></i>
-    Favorites
-    <% end %>
-    <li class="nav-item dropdown">
-      <% if current_user.avatar.attached? %>
-        <%= image_tag current_user.avatar, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-      <% else %>
-        <%= image_tag "default-avatar.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-      <% end %>
+      <ul class="navbar-nav ms-auto"> <!-- ms-auto aligns the items to the right -->
+        <% if user_signed_in? %>
+        <!-- Language Dropdown -->
+          <li class="nav-item">
+            <div class="language-select-wrapper">
+              <select class="language-select" aria-label="Language selection">
+                <option value="en" selected>English</option>
+                <option value="fr">French</option>
+                <option value="pt">Portuguese</option>
+              </select>
+            </div>
+          </li>
+          <!-- Favorites Link -->
+          <li class="nav-item active">
+            <%= link_to favorites_path, class: "nav-link #{'active' if current_page?(favorites_path)}" do %>
+              <i class="fa-solid fa-bookmark fa-xl bookmark" style="color: #480DBF;"></i>
+              Favorites
+            <% end %>
+          </li>
+          <!-- Avatar Dropdown -->
+          <li class="nav-item dropdown">
+            <% if current_user.avatar.attached? %>
+              <%= image_tag current_user.avatar, class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <% else %>
+              <%= image_tag "default-avatar.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <% end %>
 
-      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-        <%= link_to "Profile", profile_path, class: "dropdown-item" %>
-        <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", data: { turbo_method: :delete } %>
-      </div>
-    </li>
-  <% else %>
-    <!-- Login Button -->
-    <li class="nav-item">
-      <%= link_to "Login", new_user_session_path, class: "nav-link text-white login" %> <!-- Bouton Login -->
-    </li>
-  <% end %>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <%= link_to "Profile", profile_path, class: "dropdown-item" %>
+              <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", data: { turbo_method: :delete } %>
+            </div>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <div class="language-select-wrapper">
+              <select class="language-select" aria-label="Language selection">
+                <option value="en" selected>English</option>
+                <option value="fr">French</option>
+                <option value="pt">Portuguese</option>
+              </select>
+            </div>
+          </li>
+          <!-- Login Button -->
+          <li class="nav-item">
+            <%= link_to "Login", new_user_session_path, class: "nav-link text-white login #{'active' if current_page?(new_user_session_path)}" %>
+          </li>
+
+          <!-- Language Dropdown for Guest Users -->
+        <% end %>
       </ul>
     </div>
   </div>
