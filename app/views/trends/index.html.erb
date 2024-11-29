@@ -5,7 +5,7 @@
 
 <!-- Platform Selector -->
 <div class="container">
-  <%= form_with url: trends_path, method: :get, local: true, class: "form-inline custom-form" do %>
+  <%= form_with url: trends_path(anchor: "results"), method: :get, local: true, class: "form-inline custom-form" do %>
     <div class="form-group">
       <%= label_tag :platform, 'Select Platform:', class: 'mr-2' %>
       <%= select_tag :platform, options_for_select([['TikTok', 'tiktok'], ['YouTube', 'youtube']], selected: params[:platform]),
@@ -17,7 +17,7 @@
 
 <!-- TikTok Trends Table -->
 <% if @tiktok_trends.present? %>
-  <div class="container my-5">
+  <div id="results" class="container my-5 ">
     <h2 class="esquerda">Trending on <strong>TikTok</strong></h2>
     <table class="table-custom" data-controller="clickable-row">
       <thead>
@@ -46,7 +46,7 @@
 
 <!-- YouTube Trends Table -->
 <% if @youtube_trends.present? %>
-  <div class="container my-4">
+  <div id="results" class="container my-4">
     <%= form_with url: trends_path, method: :get, local: true, class: "form-inline custom-form" do |f| %>
       <div class="form-group d-flex">
         <%= f.text_field :keyword, placeholder: "Search for trending videos...", class: "form-control custom-input", required: true %>
