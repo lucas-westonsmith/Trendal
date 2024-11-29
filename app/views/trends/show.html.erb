@@ -104,27 +104,27 @@
     <% end %>
     <!-- Period selection form -->
     <div class="container mt-4">
-      <%= form_with url: trend_path(@trend), method: :get, local: true, class: "form-inline custom-form" do %>
+      <%= form_with url: trend_path(@trend, anchor: "graph"), method: :get, local: true, class: "form-inline custom-form" do %>
         <div class="form-group mr-3">
           <%= label_tag :period, 'Select Period:', class: 'mr-2' %>
           <%= select_tag :period, options_for_select(
             { '7 Days' => 7, '30 Days' => 30, '120 Days' => 120, '365 Days' => 365 },
             selected: params[:period] || 7
-          ), class: 'form-control custom-select' %>
+          ), class: 'form-control custom-select', onchange: 'this.form.submit()' %>
         </div>
         <div class="form-group mr-3">
           <%= label_tag :country, 'Select Country:', class: 'mr-2' %>
           <%= select_tag :country, options_for_select(
             Count::COUNTRY_MAPPING.map { |code, (name, flag)| ["#{name} #{flag}", code] },
             selected: params[:country] || 'US'
-          ), class: 'form-control custom-select' %>
+          ), class: 'form-control custom-select', onchange: 'this.form.submit()' %>
         </div>
         <%= submit_tag 'Filter', class: 'btn btn-primary ml-2 custom-btn' %>
       <% end %>
     </div>
     <!-- Country-based performance graphs -->
     <div class="trend-country-stats mt-5">
-      <h3 class="trend-country-title" style="color: #480DBF;">Performance by Country</h3>
+      <h3 id="graph" class="trend-country-title" style="color: #480DBF;">Performance by Country</h3>
       <% if @selected_period == '7' %>
         <%= bar_chart @graph_data_7_days,
         height: "300px",
