@@ -5,41 +5,36 @@
     <!-- Section: Social media -->
     <section class="mb-4">
       <!-- Facebook -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-facebook-f fa-lg"></i
-      ></a>
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button">
+        <i class="fab fa-facebook-f fa-lg"></i>
+      </a>
 
       <!-- Instagram -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-instagram fa-xl"></i
-      ></a>
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button">
+        <i class="fab fa-instagram fa-xl"></i>
+      </a>
 
       <!-- Linkedin -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-linkedin-in fa-xl"></i
-      ></a>
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button">
+        <i class="fab fa-linkedin-in fa-xl"></i>
+      </a>
 
       <!-- Github -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-        ><i class="fab fa-github fa-xl"></i
-      ></a>
+      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button">
+        <i class="fab fa-github fa-xl"></i>
+      </a>
     </section>
     <!-- Section: Social media -->
-
-    <!-- Section: Form -->
-
-    <!-- Section: Text -->
 
     <!-- Section: Links -->
     <section class="">
       <!--Grid row-->
-      <div class="row", style= "justify-content:center">
+      <div class="row" style="justify-content:center">
 
         <!--Grid column-->
-        <div></div>
         <div class="col-3">
           <ul class="list-unstyled mb-0">
-            <strong><p style= "color: #6925f1">About us</p></strong>
+            <strong><p style="color: #6925f1">About us</p></strong>
             <li>
               <%= link_to "Home", root_path, class: "footer-links"  %>
             </li>
@@ -48,12 +43,11 @@
             </li>
           </ul>
         </div>
-        <!--Grid column-->
 
         <!--Grid column-->
         <div class="col-3">
           <ul class="list-unstyled mb-0">
-            <strong><p style= "color: #6925f1">Features</p></strong>
+            <strong><p style="color: #6925f1">Features</p></strong>
             <li>
               <%= link_to "Browse tends", trends_path, class: "footer-links" %>
             </li>
@@ -67,17 +61,25 @@
             <% end %>
           </ul>
         </div>
-        <!--Grid column-->
-        </div>
       </div>
       <!--Grid row-->
     </section>
     <!-- Section: Links -->
   </div>
   <!-- Grid container -->
+
+  <!-- Logo in top left -->
+  <div class="logo-container">
+    <%= link_to root_path, class: "logo-link" do %>
+      <%= image_tag "Idea 1 logo.png", class: "logo" %>
+    <% end %>
+  </div>
+
   <!-- Copyright -->
   <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-    This website has been coded by Artur, Rafael, and Lucas at Le Wagon
+    This website has been coded by Artur, Rafael, and Lucas at Le Wagon.
+    <br>
+    <strong>© 2024 Trendal. All rights reserved.</strong>
   </div>
   <!-- Copyright -->
 </footer>
