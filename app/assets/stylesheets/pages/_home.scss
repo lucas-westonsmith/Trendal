@@ -272,7 +272,7 @@ body{
 
 @keyframes scroll-left {
   0% {
-    transform: translateX(-1%); /* Start off-screen to the right */
+    transform: translateX(0%); /* Start off-screen to the right */
   }
   100% {
     transform: translateX(-100%); /* Move to off-screen to the left */
@@ -306,7 +306,7 @@ body{
 
 @keyframes scroll-right {
   0% {
-    transform: translateX(-90%); /* Start off-screen to the left */
+    transform: translateX(-95%); /* Start off-screen to the left */
   }
   100% {
     transform: translateX(100%); /* Move to off-screen to the right */
