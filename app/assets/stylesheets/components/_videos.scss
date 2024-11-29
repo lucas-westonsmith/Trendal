@@ -8,6 +8,7 @@
   flex-wrap: wrap;          /* Permet aux vidéos de passer à la ligne si nécessaire */
   gap: 20px;                /* Espacement entre les vidéos */
   justify-content: center;  /* Centre les vidéos horizontalement */
+  margin-top: 10px;
 }
 
 .video-item {
@@ -26,4 +27,3 @@
 .video-iframe:hover {
   transform: scale(1.05);  /* Zoom léger au survol */
 }
-

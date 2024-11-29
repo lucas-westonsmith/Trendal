@@ -91,7 +91,6 @@ body {
 
 /* Container for the form */
 .custom-form {
-  max-width: 400px; /* Adjust width */
   padding: 15px; /* Add some padding */
   border-radius: 15px; /* Rounded corners */
   float: left; /* Align to the left */
@@ -99,6 +98,7 @@ body {
   display: flex; /* Use flexbox for side-by-side layout */
   align-items: center; /* Vertically align items */
   gap: 30px; /* Space between select and button */
+  margin-bottom: 10px;
 }
 
 
