@@ -68,6 +68,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_28_165718) do
     t.index ["trend_id"], name: "index_favorites_trends_on_trend_id"
   end
 
+  create_table "predict_trends", force: :cascade do |t|
+    t.string "platform"
+    t.string "industry"
+    t.text "hashtags", default: [], array: true
+    t.text "prediction_result"
+    t.bigint "prediction_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["prediction_id"], name: "index_predict_trends_on_prediction_id"
+  end
+
   create_table "prediction_trends", force: :cascade do |t|
     t.bigint "trend_id", null: false
     t.bigint "prediction_id", null: false
@@ -99,12 +110,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_28_165718) do
     t.integer "count_overall"
     t.integer "view_count"
     t.integer "like_count"
-    t.string "industry"
     t.string "hashtags"
     t.string "video_duration"
     t.datetime "published_at"
     t.string "channel_name"
     t.string "video_url"
+    t.string "industry"
+    t.string "keyword"
   end
 
   create_table "users", force: :cascade do |t|
@@ -138,6 +150,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_28_165718) do
   add_foreign_key "favorites", "users"
   add_foreign_key "favorites_trends", "favorites"
   add_foreign_key "favorites_trends", "trends"
+  add_foreign_key "predict_trends", "predictions"
   add_foreign_key "prediction_trends", "predictions"
   add_foreign_key "prediction_trends", "trends"
   add_foreign_key "videos", "counts"
