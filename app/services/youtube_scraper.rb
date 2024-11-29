@@ -65,6 +65,7 @@ class YoutubeScraper
         like_count: like_count,
         view_count: view_count,
         platform: 'youtube',
+        description: description,
         hashtags: formatted_tags,
         video_duration: formatted_duration,
         published_at: published_at,

@@ -3,45 +3,81 @@
   <p class="lead text-white">Browse your favorite trending topics from various platforms.</p>
 </div>
 
-
-<!-- Display Favorite Trends -->
+<!-- Display Favorite TikTok Trends -->
 <% if @favorite.trends.present? %>
   <div class="container my-5">
-    <h2>Your Favorite Trends:</h2>
-    <div class="row">
-    <% @favorite.trends.each do |trend| %>
-      <% if params[:platform].blank? || trend.platform == params[:platform] %>
-        <div class="col-md-4 mb-4">
-          <div class="rounded cartao">
-
-
-            <div>
-              <h5 class="font-weight-bold text-dark"><%= trend.title %></h5>
-              <p class="text-muted"><strong>Platform:</strong> <%= trend.platform.capitalize %></p>
-
-              <% if trend.view_count.present? %>
-                <p class="text-muted"><strong>Views:</strong> <%= trend.formatted_count(trend.view_count) %></p>
-              <% end %>
-
-              <% if trend.like_count.present? %>
-                <p class="text-muted"><strong>Likes:</strong> <%= trend.formatted_count(trend.like_count) %></p>
-              <% end %>
-
-              <!-- Action Buttons -->
-              <div class="d-flex justify-content-between align-items-center">
+    <h2>Your favorite TikTok trends:</h2>
+    <table class="table-custom" data-controller="clickable-row">
+      <thead>
+        <tr>
+          <th scope="col">#</th> <!-- Changed Rank to # (Favorite number) -->
+          <th scope="col">Hashtag</th>
+          <th scope="col">Industry</th>
+          <th scope="col">Posts (last 7 days)</th>
+          <th scope="col">Actions</th>
+          <th scope="col"></th> <!-- New "Remove" column (empty title) -->
+        </tr>
+      </thead>
+      <tbody>
+        <% @favorite.trends.each_with_index do |trend, index| %>
+          <% if trend.platform == 'tiktok' %>
+            <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
+              <td>#<%= index + 1 %></td> <!-- Display the favorite number -->
+              <td><%= trend.title %></td>
+              <td><%= trend.industry.present? ? trend.industry : 'N/A' %></td>
+              <td><%= trend.formatted_count(trend.count) if trend.count.present? %></td>
+              <td>
+                <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn' %> <!-- See analytics button -->
+              </td>
+              <td>
                 <%= button_to 'Remove from Favorites',
                       favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
                       method: :delete,
-                      class: 'btn btn-danger btn-sm' %>
+                      class: 'btn btn-danger btn-sm custom-btn' %> <!-- Remove from favorites button -->
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
-                <%= link_to 'View Trend', trend_path(trend), class: 'btn btn-info btn-sm' %>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% end %>
-  <% end %>
-</div>
+  <!-- Display Favorite YouTube Trends -->
+  <div class="container my-5">
+    <h2>Your favorite YouTube trends:</h2>
+    <table class="table-custom" data-controller="clickable-row">
+      <thead>
+        <tr>
+          <th scope="col">#</th> <!-- Changed Rank to # (Favorite number) -->
+          <th scope="col">Title</th>
+          <th scope="col">Views</th>
+          <th scope="col">Likes</th>
+          <th scope="col">Actions</th>
+          <th scope="col"></th> <!-- New "Remove" column (empty title) -->
+        </tr>
+      </thead>
+      <tbody>
+        <% @favorite.trends.each_with_index do |trend, index| %>
+          <% if trend.platform == 'youtube' %>
+            <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
+              <td>#<%= index + 1 %></td> <!-- Display the favorite number -->
+              <td><%= trend.title %></td>
+              <td><%= trend.formatted_count(trend.view_count) if trend.view_count.present? %></td>
+              <td><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
+              <td>
+                <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn' %> <!-- See analytics button -->
+              </td>
+              <td>
+                <%= button_to 'Remove from Favorites',
+                      favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
+                      method: :delete,
+                      class: 'btn btn-danger btn-sm custom-btn' %> <!-- Remove from favorites button -->
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 <% else %>
   <div class="container my-5">
