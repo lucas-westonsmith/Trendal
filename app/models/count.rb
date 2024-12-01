@@ -1,6 +1,7 @@
 class Count < ApplicationRecord
   belongs_to :trend
   has_many :videos
+  has_many :related_interests
 
   COUNTRY_MAPPING = {
     'BR' => ['Brazil', '🇧🇷'],

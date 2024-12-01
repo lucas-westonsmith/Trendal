@@ -9,6 +9,9 @@ class TiktokScraper
     html = URI.open(url).read
     doc = Nokogiri::HTML(html)
 
+    puts "Deleting all related interests from the database..."
+    RelatedInterest.delete_all
+
     puts "Deleting all related videos from the database..."
     Video.delete_all
 
@@ -119,6 +122,9 @@ class TiktokScraper
       # Extract and save video links
       fetch_video_links(doc, trend, count)
 
+      # Fetch and save related interests
+      fetch_related_interests(doc, trend, count)
+
     rescue => e
       puts "Error fetching country data for #{trend.title} (#{country}, #{period}): #{e.message}"
       puts e.backtrace
@@ -146,10 +152,68 @@ class TiktokScraper
       Video.create!(
         url: link,
         trend: trend,
-        count: count # Passer le count ici, même s'il est `nil`
+        count: count
       )
     end
   end
+
+  def fetch_related_interests(doc, trend, count)
+    puts "Fetching related interests for trend: #{trend.title}"
+
+    # Récupérer le conteneur plus large qui contient tous les éléments d'intérêt
+    container = doc.css('div.Interest_interestItemWraper__cSbd2')
+
+    # Compteur pour numérotation unique
+    interest_counter = 1
+
+    # Itérer sur chaque conteneur d'intérêts
+    container.each_with_index do |item_container, container_index|
+      # Récupérer les éléments d'intérêt dans le conteneur (chaque div.Interest_interestItem__WG9UP)
+      interest_items = item_container.css('div.Interest_interestItem__WG9UP')
+
+      # Itérer sur les éléments d'intérêt
+      interest_items.each do |item|
+        # Chercher tous les labels d'intérêts dans le même conteneur
+        interest_names = item.css('span.Interest_interestItemLabel__Cs0r8')
+
+        # Chercher tous les scores associés dans le même conteneur
+        interest_scores = item.css('span.Interest_interestItemValue__lMLsg')
+
+        # Itérer sur chaque label et son score
+        interest_names.each_with_index do |interest_name, name_index|
+          # S'assurer que nous avons un score pour chaque nom
+          interest_score = interest_scores[name_index]&.text&.strip
+
+          # Vérifier que les informations sont présentes avant de les traiter
+          if interest_name.text.present? && interest_score.present?
+            begin
+              # Convertir la valeur du score en entier
+              interest_score = interest_score.to_i
+
+              # Affichage simplifié avec un compteur global
+              puts "Related Interest ##{interest_counter}: #{interest_name.text.strip} (Score: #{interest_score})"
+
+              # Sauvegarder l'intérêt dans la base de données
+              RelatedInterest.create!(
+                title: interest_name.text.strip,
+                score: interest_score,
+                trend: trend,
+                count: count
+              )
+
+              # Incrémenter le compteur pour chaque intérêt
+              interest_counter += 1
+            rescue => e
+              puts "Error saving RelatedInterest ##{interest_counter}: #{e.message}"
+            end
+          else
+            puts "Skipping empty or incomplete related interest item (index: #{interest_counter})"
+          end
+        end
+      end
+    end
+  end
+
 
   # Helper method to convert the post value (e.g., '947K', '8M') to a numeric value
   def convert_to_numeric(value)

@@ -59,5 +59,18 @@ class TrendsController < ApplicationController
     else
       @filtered_videos = @trend.videos
     end
+
+    Rails.logger.debug "Interests before filtering: #{@trend.related_interests.inspect}"
+
+    # Filtrer les intérêts en fonction du pays et de la période si spécifié
+    if @selected_country.present? && @selected_period.present?
+      @filtered_interests = @trend.related_interests.joins(:count)
+                                          .where(counts: { country: @selected_country, period: @selected_period })
+
+      # Afficher les intérêts filtrés dans les logs
+      Rails.logger.debug "Filtered Interests: #{@filtered_interests.inspect}"
+    else
+      @filtered_interests = @trend.related_interests
+    end
   end
 end
