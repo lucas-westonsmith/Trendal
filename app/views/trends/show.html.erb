@@ -322,5 +322,16 @@
         <% end %>
       </div>
     </div>
+
+    <div class="related-interests mt-5">
+      <h3 class="trend-metrics-title" style="color: #480DBF;">Related Interests for <%= @selected_country %> - <%= @selected_period %> Days</h3>
+      <ul>
+        <% @filtered_interests.each do |interest| %>
+          <li><strong><%= interest.title %>:</strong> <%= interest.score %></li>
+        <% end %>
+      </ul>
+  </div>
+
+
   <% end %>
 </div>

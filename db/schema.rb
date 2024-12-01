@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_28_165718) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_01_223825) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -85,6 +85,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_28_165718) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "related_interests", force: :cascade do |t|
+    t.bigint "trend_id", null: false
+    t.bigint "count_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+    t.integer "score"
+    t.index ["count_id"], name: "index_related_interests_on_count_id"
+    t.index ["trend_id"], name: "index_related_interests_on_trend_id"
+  end
+
   create_table "trends", force: :cascade do |t|
     t.string "title"
     t.integer "engagement_count"
@@ -140,6 +151,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_28_165718) do
   add_foreign_key "favorites_trends", "trends"
   add_foreign_key "prediction_trends", "predictions"
   add_foreign_key "prediction_trends", "trends"
+  add_foreign_key "related_interests", "counts"
+  add_foreign_key "related_interests", "trends"
   add_foreign_key "videos", "counts"
   add_foreign_key "videos", "trends"
 end
