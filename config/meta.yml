@@ -1,0 +1,6 @@
+# config/meta.yml
+meta_product_name: "Trendal"
+meta_title: "Trendal - Discover, analyze, track and predict social media trends"
+meta_description: "Stay ahead of social media trends with Trendal. Analyze platform data and predict the next big topics to optimize your content strategy."
+meta_image: "cover.png" # should exist in `app/assets/images/`
+twitter_account: "@trendal_twitter_account" # required for Twitter Cards
