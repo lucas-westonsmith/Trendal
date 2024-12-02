@@ -6,9 +6,7 @@
 
 /* Spacing and font adjustments */
 .list-group-item {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 0.25rem
+  padding: 20px;
 }
 
 .margin {
@@ -19,7 +17,38 @@
   margin-top: 7px;
 }
 
+
+.detailed-analysis {
+  background-color: #f8f9fa;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional */
+  padding: 16px;
+  border: 1px solid #ddd;
+}
+
 .right {
   margin-left: 10px;
   margin-right: 10px;
+}
+
+
+/* Background color for filter boxes */
+.custom-bg {
+  background-color: #F2ECFE; /* Light gray background */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+  border-radius: 5px;
+}
+
+/* Gradient text and icon color */
+.gradient-text {
+  background: linear-gradient(90deg, rgba(90,39,204,1) 25%, rgba(169,116,186,1) 81%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; /* Makes gradient visible */
+}
+
+/* Rounded corners and consistent spacing */
+.filter-box {
+  display: inline-flex;
+  padding: 0.5rem 1rem;
+  border-radius: 5px; /* Rounded corners */
 }
