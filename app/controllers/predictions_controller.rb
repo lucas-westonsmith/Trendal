@@ -4,50 +4,53 @@ class PredictionsController < ApplicationController
   def index
     @favorite_trends = current_user.favorite.trends
 
-    if params[:trend_ids].present?
-      Rails.logger.debug "Trend IDs: #{params[:trend_ids]}"  # Debugging line
-      @predictions = params[:trend_ids].map do |trend_id|
+    if params[:trend_ids].present? && params[:industry].present?
+      Rails.logger.debug "Trend IDs: #{params[:trend_ids]}, Industry: #{params[:industry]}"  # Debugging line
+
+      industry = params[:industry] # Get the selected industry
+
+      # Generate predictions for selected trends and industry
+      @predictions = []
+      params[:trend_ids].each do |trend_id|
         trend = Trend.find(trend_id)
-        generate_prediction(trend)
+        @predictions.concat(generate_predictions(trend, industry))  # Add all predictions to the array
       end
     else
-      Rails.logger.debug "No trends selected."
+      Rails.logger.debug "No trends or industry selected."
     end
   end
 
   private
 
-  def generate_prediction(trend)
+  def generate_predictions(trend, industry)
     # Initialize OpenAI client
     client = OpenAI::Client.new
 
-    # Generate prompt based on the trend name
-    message_content = "How is the current activity on the trend '#{trend.title}'  on '#{trend.platform}', what will be development of this trend,
-     and based on this trend predcit new ones, also give me a confidence score that goes between 0 and 100% (never give less than 20).
-     I dont want any of your awnser, like 'As an Ai i cant predict the future' just go straight to the point, also i dont want you to say things like 'For social media managers and companies' just show the #s,
-     also on the hashtags use no capital letter  and dont say 'i predict' dont sound like an ai? make the sentence fit in a setence that would spend me a maximum od 100 tokens"
+    # Generate multiple prompts to get different responses
+    prompts = [
+      "Give me a detailed analysis of the current activity around the trend '#{trend.title}' on '#{trend.platform}', and predict the trend's future development in the #{industry} industry. Provide a concise answer with 50 words and include relevant hashtags. The confidence score should be higher than 80%. Avoid any AI-related disclaimers or phrases like 'I predict'",
+     "Analyze the future trends stemming from '#{trend.title}' in the #{industry} industry. Provide a focused answer of 50 words, listing the relevant hashtags and including a confidence score above 80%. Be straightforward and don't use any disclaimers about AI limitations.",
+     "Describe future trends emerging from '#{trend.title}' in the #{industry} industry with 50 words, showing relevant hashtags. Keep the response direct and creative, giving a confidence score between 60% and 80%. Avoid any AI-related disclaimers or phrases like 'I predict'.",
+    ]
 
-    # Request a prediction from the OpenAI API using gpt-4 model
-    chatgpt_response = client.chat(
-      parameters: {
-        model: "gpt-4",
-        messages: [
-          { role: "user", content: message_content }
-        ],
-        max_tokens: 100
-      }
-    )
+    # Request multiple predictions from OpenAI API
+    prompts.map do |prompt|
+      chatgpt_response = client.chat(
+        parameters: {
+          model: "gpt-4",
+          messages: [{ role: "user", content: prompt }],
+          max_tokens: 100
+        }
+      )
 
-    # Extract the generated text from the chat response
-    prediction_text = chatgpt_response["choices"][0]["message"]["content"].strip
+      # Extract the generated text from the chat response
+      prediction_text = chatgpt_response["choices"][0]["message"]["content"].strip
 
-    # Optionally, you can calculate a confidence score based on some factors or use a fixed value
-    confidence_score = 0.85 # Example placeholder value
-
-    # Create or find an existing prediction based on the generated text
-    Prediction.create!(
-      title: "Prediction for #{trend.title}",
-      description: prediction_text,
-    )
+      # Create and store a prediction for each prompt
+      Prediction.create!(
+        title: "#{trend.title} in the #{industry} industry",
+        description: prediction_text,
+      )
+    end
   end
 end
