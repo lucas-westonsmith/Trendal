@@ -9,15 +9,23 @@ class TiktokKeywordScraper
     html = URI.open(url).read
     doc = Nokogiri::HTML(html)
 
-    puts "Deleting all related keyword examples from the database..."
-    KeywordExample.delete_all
-
+    # Liste des tendances scrapées
     scraped_trend_titles = doc.css('.byted-Table-Cell:nth-child(2) .creative-component-single-line').map(&:text).map(&:strip)
 
     puts "Marking old trends as obsolete..."
 
-    # Filtrer uniquement les tendances TikTok et avec tiktok_page = 'hashtag'
+    # Filtrer uniquement les tendances TikTok et avec tiktok_page = 'keyword'
     Trend.where(platform: 'tiktok', tiktok_page: 'keyword').where.not(title: scraped_trend_titles).find_each do |trend|
+      # Vérifier si la tendance est dans les favoris
+      if trend.favorites.exists?
+        puts "Trend ##{trend.id} (#{trend.title}) is in favorites, skipping deletion of associated keyword examples."
+      else
+        # Supprimer les exemples de mots-clés uniquement pour les tendances non favorites
+        puts "Deleting related keyword examples for Trend ##{trend.id} (#{trend.title})"
+        trend.keyword_examples.destroy_all
+      end
+
+      # Mettre à jour la tendance en marquant comme obsolète
       trend.update(rank: nil, display: false) # Définir "display" à false pour ne plus les montrer
       puts "Trend ##{trend.id} (#{trend.title}) marked as obsolete."
     end
