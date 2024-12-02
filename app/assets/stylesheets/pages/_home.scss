@@ -3,14 +3,14 @@
 
 
 p{
-  font-size: 16px;
+  font-size: 22px;
 }
 
 h1{
   font-size: 70px;
   text-align: center;
   margin: 0;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 h2{
@@ -20,20 +20,20 @@ h2{
 }
 
 h3{
-  font-size: 24px;
+  font-size: 26px;
   margin-top: 10px;
   margin-bottom: 20px;
 }
 
 h4{
-  font-size: 18px;
+  font-size: 24px;
   margin-bottom: 20px;
 }
 
 .footer-links {
   color: $links_buttons;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 18px;
 }
 
 .footer-links:hover {
@@ -66,12 +66,12 @@ body{
   }
 
 .section.white{
-  height: 500px;
+  height: 550px;
 }
 
 .logo{
-  width: 120px;
-  height: 25px;
+  width: 150px;
+  height: 35px;
 }
 
 .btn.btn-outline.btn-floating.m-1:hover{
@@ -89,6 +89,7 @@ body{
 .navbar-links{
   margin-right: 10px;
   display: flex;
+  font-size: 18px;
   }
 
   .nav-link {
@@ -97,6 +98,7 @@ body{
     color: $links_buttons; /* Adjust as needed */
     text-decoration: none;
     margin-left: 40px;
+    font-size: 18px;
   }
 
   .nav-link:hover{
@@ -219,7 +221,7 @@ body{
   appearance: none;          /* Remove default styling in other browsers */
   background-color: transparent;  /* Ensure transparent background */
   color: #333;               /* Text color */
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 400;
   font-family: Arial, sans-serif;
   border: none;              /* No border */
@@ -318,9 +320,6 @@ body{
 .bottom-banner{
   background-color: black;
 }
-
-
-
 
 
 
@@ -459,6 +458,7 @@ body{
 
 /* Animate */
 .shiny-cta {
+  margin-top: 15px;
   --transition: 800ms cubic-bezier(0.25, 1, 0.5, 1);
   transition: var(--transition);
   transition-property: --gradient-angle-offset, --gradient-percent,
@@ -514,4 +514,8 @@ body{
   50% {
     scale: 1.2;
   }
+}
+
+.steps-child-container{
+  padding-top: 20px;
 }

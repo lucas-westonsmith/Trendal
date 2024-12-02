@@ -11,6 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_12_02_103256) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,17 +69,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_103256) do
     t.index ["trend_id"], name: "index_favorites_trends_on_trend_id"
   end
 
-  create_table "predict_trends", force: :cascade do |t|
-    t.string "platform"
-    t.string "industry"
-    t.text "hashtags", default: [], array: true
-    t.text "prediction_result"
-    t.bigint "prediction_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["prediction_id"], name: "index_predict_trends_on_prediction_id"
-  end
-
   create_table "prediction_trends", force: :cascade do |t|
     t.bigint "trend_id", null: false
     t.bigint "prediction_id", null: false
@@ -122,13 +112,25 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_103256) do
     t.integer "count_overall"
     t.integer "view_count"
     t.integer "like_count"
+    t.string "industry"
     t.string "hashtags"
     t.string "video_duration"
     t.datetime "published_at"
     t.string "channel_name"
     t.string "video_url"
-    t.string "industry"
-    t.string "keyword"
+
+    t.boolean "display"
+    t.string "tiktok_page"
+    t.integer "popularity"
+    t.float "popularity_change"
+    t.float "ctr"
+    t.float "cvr"
+    t.float "cpa"
+    t.integer "cost"
+    t.integer "impression_count"
+    t.float "view_rate_6s"
+    t.integer "share_count"
+    t.integer "comment_count"
   end
 
   create_table "users", force: :cascade do |t|
@@ -162,7 +164,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_103256) do
   add_foreign_key "favorites", "users"
   add_foreign_key "favorites_trends", "favorites"
   add_foreign_key "favorites_trends", "trends"
-  add_foreign_key "predict_trends", "predictions"
   add_foreign_key "prediction_trends", "predictions"
   add_foreign_key "prediction_trends", "trends"
   add_foreign_key "related_interests", "counts"
