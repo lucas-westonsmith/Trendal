@@ -3,7 +3,7 @@
     <% if @trend.platform == 'youtube' %>
       <span class="trend-highlight">YouTube - </span>
     <% elsif @trend.platform == 'tiktok' %>
-      <span class="trend-highlight">TikTok Trend</span>
+      <span class="trend-highlight">TikTok trend</span>
     <% end %>
     <%= @trend.title %>
   </h1>
@@ -73,8 +73,8 @@
       </div>
     </div>
     <!-- Add to Favorites button -->
-  <% elsif @trend.platform == 'tiktok' %>
-    <!-- TikTok-specific content -->
+  <% elsif @trend.platform == 'tiktok' && @trend.tiktok_page == 'hashtag' %>
+    <!-- TikTok-specific content for hashtag -->
     <div class="trend-details text-start">
       <h2 class="trend-title"><%= @trend.title %></h2>
       <% if @trend.industry.present? %>
@@ -333,6 +333,52 @@
       </ul>
   </div>
 
+  <!-- TikTok-specific content for keyword -->
+  <% elsif @trend.platform == 'tiktok' && @trend.tiktok_page == 'keyword' %>
+    <div class="trend-details text-start">
+      <h2 class="trend-title"><%= @trend.title %></h2>
+        <p><strong>Popularity:</strong> <%= @trend.formatted_count(@trend.popularity) %></p>
+        <p><strong>Popularity change:</strong> +<%= @trend.popularity_change %>%</p>
+        <p><strong>CTR:</strong> <%= @trend.ctr %>%</p>
+        <p><strong>CVR:</strong> <%= @trend.cvr %>%</p>
+        <p><strong>CPA:</strong> <%= @trend.cpa %> USD</p>
+        <p><strong>Cost:</strong> <%= @trend.formatted_count(@trend.cost) %> USD</p>
+        <p><strong>Impressions:</strong> <%= @trend.formatted_count(@trend.impression_count) %></p>
+        <p><strong>6s view rate:</strong> <%= @trend.view_rate_6s %>%</p>
+        <p><strong>Likes:</strong> <%= @trend.formatted_count(@trend.like_count) %></p>
+        <p><strong>Shares:</strong> <%= @trend.formatted_count(@trend.share_count) %></p>
+        <p><strong>Comments:</strong> <%= @trend.formatted_count(@trend.comment_count) %></p>
+
+<!-- Period selection form -->
+    <div class="container mt-4">
+      <%= form_with url: trend_path(@trend, anchor: "graph"), method: :get, local: true, class: "form-inline custom-form" do %>
+        <div class="form-group mr-3">
+          <%= label_tag :period, 'Select Period:', class: 'mr-2' %>
+          <%= select_tag :period, options_for_select(
+            { '7 Days' => 7, '30 Days' => 30, '120 Days' => 120, '365 Days' => 365 },
+            selected: params[:period] || 7
+          ), class: 'form-control custom-select', onchange: 'this.form.submit()' %>
+        </div>
+        <div class="form-group mr-3">
+          <%= label_tag :country, 'Select Country:', class: 'mr-2' %>
+          <%= select_tag :country, options_for_select(
+            Count::COUNTRY_MAPPING.map { |code, (name, flag)| ["#{name} #{flag}", code] },
+            selected: params[:country] || 'US'
+          ), class: 'form-control custom-select', onchange: 'this.form.submit()' %>
+        </div>
+      <% end %>
+    </div>
+
+    <h3>Keyword examples for <%= @selected_country %> - <%= @selected_period %></h3>
+    <% if @filtered_keyword_examples.any? %>
+      <% @filtered_keyword_examples.each do |keyword_example| %>
+        <p>Keyword phrase: <%= keyword_example.keyword_phrase %></p>
+        <p>CTR: <%= keyword_example.ctr %></p>
+        <p>Related video views: <%= keyword_example.related_videos %></p>
+      <% end %>
+    <% else %>
+      <p>No keyword examples found for the selected country and period.</p>
+    <% end %>
 
   <% end %>
 </div>

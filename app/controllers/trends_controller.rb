@@ -3,15 +3,25 @@ class TrendsController < ApplicationController
     @keyword = params[:keyword]
     scraper = YoutubeScraper.new(@keyword)
     scraper.call
+
     # Fetch trends based on the platform parameter, defaulting to TikTok
     if params[:platform] == 'youtube'
       @youtube_trends = Trend.where(platform: 'youtube')
-      @tiktok_trends = nil
+      @tiktok_trends_hashtag = nil
+      @tiktok_trends_keyword = nil
     else
-      @tiktok_trends = Trend.where(platform: 'tiktok').order(:rank) # Order by rank
+      # If the platform is TikTok, separate trends for hashtags and keywords
+      if params[:platform] == 'tiktok'
+        @tiktok_trends_hashtag = Trend.where(platform: 'tiktok', tiktok_page: 'hashtag').order(:rank)
+        @tiktok_trends_keyword = Trend.where(platform: 'tiktok', tiktok_page: 'keyword').order(:rank)
+      else
+        @tiktok_trends_hashtag = nil
+        @tiktok_trends_keyword = nil
+      end
       @youtube_trends = nil
     end
   end
+
 
   def show
     @trend = Trend.includes(:counts, :videos).find(params[:id])
@@ -72,5 +82,16 @@ class TrendsController < ApplicationController
     else
       @filtered_interests = @trend.related_interests
     end
+
+    if @selected_country.present? && @selected_period.present?
+      @filtered_keyword_examples = @trend.keyword_examples
+                                          .where(country: @selected_country, period: @selected_period)
+
+      # Afficher les intérêts filtrés dans les logs
+      Rails.logger.debug "Filtered Keyword Examples: #{@filtered_keyword_examples.inspect}"
+    else
+      @filtered_keyword_examples = @trend.keyword_examples
+    end
+
   end
 end

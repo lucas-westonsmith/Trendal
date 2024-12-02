@@ -222,15 +222,21 @@ class TiktokHashtagScraper
   end
 
 
-  # Helper method to convert the post value (e.g., '947K', '8M') to a numeric value
+  # Helper method to convert any numeric values (e.g., '569K', '653 USD', '2B') into integers
   def convert_to_numeric(value)
+    return 0 if value.nil? || value.empty?
+
     case value
     when /(\d+)(K)/
       return $1.to_i * 1000  # Convert 'K' to thousands
     when /(\d+)(M)/
       return $1.to_i * 1_000_000  # Convert 'M' to millions
+    when /(\d+)(B)/
+      return $1.to_i * 1_000_000_000  # Convert 'B' to billions
+    when /(\d+)(USD|€)/
+      return $1.to_i  # Convert 'USD' or '€' to numbers
     else
-      return value.to_i  # Default case: just return the number if no 'K' or 'M'
+      return value.to_i  # Default case: just return the number if no unit found
     end
   end
 end
