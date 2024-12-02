@@ -28,8 +28,8 @@ class PredictionsController < ApplicationController
 
     # Generate multiple prompts to get different responses
     prompts = [
-      "Give me a detailed analysis of the current activity around the trend '#{trend.title}' on '#{trend.platform}', and predict the trend's future development in the #{industry} industry. Provide a concise answer and include relevant hashtags. Avoid any AI-related disclaimers or phrases like 'I predict'",
-      "Analyze the future trends stemming from '#{trend.title}' in the #{industry} industry. Provide a focused answer of, listing the relevant hashtags and including a confidence score above 80%. Be straightforward and don't use any disclaimers about AI limitations.",
+      " Avoid any AI-related disclaimers. Give me a detailed analysis of the current activity around the trend '#{trend.title}' on '#{trend.platform}', and predict the trend's future development in the #{industry} industry. Provide a concise answer and include relevant hashtags. Avoid any AI-related disclaimers or phrases like 'I predict'",
+      "Analyze the future trends stemming from '#{trend.title}' in the #{industry} industry. Listing the relevant hashtags and including a confidence score above 80%. Be straightforward and don't use any disclaimers about AI limitations.",
       "Describe future trends emerging from '#{trend.title}' in the #{industry} industry, showing relevant hashtags. Keep the response direct and creative, giving a confidence score between 60% and 80%. Avoid any AI-related disclaimers or phrases like 'I predict'.",
       "Based on '#{trend.title}' in the #{industry} industry, predict new trends and relevant hashtags. Provide a creative response with a confidence score between 0% and 40%. Focus on unique and fresh trends, avoiding phrases like 'I predict' or 'as an AI'."
     ]
