@@ -7,44 +7,83 @@
   </p>
 </div>
 
-
-
-<%= form_with url: predictions_path, method: :get, class: 'mb-4 margin' do |form| %>
-<h3 class="text-start mx-4"><span class="trend-highlight">Step 1</span> - Select a few trends</h3>
-  <div class="form-group mx-4">
-    <%= select_tag :trend_ids, options_for_select(@favorite_trends.map { |trend| [trend.title, trend.id] }, selected: params[:trend_ids]), multiple: true, class: 'form-control select2 mb-4' %>
-  </div>
-
-  <!-- Step 2 - Industry selection -->
-  <h3 class="text-start mx-4"><span class="trend-highlight">Step 2</span> - Select an industry</h3>
-  <div class="form-group mx-4">
-    <%= select_tag :industry, options_for_select([
-      ["Technology", "technology"],
-      ["Fashion", "fashion"],
-      ["Entertainment", "entertainment"],
-      ["Health", "health"],
-      ["Sports", "sports"]
-    ], selected: params[:industry]), class: 'form-control select2 mb-4' %>
-  </div>
-
-  <h3 class="text-start mx-4"><span class="trend-highlight">Step 3</span> - Hit the button and go viral!</h3>
-  <div class="form-group text-start mx-4">
-    <%= form.submit "Generate Predictions", class: "btn btn-primary btn-lg custom-btn top" %>
-  </div>
-<% end %>
-
 <% if @predictions.present? %>
+
+
+
   <h2 class="text-center my-4">Generated Predictions:</h2>
-  <div class="row right">
-    <% @predictions.each do |prediction| %>
-      <div class="col-md-4 mb-3">
-        <div class="list-group-item">
+
+ <div class="text-start mb-4 mx-4">
+  <div class="d-flex flex-wrap gap-2">
+
+    <!-- Trend Filters -->
+    <% @favorite_trends.select { |trend| params[:trend_ids].include?(trend.id.to_s) }.each do |trend| %>
+      <div class="filter-box custom-bg rounded px-3 py-2 d-flex align-items-center">
+        <i class="bi bi-hash gradient-text me-2"></i> <!-- Hash icon -->
+        <span class="gradient-text"><%= trend.title %></span>
+      </div>
+    <% end %>
+
+    <!-- Industry Filter -->
+    <div class="filter-box custom-bg rounded px-3 py-2 d-flex align-items-center">
+      <i class="fa-solid fa-bars gradient-text me-2"></i> <!-- Default industry icon -->
+      <span class="gradient-text"><%= params[:industry].capitalize %></span>
+    </div>
+
+  </div>
+</div>
+
+  <!-- Detailed Analysis Predictions -->
+  <div class="row mb-3">
+    <% @predictions.select { |p| p.prediction_type == 'detailed_analysis' }.each do |prediction| %>
+      <div class="col-12 mb-3">
+        <div class="list-group-item detailed-analysis">
           <span class="trend-highlight"><h3 class="mb-2"><%= prediction.title %></h3></span>
           <p><%= prediction.description %></p>
         </div>
       </div>
     <% end %>
   </div>
+
+  <!-- General Predictions -->
+  <div class="row">
+    <% @predictions.reject { |p| p.prediction_type == 'detailed_analysis' }.each do |prediction| %>
+      <div class="col-md-4 mb-3">
+        <div class="list-group-item">
+          <p><%= prediction.description %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+   <!-- Back Button -->
+  <div class="text-center mb-4">
+    <%= link_to "Back to Filters", predictions_path, class: "btn btn-secondary btn-lg" %>
+  </div>
+
 <% else %>
-  <p class="text-center text-muted my-4">No predictions generated yet.</p>
+  <!-- Filters Form -->
+  <%= form_with url: predictions_path, method: :get, class: 'mb-4 margin' do |form| %>
+    <h3 class="text-start mx-4"><span class="trend-highlight">Step 1</span> - Select a few trends</h3>
+    <div class="form-group mx-4">
+      <%= select_tag :trend_ids, options_for_select(@favorite_trends.map { |trend| [trend.title, trend.id] }, selected: params[:trend_ids]), multiple: true, class: 'form-control select2 mb-4' %>
+    </div>
+
+    <!-- Step 2 - Industry selection -->
+    <h3 class="text-start mx-4"><span class="trend-highlight">Step 2</span> - Select an industry</h3>
+    <div class="form-group mx-4">
+      <%= select_tag :industry, options_for_select([
+        ["Technology", "technology"],
+        ["Fashion", "fashion"],
+        ["Entertainment", "entertainment"],
+        ["Health", "health"],
+        ["Sports", "sports"]
+      ], selected: params[:industry]), class: 'form-control select2 mb-4' %>
+    </div>
+
+    <h3 class="text-start mx-4"><span class="trend-highlight">Step 3</span> - Hit the button and go viral!</h3>
+    <div class="form-group text-start mx-4">
+      <%= form.submit "Generate Predictions", class: "btn btn-primary btn-lg custom-btn top" %>
+    </div>
+  <% end %>
 <% end %>
