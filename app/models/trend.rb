@@ -9,6 +9,7 @@ class Trend < ApplicationRecord
   validates :title, presence: true
   validates :platform, presence: true
   validates :industry, presence: false
+  has_many :keyword_examples
 
   def formatted_count(count)
     if count >= 1_000_000
