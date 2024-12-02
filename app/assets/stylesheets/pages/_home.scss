@@ -30,16 +30,60 @@ h4{
   margin-bottom: 20px;
 }
 
-.footer-links {
+h5{
+  font-size: 24px;
+  color: #7d3bff; /* Violet */
+  font-weight: bold;
+}
+
+h6{
+  padding-top: 20px;
+  font-size: 18px;
   color: $links_buttons;
+}
+
+.footer-links {
+  color: white;
   text-decoration: none;
   font-size: 18px;
 }
 
 .footer-links:hover {
-  color: white;
+  text-decoration: underline;
 }
 
+.footer-email{
+  text-align: center;
+}
+
+.col-md-3.mb-4.follow{
+  width: auto;
+}
+
+.row.justify-content-center.links{
+  width: 1000px;
+}
+
+.row.justify-content-center.copyright{
+  width: 1000px;
+}
+
+.col-md-3.mb-4.contact{
+  border-style: solid;
+  border-right: white, 10px;
+  border-top: none;
+  border-left: none;
+  border-bottom: none;
+  padding-right: 15px;
+}
+
+.logo {
+  width: 100px; /* Adjust size as needed */
+}
+
+.logo-container {
+  margin-bottom: 20px;
+}
 
 body{
   background-color: white;

@@ -1,86 +1,62 @@
 <!-- Footer -->
-<footer class="bg-black text-center">
-  <!-- Grid container -->
+<footer class="bg-black text-center text-white">
+  <!-- Container -->
   <div class="container p-4">
-    <!-- Section: Social media -->
-    <section class="mb-4">
-      <!-- Facebook -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button">
-        <i class="fab fa-facebook-f fa-xl"></i>
-      </a>
+    <!-- Grid -->
+    <div class="row">
+      <!-- Contact Section -->
+      <div class="col-md-3 mb-4 contact">
+        <h3 class="text-uppercase">Get in Touch With</h3>
+        <%= image_tag "Idea 1 logo.png", class: "logo" %>
+        <br><h6>Got questions, want to collaborate, or have feedback? Drop us a line:</h6>
+        <p class="footer-email">Email: contact@trendal.me</p>
+      </div>
 
-      <!-- Instagram -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button">
-        <i class="fab fa-instagram fa-2xl"></i>
-      </a>
+      <!-- About Us Section -->
+      <div class="col-md-8">
+        <!-- Wrapper div for row layout -->
+        <div class="row justify-content-center links">
+          <!-- About Us Section -->
+          <div class="col-md-3 mb-4">
+            <h5 class="text-uppercase">About Us</h5>
+            <ul class="list-unstyled">
+              <li><%= link_to "Home", root_path, class: "footer-links" %></li>
+              <li><%= link_to "Login", new_user_session_path, class: "footer-links" %></li>
+            </ul>
+          </div>
 
-      <!-- Linkedin -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button">
-        <i class="fab fa-linkedin-in fa-2xl"></i>
-      </a>
+          <!-- Features Section -->
+          <div class="col-md-3 mb-4">
+            <h5 class="text-uppercase">Features</h5>
+            <ul class="list-unstyled">
+              <li><%= link_to "Browse Trends", trends_path, class: "footer-links" %></li>
+              <li><%= link_to "Predict Trends", trends_path, class: "footer-links" %></li>
+              <% if current_user.present? %>
+                <li><%= link_to "Favorites", favorites_path, class: "footer-links" %></li>
+              <% end %>
+            </ul>
+          </div>
 
-      <!-- Github -->
-      <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button">
-        <i class="fab fa-github fa-2xl"></i>
-      </a>
-    </section>
-    <!-- Section: Social media -->
-
-    <!-- Section: Links -->
-    <section class="">
-      <!--Grid row-->
-      <div class="row" style="justify-content:center">
-
-        <!--Grid column-->
-        <div class="col-3">
-          <ul class="list-unstyled mb-0">
-            <strong><p style="color: #6925f1">About us</p></strong>
-            <li>
-              <%= link_to "Home", root_path, class: "footer-links"  %>
-            </li>
-            <li>
-              <%= link_to "Login", new_user_session_path, class: "footer-links" %>
-            </li>
-          </ul>
+          <!-- Follow Us Section -->
+          <div class="col-md-3 mb-4 follow">
+            <h5 class="text-uppercase">Follow Us</h5>
+            <a href="#!" class="btn btn-outline btn-floating m-1"><i class="fa-brands fa-facebook fa-2xl"></i></a>
+            <a href="#!" class="btn btn-outline btn-floating m-1"><i class="fa-brands fa-instagram fa-2xl"></i></a>
+            <a href="#!" class="btn btn-outline btn-floating m-1"><i class="fa-brands fa-linkedin-in fa-2xl"></i></a>
+            <a href="#!" class="btn btn-outline btn-floating m-1"><i class="fa-brands fa-github fa-2xl"></i></a>
+          </div>
         </div>
-
-        <!--Grid column-->
-        <div class="col-3">
-          <ul class="list-unstyled mb-0">
-            <strong><p style="color: #6925f1">Features</p></strong>
-            <li>
-              <%= link_to "Browse tends", trends_path, class: "footer-links" %>
-            </li>
-            <li>
-              <%= link_to "Predict tends", trends_path, class: "footer-links" %>
-            </li>
-            <% if current_user.present? %>
-              <li>
-                <%= link_to "Favorites", favorites_path, class: "footer-links" %>
-              </li>
-            <% end %>
-          </ul>
+        <div class="row justify-content-center copyright">
+          <p>
+            This website has been coded by Artur, Rafael, and Lucas at Le Wagon.
+          </p>
+          <strong>© 2024 Trendal. All rights reserved.</strong>
         </div>
       </div>
-      <!--Grid row-->
-    </section>
-    <!-- Section: Links -->
+    </div>
+    <!-- Grid End -->
+    </div>
   </div>
-  <!-- Grid container -->
-
-  <!-- Logo in top left -->
-  <div class="logo-container">
-    <%= link_to root_path, class: "logo-link" do %>
-      <%= image_tag "Idea 1 logo.png", class: "logo" %>
-    <% end %>
-  </div>
-
-  <!-- Copyright -->
-  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-    This website has been coded by Artur, Rafael, and Lucas at Le Wagon.
-    <br>
-    <strong>© 2024 Trendal. All rights reserved.</strong>
-  </div>
-  <!-- Copyright -->
+  <!-- Container End -->
 </footer>
-<!-- Footer -->
+<!-- Footer End -->

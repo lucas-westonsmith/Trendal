@@ -118,8 +118,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_103256) do
     t.datetime "published_at"
     t.string "channel_name"
     t.string "video_url"
-
     t.boolean "display"
+
     t.string "tiktok_page"
     t.integer "popularity"
     t.float "popularity_change"
@@ -131,6 +131,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_103256) do
     t.float "view_rate_6s"
     t.integer "share_count"
     t.integer "comment_count"
+
   end
 
   create_table "users", force: :cascade do |t|
