@@ -18,7 +18,6 @@ body {
   // Make the header cells smaller by reducing padding
   thead th {
     padding: 20px 15px; // Reduce the padding to make header height smaller
-    font-size: 1rem; // Optional: You can also reduce the font size for a more compact look
   }
 
   // Table rows
@@ -32,6 +31,7 @@ body {
 
   // Table cells
   th, td {
+    font-size: 18px;
     padding: 30px 15px;
     text-align: left;
   }
@@ -49,6 +49,7 @@ body {
 
   // Styling for the first row (headings)
   th {
+    font-size: 20px;
     border-top: 1px solid #dee2e6;
     border-bottom: 2px solid #dee2e6;
   }
@@ -111,7 +112,7 @@ body {
 }
 
 .custom-form label {
-  font-size: 24px;
+  font-size: 32px;
   margin-right: 10px;
   margin-bottom: 10px;
 }
@@ -119,7 +120,7 @@ body {
 .custom-select {
   width: 100%; /* Full width for select */
   padding: 8px 12px; /* Smaller padding */
-  font-size: 14px; /* Smaller text */
+  font-size: 18px; /* Smaller text */
   border-radius: 20px; /* Rounded select */
   background-color: #fff; /* White background */
   border: 1px solid #480DBE; /* Light border */
