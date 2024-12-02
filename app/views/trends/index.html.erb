@@ -9,16 +9,26 @@
     <div class="form-group">
       <%= label_tag :platform, 'Select Platform:', class: 'mr-2' %>
       <%= select_tag :platform, options_for_select([['TikTok', 'tiktok'], ['YouTube', 'youtube']], selected: params[:platform]),
-          class: 'form-control custom-select', onchange: 'this.form.submit();' %>
+           class: 'form-control custom-select', onchange: 'this.form.submit();' %>
     </div>
   <% end %>
 </div>
 
+<!-- TikTok Hashtag or Keyword Selector -->
+<div class="container">
+  <%= form_with url: trends_path(anchor: "results"), method: :get, local: true, class: "form-inline custom-form" do %>
+    <div class="form-group">
+      <%= label_tag :tiktok_page, 'Select hashtags or keywords:', class: 'mr-2' %>
+      <%= select_tag :tiktok_page, options_for_select([['Hashtags', 'hashtag'], ['Keywords', 'keyword']], selected: params[:tiktok_page]),
+           class: 'form-control custom-select', onchange: 'this.form.submit();' %>
+    </div>
+  <% end %>
+</div>
 
-<!-- TikTok Trends Table -->
-<% if @tiktok_trends.present? %>
-  <div id="results" class="container my-5 ">
-    <h2 class="esquerda">Trending on <strong>TikTok</strong></h2>
+<!-- TikTok Trends Table for Hashtag -->
+<% if @tiktok_trends_hashtag.present? %>
+  <div id="results" class="container my-5">
+    <h2 class="esquerda">Hashtags trending on <strong>TikTok</strong></h2>
     <table class="table-custom" data-controller="clickable-row">
       <thead>
         <tr>
@@ -30,7 +40,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @tiktok_trends.select { |trend| trend.display.nil? || trend.display == true }.each do |trend| %>
+        <% @tiktok_trends_hashtag.select { |trend| trend.display.nil? || trend.display == true }.each do |trend| %>
           <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
             <td><%= trend.rank %></td>
             <td><%= trend.title %></td>
@@ -44,6 +54,36 @@
   </div>
 <% end %>
 
+<!-- TikTok Trends Table for Keyword -->
+<% if @tiktok_trends_keyword.present? %>
+  <div id="results" class="container my-5">
+    <h2 class="esquerda">Keywords trending on <strong>TikTok</strong></h2>
+    <table class="table-custom" data-controller="clickable-row">
+      <thead>
+        <tr>
+          <th scope="col">Rank</th>
+          <th scope="col">Keyword</th>
+          <th scope="col">Popularity</th>
+          <th scope="col">Impressions</th>
+          <th scope="col">Likes</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @tiktok_trends_keyword.select { |trend| trend.display.nil? || trend.display == true }.each do |trend| %>
+          <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
+            <td><%= trend.rank %></td>
+            <td><%= trend.title %></td>
+            <td><%= trend.formatted_count(trend.popularity) if trend.popularity.present? %></td>
+            <td><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
+            <td><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
+            <td><%= link_to "Analytics", trend_path(trend), class: 'btn btn-primary ml-2 custom-btn override' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
 
 <!-- YouTube Trends Table -->
 <% if @youtube_trends.present? %>
@@ -55,7 +95,6 @@
       </div>
     <% end %>
   </div>
-
   <div class="container my-5">
     <h2 class="esquerda">Trending on <strong>YouTube</strong></h2>
     <table class="table-custom" data-controller="clickable-row">

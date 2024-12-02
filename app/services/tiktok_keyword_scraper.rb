@@ -114,13 +114,13 @@ class TiktokKeywordScraper
     html = URI.open(url).read
     doc = Nokogiri::HTML(html)
 
-    scrape_keyword_examples(doc, trend)
+    scrape_keyword_examples(doc, trend, country, period)
 
   rescue => e
     puts "Error fetching country data for #{trend.title} (#{country}, #{period}): #{e.message}"
   end
 
-  def scrape_keyword_examples(doc, trend)
+  def scrape_keyword_examples(doc, trend, country, period)
     puts "Scraping keyword examples..."
 
     keyword_rows = doc.css('.byted-Table-Row')[1..-1].first(20) # On saute la première ligne
@@ -129,11 +129,9 @@ class TiktokKeywordScraper
     keyword_rows.each_with_index do |row, index|
       puts "Processing keyword example #{index + 1}/#{keyword_rows.length}"
 
-      # Extraction des données comme dans votre code précédent
+      # Extraction des données
       keyword_phrase = row.at_css('.SentenceTable_sentence__cC8bO')&.text&.strip
       keyword_phrase = keyword_phrase.split("\n").map(&:strip).join(" ") if keyword_phrase
-
-      most_used_as = row.at_css('.SentenceTable_column__WJrg1')&.text&.strip
 
       ctr_text = row.at_css('td[aria-colindex="3"] div')&.text&.strip
       ctr = ctr_text.to_f if ctr_text =~ /\d+(\.\d+)?%/
@@ -144,34 +142,40 @@ class TiktokKeywordScraper
       # Créer l'enregistrement
       KeywordExample.create!(
         keyword_phrase: keyword_phrase,
-        most_used_as: most_used_as,
         ctr: ctr,
         related_videos: related_videos,
-        trend: trend
+        trend: trend,
+        country: country,
+        period: period
       )
 
       puts "Saved KeywordExample: #{keyword_phrase}, CTR: #{ctr}, Related Videos: #{related_videos}"
     end
   end
 
+
   def format_keyword_for_url(keyword)
     URI.encode_www_form_component(keyword) # Convertit les espaces en %20 et autres caractères spéciaux
   end
 
-  # Helper method to convert any numeric values (e.g., '569K', '653 USD') into integers
+  # Helper method to convert any numeric values (e.g., '569K', '653 USD', '2B') into integers
   def convert_to_numeric(value)
     return 0 if value.nil? || value.empty?
+
     case value
     when /(\d+)(K)/
       return $1.to_i * 1000  # Convert 'K' to thousands
     when /(\d+)(M)/
       return $1.to_i * 1_000_000  # Convert 'M' to millions
+    when /(\d+)(B)/
+      return $1.to_i * 1_000_000_000  # Convert 'B' to billions
     when /(\d+)(USD|€)/
       return $1.to_i  # Convert 'USD' or '€' to numbers
     else
       return value.to_i  # Default case: just return the number if no unit found
     end
   end
+
 
   # Helper method to extract the percentage from text (e.g., '112.50%')
   def extract_percentage(value)

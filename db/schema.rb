@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_02_155757) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_02_212110) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -76,6 +76,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_155757) do
     t.text "related_videos"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "country"
+    t.integer "period"
     t.index ["trend_id"], name: "index_keyword_examples_on_trend_id"
   end
 
@@ -134,13 +136,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_155757) do
     t.integer "count_overall"
     t.integer "view_count"
     t.integer "like_count"
+    t.string "industry"
     t.string "hashtags"
     t.string "video_duration"
     t.datetime "published_at"
     t.string "channel_name"
     t.string "video_url"
-    t.string "industry"
-    t.string "keyword"
     t.boolean "display"
     t.string "tiktok_page"
     t.integer "popularity"
@@ -187,7 +188,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_155757) do
   add_foreign_key "favorites_trends", "favorites"
   add_foreign_key "favorites_trends", "trends"
   add_foreign_key "keyword_examples", "trends"
-  add_foreign_key "predict_trends", "predictions"
   add_foreign_key "prediction_trends", "predictions"
   add_foreign_key "prediction_trends", "trends"
   add_foreign_key "related_interests", "counts"
