@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_02_212110) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_02_230625) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -81,17 +81,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_212110) do
     t.index ["trend_id"], name: "index_keyword_examples_on_trend_id"
   end
 
-  create_table "predict_trends", force: :cascade do |t|
-    t.string "platform"
-    t.string "industry"
-    t.text "hashtags", default: [], array: true
-    t.text "prediction_result"
-    t.bigint "prediction_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["prediction_id"], name: "index_predict_trends_on_prediction_id"
-  end
-
   create_table "prediction_trends", force: :cascade do |t|
     t.bigint "trend_id", null: false
     t.bigint "prediction_id", null: false
@@ -111,6 +100,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_212110) do
     t.string "prediction_type", default: "general"
   end
 
+  create_table "related_hashtags", force: :cascade do |t|
+    t.bigint "trend_id", null: false
+    t.integer "rank"
+    t.string "title"
+    t.integer "popularity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trend_id"], name: "index_related_hashtags_on_trend_id"
+  end
+
   create_table "related_interests", force: :cascade do |t|
     t.bigint "trend_id", null: false
     t.bigint "count_id", null: false
@@ -122,10 +121,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_212110) do
     t.index ["trend_id"], name: "index_related_interests_on_trend_id"
   end
 
+  create_table "related_keywords", force: :cascade do |t|
+    t.bigint "trend_id", null: false
+    t.integer "rank"
+    t.string "title"
+    t.integer "popularity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trend_id"], name: "index_related_keywords_on_trend_id"
+  end
+
   create_table "trends", force: :cascade do |t|
     t.string "title"
-    t.integer "engagement_count"
-    t.integer "count"
+    t.bigint "engagement_count"
+    t.bigint "count"
     t.string "location"
     t.string "platform"
     t.text "description"
@@ -134,8 +143,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_212110) do
     t.datetime "updated_at", null: false
     t.integer "rank"
     t.integer "count_overall"
-    t.integer "view_count"
-    t.integer "like_count"
+    t.bigint "view_count"
+    t.bigint "like_count"
     t.string "industry"
     t.string "hashtags"
     t.string "video_duration"
@@ -149,8 +158,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_212110) do
     t.float "ctr"
     t.float "cvr"
     t.float "cpa"
-    t.integer "cost"
-    t.integer "impression_count"
+    t.bigint "cost"
+    t.bigint "impression_count"
     t.float "view_rate_6s"
     t.integer "share_count"
     t.integer "comment_count"
@@ -190,8 +199,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_212110) do
   add_foreign_key "keyword_examples", "trends"
   add_foreign_key "prediction_trends", "predictions"
   add_foreign_key "prediction_trends", "trends"
+  add_foreign_key "related_hashtags", "trends"
   add_foreign_key "related_interests", "counts"
   add_foreign_key "related_interests", "trends"
+  add_foreign_key "related_keywords", "trends"
   add_foreign_key "videos", "counts"
   add_foreign_key "videos", "trends"
 end
