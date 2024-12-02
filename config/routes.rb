@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     delete 'remove_trend/:trend_id', to: 'favorites#remove_trend', as: :remove_trend
   end
 
+  resources :predictions, only: [:index]
+
   # Other possible routes
   # root "posts#index"
 end

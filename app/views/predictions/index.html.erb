@@ -1,0 +1,23 @@
+<h1>Predictions Based on Your Favorite Trends</h1>
+
+<%= form_with url: predictions_path, method: :get do |form| %>
+  <%= form.label :trend_ids, "Select Trends to Predict" %>
+  <%= select_tag :trend_ids, options_for_select(@favorite_trends.map { |trend| [trend.title, trend.id] }, selected: params[:trend_ids]), multiple: true, class: 'select2' %>
+
+
+  <%= form.submit "Predict", class: "btn btn-primary" %>
+<% end %>
+
+<% if @predictions.present? %>
+  <h2>Generated Predictions:</h2>
+  <ul>
+     <% @predictions.each do |prediction| %>
+      <li>
+        <h3><%= prediction.title %></h3>
+        <p><%= prediction.description %></p>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No predictions generated yet.</p>
+<% end %>

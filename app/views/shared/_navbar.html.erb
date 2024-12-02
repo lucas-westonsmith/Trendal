@@ -5,7 +5,7 @@
     <% end %>
     <div style="display: flex;">
       <%= link_to "Browse trends", trends_path, class: "nav-link #{'active' if current_page?(trends_path)}"%>
-      <%= link_to "Predict trends", "#", class: "nav-link #{'active' if current_page?("#")}" %>
+      <%= link_to "Predict trends", predictions_path, class: "nav-link #{'active' if current_page?("#")}" %>
     </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
