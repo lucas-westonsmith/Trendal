@@ -144,7 +144,7 @@ class TiktokHashtagScraper
     end
 
     # Extraire jusqu'à 5 liens vidéo depuis le document HTML
-    video_links = doc.css('blockquote.IframeEmbedVideo_embedQuote__BdyWZ').map { |blockquote| blockquote['cite'] }.first(5)
+    video_links = doc.css('blockquote.IframeEmbedVideo_embedQuote__BdyWZ').map { |blockquote| blockquote['cite'] }.first(3)
 
     puts "Found #{video_links.length} video links for trend #{trend.title}"
 
