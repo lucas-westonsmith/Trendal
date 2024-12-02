@@ -18,13 +18,14 @@ class TiktokScraper
     puts "Deleting all related counts from the database..."
     Count.delete_all
 
-    # Delete former trends that are not in the current ranking
-    existing_trends = Trend.all.pluck(:title)  # Get all existing trend titles
-    puts "Deleting trends that are not in the current ranking..."
+    # Liste des tendances actuelles scrapées
+    scraped_trend_titles = doc.css('span.CardPc_titleText__RYOWo').map(&:text).map(&:strip)
 
-    # Delete trends that are not in the current ranking
-    Trend.where.not(title: doc.css('span.CardPc_titleText__RYOWo').map(&:text).map(&:strip)).destroy_all
-    puts "Old trends deleted."
+    puts "Marking old trends as obsolete..."
+    Trend.where.not(title: scraped_trend_titles).find_each do |trend|
+      trend.update(rank: nil, display: false) # Définir "display" à false pour ne plus les montrer
+      puts "Trend ##{trend.id} (#{trend.title}) marked as obsolete."
+    end
 
     hashtag_cards = doc.css('div.CommonDataList_cardWrapper__kHTJP')
     puts "Found #{hashtag_cards.length} hashtag cards."
@@ -52,12 +53,13 @@ class TiktokScraper
       industry = "" if industry.nil?
       puts "Industry: '#{industry}'"
 
-      # Find or initialize the trend
+      # Trouver ou initialiser la tendance
       trend = Trend.find_or_initialize_by(title: hashtag)
       trend.rank = rank
       trend.count = posts
       trend.industry = industry
       trend.platform = 'tiktok'
+      trend.display = true if trend.display.nil?
       trend.save!
       puts "Saved/Updated Trend ##{trend.id} - #{trend.title} (Industry: #{trend.industry})"
 
