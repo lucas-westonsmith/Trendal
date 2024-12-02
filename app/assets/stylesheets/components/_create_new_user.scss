@@ -147,6 +147,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
+  margin-top: 85px;
+  padding-bottom: 30px;
 }
 
 .edit-container {
@@ -181,6 +183,7 @@
 }
 
 .edit-image {
+  margin-top: 50px;
   flex: 1;
   max-width: 60%;  /* Decrease max width for image to create more space for form */
   padding-left: 20px;
