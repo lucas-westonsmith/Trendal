@@ -19,7 +19,7 @@
   <%= form_with url: trends_path(anchor: "results"), method: :get, local: true, class: "form-inline custom-form" do %>
     <div class="form-group">
       <%= label_tag :tiktok_page, 'Select hashtags or keywords:', class: 'mr-2' %>
-      <%= select_tag :tiktok_page, options_for_select([['Hashtags', 'hashtag'], ['Keywords', 'keyword']], selected: params[:tiktok_page]),
+      <%= select_tag :tiktok_page, options_for_select([['Hashtags', 'hashtag'], ['Keywords', 'keyword'], ['Products', 'product']], selected: params[:tiktok_page]),
            class: 'form-control custom-select', onchange: 'this.form.submit();' %>
     </div>
   <% end %>
@@ -73,6 +73,35 @@
         <% @tiktok_trends_keyword.select { |trend| trend.display.nil? || trend.display == true }.each do |trend| %>
           <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
             <td><%= trend.rank %></td>
+            <td><%= trend.title %></td>
+            <td><%= trend.formatted_count(trend.popularity) if trend.popularity.present? %></td>
+            <td><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
+            <td><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
+            <td><%= link_to "Analytics", trend_path(trend), class: 'btn btn-primary ml-2 custom-btn override' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<!-- TikTok Trends Table for Product -->
+<% if @tiktok_trends_product.present? %>
+  <div id="results" class="container my-5">
+    <h2 class="esquerda">Products trending on <strong>TikTok</strong></h2>
+    <table class="table-custom" data-controller="clickable-row">
+      <thead>
+        <tr>
+          <th scope="col">Keyword</th>
+          <th scope="col">Popularity</th>
+          <th scope="col">Impressions</th>
+          <th scope="col">Likes</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @tiktok_trends_product.select { |trend| trend.display.nil? || trend.display == true }.each do |trend| %>
+          <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
             <td><%= trend.title %></td>
             <td><%= trend.formatted_count(trend.popularity) if trend.popularity.present? %></td>
             <td><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>

@@ -2,7 +2,8 @@ class Trend < ApplicationRecord
   has_many :prediction_trends
   has_many :predictions, through: :prediction_trends
   has_many :counts, dependent: :destroy
-  has_many :favorite_trends
+  has_many :favorites_trends
+  has_many :favorites, through: :favorites_trends
   has_many :users, through: :favorite_trends
   has_many :videos, through: :counts
   has_many :related_interests, through: :counts
