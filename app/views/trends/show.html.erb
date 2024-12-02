@@ -14,39 +14,40 @@
 <div class="trend-container container my-5">
   <% if @trend.platform == 'youtube' %>
     <!-- YouTube-specific content -->
-    <h3 class="trend-metrics-title">Trend details</h3>
+    <h2 class="trend-metrics-title">Trend details</h2>
     <div class="trend-content d-flex justify-content-between">
       <div class="trend-details text-start">
         <h2 class="trend-title"><%= @trend.title %></h2>
         <h3 class="trend-metrics-title">Views</h3>
         <div class="d-flex">
-          <p class="trend-metrics-count">
+          <h3 class="trend-metrics-count">
             <strong><%= @trend.formatted_count(@trend.view_count) %></strong> Views
-          </p>
+          </h3>
           <p class="trend-metrics-count">/</p>
-          <p class="trend-metrics-count">
+          <h3 class="trend-metrics-count">
             <strong><%= @trend.formatted_count(@trend.like_count) %></strong> Likes
-          </p>
+          </h3>
           <div class="youtube-details">
-            <p>Duration: <strong><%= @trend.video_duration %></strong></p>
-            <p>Published At: <strong><%= @trend.published_at.strftime('%B %d, %Y') if @trend.published_at %></strong></p>
-            <p>Channel: <strong><%= @trend.channel_name %></strong></p>
+            <h3>Duration: <strong><%= @trend.video_duration %></strong></h3>
+            <h3>Published At: <strong><%= @trend.published_at.strftime('%B %d, %Y') if @trend.published_at %></strong></h3>
+            <h3>Channel: <strong><%= @trend.channel_name %></strong></h3>
           </div>
         </div>
       </div>
       <!-- YouTube Video and Hashtags Section -->
       <div class="youtube-content">
-      <% if current_user.favorite.trends.exists?(id: @trend.id) %>
-      <%= button_to 'Remove from Favorites',
-                    favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),
-                    method: :delete,
-                    class: 'btn btn-danger go-top' %>
-    <% else %>
-      <%= button_to 'Add to Favorites',
-                    favorite_add_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),
-                    method: :post,
-                    class: 'btn btn-warning go-top' %>
-    <% end %>
+          <div class = "youtube-favorites-icon">
+            <% if current_user.favorite.trends.exists?(id: @trend.id) %>
+              <!-- Replace the button with a clickable trash icon -->
+              <%= link_to favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),data: {turbo_method: :delete}, class: 'trash-icon-link' do %>
+                <i class="fa-solid fa-bookmark fa-2xl" style="color: #7d3bff; cursor: pointer;"></i>
+              <% end %>
+            <% else %>
+              <%= link_to favorite_add_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),data: {turbo_method: :post}, class: 'add-favorite-icon-link' do %>
+                <i class="fa-regular fa-bookmark fa-2xl wishlist" style="color: #7d3bff;"></i>
+              <% end %>
+            <% end %>
+          </div>
         <div class="youtube-video">
           <h3 class="trend-metrics-title">Watch the video</h3>
           <iframe width="600" height="315"
@@ -72,36 +73,37 @@
         </div>
       </div>
     </div>
-    <!-- Add to Favorites button -->
-  <% elsif @trend.platform == 'tiktok' && @trend.tiktok_page == 'hashtag' %>
+  
     <!-- TikTok-specific content for hashtag -->
+  <% elsif @trend.platform == 'tiktok' && @trend.tiktok_page == 'hashtag' %>
+    <div class= "tiktok-favorites-icon">
+      <% if current_user.favorite.trends.exists?(id: @trend.id) %>
+        <!-- Replace the button with a clickable trash icon -->
+        <%= link_to favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),data: {turbo_method: :delete}, class: 'trash-icon-link' do %>
+          <i class="fa-solid fa-bookmark fa-2xl" style="color: #7d3bff; cursor: pointer;"></i>
+        <% end %>
+      <% else %>
+        <%= link_to favorite_add_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),data: {turbo_method: :post}, class: 'add-favorite-icon-link' do %>
+          <i class="fa-regular fa-bookmark fa-2xl wishlist" style="color: #7d3bff;"></i>
+        <% end %>
+      <% end %>
+    </div>
     <div class="trend-details text-start">
       <h2 class="trend-title"><%= @trend.title %></h2>
       <% if @trend.industry.present? %>
-        <p><strong>Industry:</strong> <%= @trend.industry %></p>
+        <h3><strong>Industry:</strong> <%= @trend.industry %></h3>
       <% end %>
       <h3 class="trend-metrics-title">Posts</h3>
       <div class="d-flex">
-        <p class="trend-metrics-count">
+        <h3 class="trend-metrics-count">
           <strong><%= @trend.formatted_count(@trend.count) %></strong> Last 7 days, all regions
-        </p>
+        </h3>
         <p class="trend-metrics-count">/</p>
-        <p class="trend-metrics-count">
+        <h3 class="trend-metrics-count">
           <strong><%= @trend.formatted_count(@trend.count_overall) %></strong> Overall
-        </p>
+        </h3>
       </div>
     </div>
-     <% if current_user.favorite.trends.exists?(id: @trend.id) %>
-      <%= button_to 'Remove from Favorites',
-                    favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),
-                    method: :delete,
-                    class: 'btn btn-outline-danger mt-3 go-top rounded' %>
-    <% else %>
-      <%= button_to 'Add to Favorites',
-                    favorite_add_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),
-                    method: :post,
-                    class: 'btn btn-warning mt-3 go-top' %>
-    <% end %>
     <!-- Period selection form -->
     <div class="container mt-4">
       <%= form_with url: trend_path(@trend, anchor: "graph"), method: :get, local: true, class: "form-inline custom-form" do %>
@@ -324,11 +326,11 @@
     </div>
 
     <div class="related-interests mt-5">
-      <h3 class="trend-metrics-title" style="color: #480DBF;">Related Interests for <%= @selected_country %> - <%= @selected_period %> Days</h3>
-      <p>The top interests associated with viewers of this trend. The value represents an index score. Example: If the score is 200, the interest category is 2x as popular with viewers of this trend compared to its average popularity on TikTok worldwide.</p>
+      <h3 style="font-size: 26px" class="trend-metrics-title" style="color: #480DBF;">Related Interests for <%= @selected_country %> - <%= @selected_period %> Days</h3>
+      <p style="font-size: 24px" >The top interests associated with viewers of this trend. The value represents an index score. Example: If the score is 200, the interest category is 2x as popular with viewers of this trend compared to its average popularity on TikTok worldwide.</p>
       <ul>
         <% @filtered_interests.each do |interest| %>
-          <li><strong><%= interest.title %>:</strong> <%= interest.score %></li>
+          <li style="font-size: 22px"><strong><%= interest.title %>:</strong> <%= interest.score %></li>
         <% end %>
       </ul>
   </div>
