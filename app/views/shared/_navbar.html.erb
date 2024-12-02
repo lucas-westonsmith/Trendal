@@ -1,7 +1,7 @@
 <div class="navbar navbar-expand-sm navbar-lewagon">
   <div class="container-fluid">
     <%= link_to root_path, class: "#" do %>
-      <%= image_tag "Idea 1 logo.png", class: "logo" %>
+      <%= image_tag "rgba_image_2.png", class: "logo" %>
     <% end %>
     <div style="display: flex;">
       <%= link_to "Browse trends", trends_path, class: "nav-link #{'active' if current_page?(trends_path)}"%>
@@ -16,6 +16,7 @@
         <!-- Language Dropdown -->
           <li class="nav-item">
             <div class="language-select-wrapper">
+              <i class="fa-solid fa-globe fa-xl"></i>
               <select class="language-select" aria-label="Language selection">
                 <option value="en" selected>English</option>
                 <option value="fr">French</option>
@@ -46,6 +47,7 @@
         <% else %>
           <li class="nav-item">
             <div class="language-select-wrapper">
+              <i class="fa-solid fa-globe fa-xl"></i>
               <select class="language-select" aria-label="Language selection">
                 <option value="en" selected>English</option>
                 <option value="fr">French</option>
