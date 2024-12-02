@@ -22,7 +22,9 @@ class TiktokHashtagScraper
     scraped_trend_titles = doc.css('span.CardPc_titleText__RYOWo').map(&:text).map(&:strip)
 
     puts "Marking old trends as obsolete..."
-    Trend.where.not(title: scraped_trend_titles).find_each do |trend|
+
+    # Filtrer uniquement les tendances TikTok et avec tiktok_page = 'hashtag'
+    Trend.where(platform: 'tiktok', tiktok_page: 'hashtag').where.not(title: scraped_trend_titles).find_each do |trend|
       trend.update(rank: nil, display: false) # Définir "display" à false pour ne plus les montrer
       puts "Trend ##{trend.id} (#{trend.title}) marked as obsolete."
     end

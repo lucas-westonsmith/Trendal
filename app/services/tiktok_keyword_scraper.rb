@@ -15,8 +15,10 @@ class TiktokKeywordScraper
     scraped_trend_titles = doc.css('.byted-Table-Cell:nth-child(2) .creative-component-single-line').map(&:text).map(&:strip)
 
     puts "Marking old trends as obsolete..."
-    Trend.where.not(title: scraped_trend_titles).find_each do |trend|
-      trend.update(rank: nil, display: false)
+
+    # Filtrer uniquement les tendances TikTok et avec tiktok_page = 'hashtag'
+    Trend.where(platform: 'tiktok', tiktok_page: 'keyword').where.not(title: scraped_trend_titles).find_each do |trend|
+      trend.update(rank: nil, display: false) # Définir "display" à false pour ne plus les montrer
       puts "Trend ##{trend.id} (#{trend.title}) marked as obsolete."
     end
 
