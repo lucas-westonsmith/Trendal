@@ -11,3 +11,5 @@ pin "flatpickr" # @4.6.13
 pin "chartkick", to: "chartkick.js"
 pin "Chart.bundle", to: "Chart.bundle.js"
 
+pin "gsap", to: "https://cdn.skypack.dev/gsap"
+pin "gsap/ScrollTrigger", to: "https://cdn.skypack.dev/gsap/ScrollTrigger"
