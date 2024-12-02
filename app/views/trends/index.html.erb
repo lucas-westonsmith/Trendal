@@ -30,7 +30,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @tiktok_trends.each do |trend| %>
+        <% @tiktok_trends.select { |trend| trend.display.nil? || trend.display == true }.each do |trend| %>
           <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
             <td><%= trend.rank %></td>
             <td><%= trend.title %></td>
@@ -43,6 +43,7 @@
     </table>
   </div>
 <% end %>
+
 
 <!-- YouTube Trends Table -->
 <% if @youtube_trends.present? %>
