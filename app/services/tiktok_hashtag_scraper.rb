@@ -1,4 +1,4 @@
-class TiktokScraper
+class TiktokHashtagScraper
   COUNTRIES = %w[BR DE FR IT JP PT ZA ES GB US].freeze
   PERIODS = %w[7 30 120 365].freeze
 
@@ -60,6 +60,7 @@ class TiktokScraper
       trend.industry = industry
       trend.platform = 'tiktok'
       trend.display = true if trend.display.nil?
+      trend.tiktok_page = 'hashtag'
       trend.save!
       puts "Saved/Updated Trend ##{trend.id} - #{trend.title} (Industry: #{trend.industry})"
 

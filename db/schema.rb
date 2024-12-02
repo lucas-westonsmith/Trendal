@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_02_085401) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_02_100222) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -118,8 +118,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_085401) do
     t.string "video_url"
 
     t.boolean "display"
-    t.string "industry"
-    t.string "keyword"
+    t.string "tiktok_page"
+    t.integer "popularity"
+    t.float "popularity_change"
+    t.float "ctr"
+    t.float "cvr"
+    t.float "cpa"
+    t.integer "cost"
+    t.integer "impression_count"
+    t.float "view_rate_6s"
+    t.integer "share_count"
+    t.integer "comment_count"
   end
 
   create_table "users", force: :cascade do |t|
