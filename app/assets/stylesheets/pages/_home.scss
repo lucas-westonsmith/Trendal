@@ -565,10 +565,22 @@ body{
   padding-top: 20px;
 }
 
+
+
+
+.large-video {
+  width: 100%;
+  height: 100%;
+}
+
+.video-section {
+  background-color: black;
+
 .navbar-lewagon {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1030; /* Ensures it stays above other elements */
+
 }
