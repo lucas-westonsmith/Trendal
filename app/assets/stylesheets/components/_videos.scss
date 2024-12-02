@@ -7,13 +7,15 @@
   display: flex;
   flex-wrap: wrap;          /* Permet aux vidéos de passer à la ligne si nécessaire */
   gap: 20px;                /* Espacement entre les vidéos */
-  justify-content: center;  /* Centre les vidéos horizontalement */
+  justify-content: space-evenly;  /* Centre les vidéos horizontalement */
   margin-top: 10px;
+  overflow: hidden;
 }
 
 .video-item {
-  width: 160px; /* Largeur de chaque vidéo, ajustable selon tes préférences */
-  height: 284px; /* Hauteur des vidéos pour conserver le ratio 9:16 */
+  width: 325px; /* Largeur de chaque vidéo, ajustable selon tes préférences */
+  height: 560px; /* Hauteur des vidéos pour conserver le ratio 9:16 */
+  overflow: hidden;
 }
 
 .video-iframe {
@@ -22,8 +24,10 @@
   border-radius: 8px;  /* Coins arrondis pour un effet plus esthétique */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère pour les vidéos */
   transition: transform 0.3s ease;  /* Animation au survol */
+  overflow: hidden;
 }
 
 .video-iframe:hover {
   transform: scale(1.05);  /* Zoom léger au survol */
+  overflow: hidden;
 }

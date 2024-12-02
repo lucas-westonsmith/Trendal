@@ -22,12 +22,12 @@
 }
 
 .trend-display {
-  font-size: 5rem;
+  font-size: 48px;
   font-weight: bold;
 }
 
 .trend-lead {
-  font-size: 2rem;
+  font-size: 48px;
   font-weight: bold;
 }
 
@@ -51,7 +51,6 @@
 
 /* Trend Metrics */
 .trend-metrics-title {
-  font-size: 1rem;
   font-weight: bold;
   color: #480DBF;
 }
@@ -126,7 +125,7 @@
   padding: 8px 12px;
   margin: 5px;
   border-radius: 15px;
-  font-size: 14px;
+  font-size: 22px;
   color: #333;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease, transform 0.3s ease;
@@ -135,10 +134,13 @@
 .hashtag-box:hover {
   background-color: #480DBF;
   color: #fff;
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
-
+.add-favorite-icon-link{
+  align-items: right;
+  width: 10px;
+}
 
 
 
@@ -181,4 +183,12 @@
   position: absolute;
   right: 90px;
   top: 570px;
+}
+
+.tiktok-favorites-icon{
+  text-align: right;
+}
+
+.youtube-favorites-icon{
+  text-align: right;
 }

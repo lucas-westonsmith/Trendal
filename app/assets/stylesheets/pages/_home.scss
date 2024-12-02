@@ -15,7 +15,6 @@ h1{
 
 h2{
   font-size: 48px;
-  text-align: center;
   margin: 0;
 }
 
@@ -126,8 +125,10 @@ body{
   height: 75px;
   }
 
-.navbar.navbar-expand-sm.navbar-dark.bg-black.navbar-lewagon{
-  height: 100px;
+.navbar.navbar-expand-sm.navbar-lewagon{
+  height: 80px;
+  background-color: rgba(0, 0, 0, 0.833);
+  backdrop-filter: blur(10px);
 }
 
 .navbar-links{
@@ -562,4 +563,12 @@ body{
 
 .steps-child-container{
   padding-top: 20px;
+}
+
+.navbar-lewagon {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1030; /* Ensures it stays above other elements */
 }
