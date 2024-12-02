@@ -116,10 +116,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_085401) do
     t.datetime "published_at"
     t.string "channel_name"
     t.string "video_url"
-
     t.boolean "display"
-    t.string "industry"
-    t.string "keyword"
   end
 
   create_table "users", force: :cascade do |t|
