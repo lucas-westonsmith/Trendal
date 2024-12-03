@@ -2,15 +2,25 @@ class TrendsController < ApplicationController
   before_action :authenticate_user!, only: [:show]
   def index
     @keyword = params[:keyword]
-    scraper = YoutubeScraper.new(@keyword)
-    scraper.call
 
     if params[:platform] == 'youtube'
-      @youtube_trends = Trend.where(platform: 'youtube')
+      if @keyword.present?
+        # If a keyword is present, trigger the scraper and fetch filtered trends
+        scraper = YoutubeScraper.new(@keyword)
+        scraper.call
+
+        # Fetch the YouTube trends that match the entered keyword
+        @youtube_trends = Trend.where(platform: 'youtube').where("title LIKE ?", "%#{@keyword}%").order(:rank)
+      else
+        # If no keyword, clear search-specific results and show the general trending YouTube videos
+        @youtube_trends = Trend.where(platform: 'youtube').order(:rank)
+      end
+
       @tiktok_trends_hashtag = nil
       @tiktok_trends_keyword = nil
       @tiktok_trends_product = nil
     else
+      # Handle TikTok logic
       case params[:tiktok_page]
       when 'hashtag'
         @tiktok_trends_hashtag = Trend.where(platform: 'tiktok', tiktok_page: 'hashtag').order(:rank)
@@ -33,6 +43,8 @@ class TrendsController < ApplicationController
       @youtube_trends = nil
     end
   end
+
+
 
   def show
     @trend = Trend.includes(:counts, :videos).find(params[:id])
