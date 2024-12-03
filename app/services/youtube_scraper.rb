@@ -4,7 +4,7 @@ class YoutubeScraper
   require 'active_support/core_ext/numeric/time' # For time conversions like duration
 
   API_KEY = ENV['YOUTUBE_API_KEY']  # Replace with your actual API key
-  API_URL = "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&chart=mostPopular&regionCode=PT&maxResults=50&key=#{API_KEY}"
+  API_URL = "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&chart=mostPopular&regionCode=US&maxResults=50&key=#{API_KEY}"
 
   def initialize(keyword = nil)
     @keyword = keyword

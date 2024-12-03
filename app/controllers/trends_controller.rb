@@ -1,30 +1,38 @@
 class TrendsController < ApplicationController
+  before_action :authenticate_user!, only: [:show]
   def index
     @keyword = params[:keyword]
     scraper = YoutubeScraper.new(@keyword)
     scraper.call
 
-    # Fetch trends based on the platform parameter, defaulting to TikTok
     if params[:platform] == 'youtube'
       @youtube_trends = Trend.where(platform: 'youtube')
       @tiktok_trends_hashtag = nil
       @tiktok_trends_keyword = nil
       @tiktok_trends_product = nil
     else
-      # If the platform is TikTok, separate trends for hashtags, keywords and products
-      if params[:platform] == 'tiktok'
+      case params[:tiktok_page]
+      when 'hashtag'
         @tiktok_trends_hashtag = Trend.where(platform: 'tiktok', tiktok_page: 'hashtag').order(:rank)
+        @tiktok_trends_keyword = nil
+        @tiktok_trends_product = nil
+      when 'keyword'
         @tiktok_trends_keyword = Trend.where(platform: 'tiktok', tiktok_page: 'keyword').order(:rank)
-        @tiktok_trends_product = Trend.where(platform: 'tiktok', tiktok_page: 'product').order(:rank)
-      else
         @tiktok_trends_hashtag = nil
+        @tiktok_trends_product = nil
+      when 'product'
+        @tiktok_trends_product = Trend.where(platform: 'tiktok', tiktok_page: 'product').order(:rank)
+        @tiktok_trends_hashtag = nil
+        @tiktok_trends_keyword = nil
+      else
+        # Default to hashtags if no specific page is selected
+        @tiktok_trends_hashtag = Trend.where(platform: 'tiktok', tiktok_page: 'hashtag').order(:rank)
         @tiktok_trends_keyword = nil
         @tiktok_trends_product = nil
       end
       @youtube_trends = nil
     end
   end
-
 
   def show
     @trend = Trend.includes(:counts, :videos).find(params[:id])

@@ -27,4 +27,21 @@ class Trend < ApplicationRecord
       count.to_s
     end
   end
+
+
+  def formatted_count_integer(count)
+    return "NA" if count.nil?
+    if count >= 1_000_000_000
+      formatted = (count / 1_000_000_000.0).round(1)
+      formatted == formatted.to_i ? "#{formatted.to_i}B" : "#{formatted}B"
+    elsif count >= 1_000_000
+      formatted = (count / 1_000_000.0).round(1)
+      formatted == formatted.to_i ? "#{formatted.to_i}M" : "#{formatted}M"
+    elsif count >= 1_000
+      formatted = (count / 1000.0).round(1)
+      formatted == formatted.to_i ? "#{formatted.to_i}K" : "#{formatted}K"
+    else
+      count.to_s
+    end
+  end
 end
