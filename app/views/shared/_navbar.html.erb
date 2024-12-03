@@ -5,12 +5,22 @@
     <% end %>
     <div style="display: flex;">
       <%= link_to "Browse trends", trends_path, class: "nav-link #{'active' if current_page?(trends_path)}"%>
-      <%= link_to "Predict trends", predictions_path, class: "nav-link #{'active' if current_page?("#")}" %>
+      <%= link_to "Predict trends", predictions_path, class: "nav-link #{'active' if current_page?(predictions_path)}" %>
     </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Favorites Link -->
+      <div>
+        <% if user_signed_in? %>
+          <%= link_to favorites_path, class: "nav-link #{'active' if current_page?(favorites_path)}" do %>
+            <i class="fa-solid fa-bookmark fa-xl bookmark" style="color: #480DBF;"></i>
+            Favorites
+          <% end %>
+        <% end %>
+      </div>
+      <!-- Favorites Link -->
       <ul class="navbar-nav ms-auto"> <!-- ms-auto aligns the items to the right -->
         <% if user_signed_in? %>
         <!-- Language Dropdown -->
@@ -23,13 +33,6 @@
                 <option value="pt">Portuguese</option>
               </select>
             </div>
-          </li>
-          <!-- Favorites Link -->
-          <li class="nav-item active">
-            <%= link_to favorites_path, class: "nav-link #{'active' if current_page?(favorites_path)}" do %>
-              <i class="fa-solid fa-bookmark fa-xl bookmark" style="color: #480DBF;"></i>
-              Favorites
-            <% end %>
           </li>
           <!-- Avatar Dropdown -->
           <li class="nav-item dropdown">

@@ -125,6 +125,10 @@ body{
   height: 75px;
   }
 
+.nav-link.text-white.login{
+  margin-right: 5px;
+}
+
 .navbar.navbar-expand-sm.navbar-lewagon{
   height: 80px;
   background-color: rgba(0, 0, 0, 0.825);
@@ -137,43 +141,33 @@ body{
   font-size: 18px;
   }
 
-  .nav-link {
-    position: relative;
-    display: inline-block;
-    color: $links_buttons; /* Adjust as needed */
-    text-decoration: none;
-    margin-left: 40px;
-    font-size: 18px;
-  }
+.nav-link {
+  position: relative;
+  display: inline-block;
+  color: $links_buttons; /* Adjust as needed */
+  text-decoration: none;
+  font-size: 18px;
+  margin-right: 40px;
+}
 
-  .nav-link:hover{
-    color: white;
-  }
+.nav-link:hover{
+  color: white;
+}
 
-  .nav-link::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px; /* Underline thickness */
-    background-color: #6E2DF0; /* Underline color */
-    transition: width 0.3s ease-in-out;
-  }
+.nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px; /* Underline thickness */
+  background-color: #6E2DF0; /* Underline color */
+  transition: width 0.3s ease-in-out;
+}
 
-  .nav-link.active::before,
-  .nav-link:hover::before {
-    width: 100%; /* Full width underline */
-
-  }
-
-.nav-link.button{
-  margin-right: 10px;
-  border-style: solid;
-  border-radius: 5px;
-  background-color: $primary_color;
-  width: 100px;
-  text-align: center;
+.nav-link.active::before,
+.nav-link:hover::before {
+  width: 100%; /* Full width underline */
 }
 
 .step-container{
