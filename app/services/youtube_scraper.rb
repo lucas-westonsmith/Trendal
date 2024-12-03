@@ -70,7 +70,8 @@ class YoutubeScraper
         video_duration: formatted_duration,
         published_at: published_at,
         channel_name: channel_name,
-        video_url: video_url
+        video_url: video_url,
+        search_based: @keyword.present?
       )
     end
   end

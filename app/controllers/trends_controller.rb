@@ -13,7 +13,7 @@ class TrendsController < ApplicationController
         @youtube_trends = Trend.where(platform: 'youtube').where("title LIKE ?", "%#{@keyword}%").order(:rank)
       else
         # If no keyword, clear search-specific results and show the general trending YouTube videos
-        @youtube_trends = Trend.where(platform: 'youtube').order(:rank)
+        @youtube_trends = Trend.where(platform: 'youtube', search_based: false).order(:rank)
       end
 
       @tiktok_trends_hashtag = nil
