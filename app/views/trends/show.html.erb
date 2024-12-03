@@ -11,10 +11,14 @@
     Insights from the last days and overall <span class="trend-highlight">performance</span>
   </p>
 </div>
-<div class="trend-container container my-5">
+<div class="trend-container container my-3">
   <% if @trend.platform == 'youtube' %>
+    <i class="fa-solid fa-arrow-left fa-2xl back-youtube"
+    style="color: #7d3bff; cursor: pointer; left: 0;"
+    onclick="history.back();">
+    Go back
+    </i>
     <!-- YouTube-specific content -->
-    <h2 class="trend-metrics-title">Trend details</h2>
     <div class="trend-content d-flex justify-content-between">
       <div class="trend-details text-start">
         <h2 class="trend-title"><%= @trend.title %></h2>
@@ -76,6 +80,11 @@
 
     <!-- TikTok-specific content for hashtag -->
   <% elsif @trend.platform == 'tiktok' && @trend.tiktok_page == 'hashtag' %>
+    <i class="fa-solid fa-arrow-left fa-2xl back-tiktok"
+      style="color: #7d3bff; cursor: pointer; left: 0;"
+      onclick="history.back();">
+      Go back
+    </i>
     <div class= "tiktok-favorites-icon">
       <% if current_user.favorite.trends.exists?(id: @trend.id) %>
         <!-- Replace the button with a clickable trash icon -->

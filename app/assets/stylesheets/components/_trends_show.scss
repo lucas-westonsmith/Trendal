@@ -6,7 +6,6 @@
   height: 400px;
   color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  margin-bottom: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -32,13 +31,13 @@
 }
 
 .trend-highlight {
-  color: #480DBF;
+  color: #7d3bff;
   font-weight: bold;
 }
 
 /* Trend Container */
-.trend-container {
-  margin-top: 40px;
+.trend-container.container.my-5{
+  margin-top: 20px;
 }
 
 /* Trend Title */
@@ -52,7 +51,7 @@
 /* Trend Metrics */
 .trend-metrics-title {
   font-weight: bold;
-  color: #480DBF;
+  color: #7d3bff;
 }
 
 .trend-metrics-count strong {
@@ -67,20 +66,14 @@
 }
 
 /* Back Button */
-.trend-back-button {
-  margin-top: 30px;
+.fa-solid.fa-arrow-left.fa-2xl.back-tiktok {
+  margin-bottom: 50px;
+  font-size: 18px;
 }
 
-.trend-back-button .btn {
-  background-color: #480DBF;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.trend-back-button .btn:hover {
-  background-color: #350c91;
+.fa-solid.fa-arrow-left.fa-2xl.back-youtube{
+  margin-bottom: 70px;
+  font-size: 18px;
 }
 
 /* YouTube Content (Side by Side) */
