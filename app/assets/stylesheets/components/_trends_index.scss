@@ -91,9 +91,13 @@ body {
   text-decoration: none;
 }
 
+.form-group.search{
+  margin-top: 18px;
+  margin-left: 675px;
+}
+
 /* Container for the form */
-.custom-form {
-  padding: 15px; /* Add some padding */
+.custom-form { /* Add some padding */
   border-radius: 15px; /* Rounded corners */
   float: left; /* Align to the left */
   margin-top: 20px; /* Add some top margin if needed */
@@ -124,14 +128,14 @@ body {
   font-size: 18px; /* Smaller text */
   border-radius: 20px; /* Rounded select */
   background-color: #fff; /* White background */
-  border: 1px solid #480DBE; /* Light border */
+  border: 1px solid #dee2e6;; /* Light border */
 }
 
 .custom-btn {
   border-radius: 20px; /* Rounded corners for the button */
   padding: 8px 20px; /* Button padding */
   font-size: 14px; /* Smaller text size */
-  background-color: #480DBE; /* Primary color */
+  background-color: #420bb0; /* Primary color */
   border: none; /* Remove default border */
   color: #fff; /* Text color */
   transition: background-color 0.3s ease;
@@ -147,6 +151,9 @@ body {
   background-color: #420bb0;
 }
 
+.form-control.custom-select{
+  width: 200px;
+}
 
 .custom-input {
   border-radius: 25px; /* Adjust value to make the corners more or less rounded */
@@ -164,7 +171,6 @@ body {
 
 .esquerda {
   position: absolute;
-  margin-left: 10px;
   margin-top: -50px;
   font-size: 48px;
 }
