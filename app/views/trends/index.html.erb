@@ -15,16 +15,22 @@
 </div>
 
 <!-- TikTok Hashtag or Keyword Selector -->
+<% if @tiktok_trends_hashtag.present? || @tiktok_trends_keyword.present? || @tiktok_trends_product.present?%>
 <div class="container">
   <%= form_with url: trends_path(anchor: "results"), method: :get, local: true, class: "form-inline custom-form" do %>
     <div class="form-group">
-      <%= label_tag :tiktok_page, 'Select hashtags or keywords:', class: 'mr-2' %>
-      <%= select_tag :tiktok_page, options_for_select([['Hashtags', 'hashtag'], ['Keywords', 'keyword'], ['Products', 'product']], selected: params[:tiktok_page]),
-           class: 'form-control custom-select', onchange: 'this.form.submit();' %>
+      <%= label_tag :tiktok_page, 'Select hashtags, keywords, or products:', class: 'mr-2' %>
+      <%= select_tag :tiktok_page,
+                     options_for_select([['Hashtags', 'hashtag'],
+                                         ['Keywords', 'keyword'],
+                                         ['Products', 'product']],
+                                         selected: params[:tiktok_page] || 'hashtag'),
+                     class: 'form-control custom-select',
+                     onchange: 'this.form.submit();' %>
     </div>
   <% end %>
 </div>
-
+<% end %>
 <!-- TikTok Trends Table for Hashtag -->
 <% if @tiktok_trends_hashtag.present? %>
   <div id="results" class="container my-5">
