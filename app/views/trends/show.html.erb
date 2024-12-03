@@ -334,15 +334,21 @@
       </div>
     </div>
 
-    <div class="related-interests mt-5">
-      <h3 style="font-size: 26px" class="trend-metrics-title" style="color: #480DBF;">Related Interests for <%= @selected_country %> - <%= @selected_period %> Days</h3>
-      <p style="font-size: 24px" >The top interests associated with viewers of this trend. The value represents an index score. Example: If the score is 200, the interest category is 2x as popular with viewers of this trend compared to its average popularity on TikTok worldwide.</p>
-      <ul>
-        <% @filtered_interests.each do |interest| %>
-          <li style="font-size: 22px"><strong><%= interest.title %>:</strong> <%= interest.score %></li>
-        <% end %>
-      </ul>
+<div class="related-interests mt-5">
+  <h3 class="trend-metrics-title" style="color: #480DBF; font-size: 26px;">Related Interests for <%= @selected_country %> - <%= @selected_period %> Days</h3>
+  <p style="font-size: 24px">The top interests associated with viewers of this trend. The value represents an index score. Example: If the score is 200, the interest category is 2x as popular with viewers of this trend compared to its average popularity on TikTok worldwide.</p>
+
+  <div class="interests-container">
+    <% @filtered_interests.each do |interest| %>
+      <div class="interest-box">
+        <span class="interest-title"><%= interest.title %></span>
+        <span class="flame-icon">&#128293;</span>
+        <span class="interest-score"><%= interest.score %></span>
+      </div>
+    <% end %>
   </div>
+</div>
+
 
   <!-- TikTok-specific content for keyword -->
   <% elsif @trend.platform == 'tiktok' && @trend.tiktok_page == 'keyword' %>
