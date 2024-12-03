@@ -69,7 +69,6 @@
         <tr>
           <th scope="col">Rank</th>
           <th scope="col">Keyword</th>
-          <th scope="col">Popularity</th>
           <th scope="col">Impressions</th>
           <th scope="col">Likes</th>
           <th scope="col">Actions</th>
@@ -99,6 +98,7 @@
       <thead>
         <tr>
           <th scope="col">Keyword</th>
+          <th scope="col">Industry</th>
           <th scope="col">Popularity</th>
           <th scope="col">Impressions</th>
           <th scope="col">Likes</th>
@@ -109,6 +109,7 @@
         <% @tiktok_trends_product.select { |trend| trend.display.nil? || trend.display == true }.each do |trend| %>
           <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
             <td><%= trend.title %></td>
+            <td><%= trend.industry.present? ? trend.industry : 'N/A' %></td>
             <td><%= trend.formatted_count(trend.popularity) if trend.popularity.present? %></td>
             <td><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
             <td><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
