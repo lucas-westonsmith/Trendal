@@ -17,7 +17,7 @@ class TrendsController < ApplicationController
         @tiktok_trends_keyword = Trend.where(platform: 'tiktok', tiktok_page: 'keyword').order(:rank)
         @tiktok_trends_product = Trend.where(platform: 'tiktok', tiktok_page: 'product').order(:rank)
       else
-        @tiktok_trends_hashtag = nil
+        @tiktok_trends_hashtag = Trend.where(platform: 'tiktok', tiktok_page: 'hashtag').order(:rank)
         @tiktok_trends_keyword = nil
         @tiktok_trends_product = nil
       end

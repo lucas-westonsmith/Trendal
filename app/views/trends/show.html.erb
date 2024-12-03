@@ -73,7 +73,7 @@
         </div>
       </div>
     </div>
-  
+
     <!-- TikTok-specific content for hashtag -->
   <% elsif @trend.platform == 'tiktok' && @trend.tiktok_page == 'hashtag' %>
     <div class= "tiktok-favorites-icon">
@@ -381,6 +381,22 @@
     <% else %>
       <p>No keyword examples found for the selected country and period.</p>
     <% end %>
+
+      <!-- TikTok-specific content for product -->
+  <% elsif @trend.platform == 'tiktok' && @trend.tiktok_page == 'product' %>
+    <div class="trend-details text-start">
+      <h2 class="trend-title"><%= @trend.title %></h2>
+        <p><strong>Popularity:</strong> <%= @trend.formatted_count(@trend.popularity) %></p>
+        <p><strong>Popularity change:</strong> +<%= @trend.popularity_change %>%</p>
+        <p><strong>CTR:</strong> <%= @trend.ctr %>%</p>
+        <p><strong>CVR:</strong> <%= @trend.cvr %>%</p>
+        <p><strong>CPA:</strong> <%= @trend.cpa %> USD</p>
+        <p><strong>Cost:</strong> <%= @trend.formatted_count(@trend.cost) %> USD</p>
+        <p><strong>Impressions:</strong> <%= @trend.formatted_count(@trend.impression_count) %></p>
+        <p><strong>6s view rate:</strong> <%= @trend.view_rate_6s %>%</p>
+        <p><strong>Likes:</strong> <%= @trend.formatted_count(@trend.like_count) %></p>
+        <p><strong>Shares:</strong> <%= @trend.formatted_count(@trend.share_count) %></p>
+        <p><strong>Comments:</strong> <%= @trend.formatted_count(@trend.comment_count) %></p>
 
   <% end %>
 </div>

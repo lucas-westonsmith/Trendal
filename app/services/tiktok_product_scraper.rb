@@ -121,6 +121,7 @@ class TiktokProductScraper
         )
         trend.save!
         puts "Saved/Updated Trend ##{trend.id} - #{trend.title} (Popularity: #{popularity})"
+
       rescue => e
         puts "Error during processing product #{index + 1}: #{e.message}"
         puts e.backtrace

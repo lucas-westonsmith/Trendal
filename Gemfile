@@ -55,6 +55,7 @@ gem "sassc-rails"
 gem "nokogiri"
 gem "open-uri"
 gem "chartkick"
+gem "cloudinary"
 
 group :development, :test do
   gem "dotenv-rails"
