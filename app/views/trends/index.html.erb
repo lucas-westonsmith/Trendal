@@ -124,7 +124,7 @@
 <% if @youtube_trends.present? %>
   <div id="results" class="container my-4">
     <%= form_with url: trends_path, method: :get, local: true, class: "form-inline custom-form" do |f| %>
-  <div class="form-group d-flex">
+  <div class="form-group search" style="display: flex">
     <%= f.text_field :keyword, placeholder: "Search for trending videos...", class: "form-control custom-input", value: params[:keyword], required: true %>
     <%= f.hidden_field :platform, value: 'youtube' %>  <!-- Added this hidden field -->
     <%= f.submit "Search", class: 'btn btn-primary ml-2 custom-btn ok' %>
