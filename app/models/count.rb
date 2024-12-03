@@ -1,6 +1,6 @@
 class Count < ApplicationRecord
   belongs_to :trend
-  has_many :videos
+  has_many :videos, dependent: :destroy
   has_many :related_interests
 
   COUNTRY_MAPPING = {
