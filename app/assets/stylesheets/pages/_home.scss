@@ -16,6 +16,7 @@ h1{
 h2{
   font-size: 48px;
   margin: 0;
+  font-weight: bold;
 }
 
 h3{
@@ -101,6 +102,10 @@ body{
     background: rgb(0,0,0);
     background: linear-gradient(180deg, rgba(0,0,0,1) 5%, #480DBF 50%, rgba(0,0,0,1) 90%);
   }
+}
+
+.section.black-background{
+  overflow: visible;
 }
   .content {
     max-width: 1200px;
@@ -290,8 +295,7 @@ body{
 /* First scrolling banner (left to right) */
 .scrolling-banner-left {
   width: 100%;
-  background: rgb(0,0,0);
-  background: linear-gradient(180deg, rgba(0,0,0,1) 5%, #480DBF 95%);
+  background-color: #480DBE;
   color: $links_buttons;           /* Text color */      /* Adjust padding for better visual */
   overflow: hidden;       /* Hide overflow text */
   position: relative;
@@ -325,8 +329,7 @@ body{
 /* Second scrolling banner (right to left) */
 .scrolling-banner-right {
   width: 100%;
-  background: rgb(0,0,0);
-  background: linear-gradient(180deg, #480DBF 5%, rgba(0,0,0,1) 95%);
+  background-color: #480DBE;
   color: $links_buttons;           /* Text color */
   overflow: hidden;       /* Hide overflow text */
   position: relative;
@@ -617,4 +620,60 @@ body{
 
 .check-item{
   margin-right: 25px;
+}
+
+
+.black-background {
+  background-color: black;
+  padding: 20px;
+  height: 820px;
+}
+
+.content.hashtag-banner {
+  padding-top: 25px;
+  width: 100%;
+}
+
+.text {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 60px;
+}
+
+.paragrafo {
+  flex: 1;
+  text-align: left;
+  padding-top: 60px;
+}
+
+.paragrafo p {
+  font-size: 15px;
+}
+
+.titulo {
+  flex: 1;
+  text-align: right;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-top: 10px;
+}
+
+
+.dashboard-size {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.explore-now {
+  margin-top: 25px;
+  margin-bottom: 30px;
+  color: white;
+  background-color: #480DBE;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 30px;
+  display: flex;
+  width: 120px;
 }
