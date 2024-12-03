@@ -12,22 +12,27 @@ class TiktokKeywordScraper
     # Liste des tendances scrapées
     scraped_trend_titles = doc.css('.byted-Table-Cell:nth-child(2) .creative-component-single-line').map(&:text).map(&:strip)
 
-    puts "Marking old trends as obsolete..."
+    puts "Checking old trends for deletion or update..."
 
     # Filtrer uniquement les tendances TikTok et avec tiktok_page = 'keyword'
-    Trend.where(platform: 'tiktok', tiktok_page: 'keyword').where.not(title: scraped_trend_titles).find_each do |trend|
-      # Vérifier si la tendance est dans les favoris
+    Trend.where(platform: 'tiktok', tiktok_page: 'keyword').find_each do |trend|
       if trend.favorites.exists?
-        puts "Trend ##{trend.id} (#{trend.title}) is in favorites, skipping deletion of associated keyword examples."
+        # Si la tendance est dans les favoris, mais n'est pas dans la nouvelle liste scrappée
+        if !scraped_trend_titles.include?(trend.title)
+          trend.update(rank: nil, display: false)
+          puts "Trend ##{trend.id} (#{trend.title}) is in favorites but no longer in scraped list, display set to false."
+        else
+          puts "Trend ##{trend.id} (#{trend.title}) is in favorites, no action needed."
+        end
       else
-        # Supprimer les exemples de mots-clés uniquement pour les tendances non favorites
-        puts "Deleting related keyword examples for Trend ##{trend.id} (#{trend.title})"
-        trend.keyword_examples.destroy_all
+        # Si la tendance n'est pas dans les favoris
+        if !scraped_trend_titles.include?(trend.title)
+          trend.destroy
+          puts "Trend ##{trend.id} (#{trend.title}) has been deleted as it is not in favorites and no longer in scraped list."
+        else
+          puts "Trend ##{trend.id} (#{trend.title}) is up to date, skipping deletion."
+        end
       end
-
-      # Mettre à jour la tendance en marquant comme obsolète
-      trend.update(rank: nil, display: false) # Définir "display" à false pour ne plus les montrer
-      puts "Trend ##{trend.id} (#{trend.title}) marked as obsolete."
     end
 
     keyword_rows = doc.css('.byted-Table-Row')[1..-1]
@@ -73,26 +78,50 @@ class TiktokKeywordScraper
       comment_count_text = row.at_css('.byted-Table-Cell:nth-child(13) .KeywordTable_column__MJO36')&.text&.strip
       comment_count = convert_to_numeric(comment_count_text)
 
-      trend = Trend.find_or_initialize_by(title: keyword)
-      trend.assign_attributes(
-        rank: rank,
-        popularity: popularity,
-        popularity_change: popularity_change,
-        ctr: ctr,
-        cvr: cvr,
-        cpa: cpa,
-        cost: cost,
-        impression_count: impression_count,
-        view_rate_6s: view_rate_6s,
-        like_count: like_count,
-        share_count: share_count,
-        comment_count: comment_count,
-        tiktok_page: 'keyword',
-        platform: 'tiktok',
-        display: trend.display.nil? ? true : trend.display
-      )
-      trend.save!
-      puts "Saved/Updated Trend ##{trend.id} - #{trend.title} (Popularity: #{popularity}, Rank: #{rank})"
+      trend = Trend.find_by(title: keyword)
+      if trend
+        trend.assign_attributes(
+          rank: rank,
+          popularity: popularity,
+          popularity_change: popularity_change,
+          ctr: ctr,
+          cvr: cvr,
+          cpa: cpa,
+          cost: cost,
+          impression_count: impression_count,
+          view_rate_6s: view_rate_6s,
+          like_count: like_count,
+          share_count: share_count,
+          comment_count: comment_count,
+          tiktok_page: 'keyword',
+          platform: 'tiktok',
+          display: trend.display.nil? ? true : trend.display
+        )
+      else
+        trend = Trend.new(
+          rank: rank,
+          popularity: popularity,
+          popularity_change: popularity_change,
+          ctr: ctr,
+          cvr: cvr,
+          cpa: cpa,
+          cost: cost,
+          impression_count: impression_count,
+          view_rate_6s: view_rate_6s,
+          like_count: like_count,
+          share_count: share_count,
+          comment_count: comment_count,
+          tiktok_page: 'keyword',
+          platform: 'tiktok',
+          display: trend.display.nil? ? true : trend.display
+        )
+      end
+      if trend.changed?
+        trend.save!
+        puts "Saved/Updated Trend ##{trend.id} - #{trend.title} (Popularity: #{popularity})"
+      else
+        puts "Trend ##{trend.id} - #{trend.title} is up to date, skipping save."
+      end
 
       # Fetch additional country and period-specific data
       COUNTRIES.each do |country|

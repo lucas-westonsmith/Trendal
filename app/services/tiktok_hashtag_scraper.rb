@@ -12,24 +12,30 @@ class TiktokHashtagScraper
   # Liste des tendances actuelles scrapées
     scraped_trend_titles = doc.css('span.CardPc_titleText__RYOWo').map(&:text).map(&:strip)
 
-    puts "Marking old trends as obsolete..."
+    puts "Checking old trends for deletion or update..."
 
-    # Filtrer uniquement les tendances TikTok et avec tiktok_page = 'hashtag'
-    Trend.where(platform: 'tiktok', tiktok_page: 'hashtag').where.not(title: scraped_trend_titles).find_each do |trend|
-      # Ne pas supprimer les éléments associés si la tendance est dans les favoris
+    # Filtrer uniquement les tendances TikTok avec tiktok_page = 'keyword'
+    Trend.where(platform: 'tiktok', tiktok_page: 'hashtag').find_each do |trend|
       if trend.favorites.exists?
-        puts "Trend ##{trend.id} (#{trend.title}) is in favorites, skipping deletion of associated records."
+        # Si la tendance est dans les favoris, mais n'est pas dans la nouvelle liste scrappée
+        if !scraped_trend_titles.include?(trend.title)
+          trend.update(rank: nil, display: false)
+          puts "Trend ##{trend.id} (#{trend.title}) is in favorites but no longer in scraped list, display set to false."
+        else
+          puts "Trend ##{trend.id} (#{trend.title}) is in favorites, no action needed."
+        end
       else
-        # Supprimer les éléments associés uniquement pour les tendances non favorites
-        puts "Deleting related interests, videos, and counts for Trend ##{trend.id} (#{trend.title})"
-        trend.videos.destroy_all
-        trend.related_interests.destroy_all
-        trend.counts.destroy_all
+        # Si la tendance n'est pas dans les favoris
+        if !scraped_trend_titles.include?(trend.title)
+          trend.destroy
+          puts "Trend ##{trend.id} (#{trend.title}) has been deleted as it is not in favorites and no longer in scraped list."
+        else
+          puts "Trend ##{trend.id} (#{trend.title}) is up to date, skipping deletion."
+        end
       end
+    end
 
-    trend.update(rank: nil, display: false) # Définir "display" à false pour ne plus les montrer
-    puts "Trend ##{trend.id} (#{trend.title}) marked as obsolete."
-  end
+
 
     hashtag_cards = doc.css('div.CommonDataList_cardWrapper__kHTJP')
     puts "Found #{hashtag_cards.length} hashtag cards."
@@ -57,16 +63,23 @@ class TiktokHashtagScraper
       industry = "" if industry.nil?
       puts "Industry: '#{industry}'"
 
-      # Trouver ou initialiser la tendance
       trend = Trend.find_or_initialize_by(title: hashtag)
-      trend.rank = rank
-      trend.count = posts
-      trend.industry = industry
-      trend.platform = 'tiktok'
-      trend.display = true if trend.display.nil?
-      trend.tiktok_page = 'hashtag'
-      trend.save!
-      puts "Saved/Updated Trend ##{trend.id} - #{trend.title} (Industry: #{trend.industry})"
+
+      trend.assign_attributes(
+        rank: rank,
+        count: posts,
+        industry: industry,
+        platform: 'tiktok',
+        display: trend.display.nil? ? true : trend.display,
+        tiktok_page: 'hashtag'
+      )
+
+      if trend.changed?
+        trend.save!
+        puts "Saved/Updated Trend ##{trend.id} - #{trend.title} (Industry: #{trend.industry})"
+      else
+        puts "Trend ##{trend.id} - #{trend.title} is up to date, skipping save."
+      end
 
       # Fetch country and period-specific data
       begin
