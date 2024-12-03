@@ -1,0 +1,83 @@
+/* Grille des statistiques */
+.statistics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 colonnes */
+  gap: 20px; /* Espacement entre les boîtes */
+  margin-top: 20px;
+}
+
+/* Boîte de statistique */
+.stat-box {
+  position: relative;
+  background-color: #fff; /* Fond blanc */
+  border: 1px solid #ddd; /* Bordure grise */
+  border-radius: 12px; /* Coins arrondis */
+  padding: 20px; /* Espacement interne */
+  text-align: center; /* Centrer le texte */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  min-height: 120px; /* Plus grande hauteur des boîtes */
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Animation fluide */
+}
+
+.stat-box:hover {
+  transform: scale(1.05); /* Agrandissement léger au survol */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Ombre renforcée */
+}
+
+/* Titre des statistiques */
+.stat-box strong {
+  font-size: 1.2em; /* Taille des titres agrandie */
+  color: #333; /* Texte des titres en gris sombre */
+}
+
+/* Valeur des statistiques */
+.stat-value {
+  font-size: 2em; /* Taille des nombres beaucoup plus grande */
+  font-weight: bold;
+  color: #480DBF; /* Couleur violette des nombres */
+  margin-top: 10px; /* Espacement entre titre et valeur */
+}
+
+/* Cercle d'information */
+.info-icon {
+  position: absolute;
+  top: 10px; /* Positionné en haut à droite */
+  right: 10px;
+  background-color: #ddd; /* Fond gris */
+  color: #fff; /* Texte blanc */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%; /* Cercle parfait */
+  font-size: 14px;
+  text-align: center;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+/* Tooltip au survol */
+.info-icon:hover::after {
+  content: attr(data-tooltip); /* Affiche le texte explicatif */
+  position: absolute;
+  top: -10px;
+  right: 0px;
+  width: 250px; /* Largeur de la boîte */
+  z-index: 9999; /* S'assurer que le tooltip est toujours au premier plan */
+  background-color: #333; /* Fond noir */
+  color: #fff; /* Texte blanc */
+  padding: 10px;
+  border-radius: 8px; /* Coins arrondis */
+  font-size: 0.9em; /* Taille du texte réduite */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  white-space: normal; /* Permet le retour à la ligne */
+  text-align: left; /* Alignement du texte */
+}
+
+.info-icon:hover::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: calc(100% / 3 - 10px); /* Flèche alignée à gauche du tooltip */
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-left-color: #333; /* Petite flèche triangulaire */
+}

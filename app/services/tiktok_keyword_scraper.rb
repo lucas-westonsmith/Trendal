@@ -11,10 +11,11 @@ class TiktokKeywordScraper
 
     # Liste des tendances scrapées
     scraped_trend_titles = doc.css('.byted-Table-Cell:nth-child(2) .creative-component-single-line').map(&:text).map(&:strip)
+    puts "Scraped Trend Titles: #{scraped_trend_titles}"
 
     puts "Checking old trends for deletion or update..."
 
-    # Filtrer uniquement les tendances TikTok et avec tiktok_page = 'keyword'
+    # Filtrer uniquement les tendances TikTok avec tiktok_page = 'keyword'
     Trend.where(platform: 'tiktok', tiktok_page: 'keyword').find_each do |trend|
       if trend.favorites.exists?
         # Si la tendance est dans les favoris, mais n'est pas dans la nouvelle liste scrappée
@@ -22,16 +23,13 @@ class TiktokKeywordScraper
           trend.update(rank: nil, display: false)
           puts "Trend ##{trend.id} (#{trend.title}) is in favorites but no longer in scraped list, display set to false."
         else
-          puts "Trend ##{trend.id} (#{trend.title}) is in favorites, no action needed."
+          trend.keyword_examples.destroy_all
+          puts "Trend ##{trend.id} (#{trend.title}) is in favorites. Replacing information inside of it"
         end
       else
         # Si la tendance n'est pas dans les favoris
-        if !scraped_trend_titles.include?(trend.title)
           trend.destroy
           puts "Trend ##{trend.id} (#{trend.title}) has been deleted as it is not in favorites and no longer in scraped list."
-        else
-          puts "Trend ##{trend.id} (#{trend.title}) is up to date, skipping deletion."
-        end
       end
     end
 
@@ -82,6 +80,7 @@ class TiktokKeywordScraper
       if trend
         trend.assign_attributes(
           rank: rank,
+          title: keyword,
           popularity: popularity,
           popularity_change: popularity_change,
           ctr: ctr,
@@ -100,6 +99,7 @@ class TiktokKeywordScraper
       else
         trend = Trend.new(
           rank: rank,
+          title: keyword,
           popularity: popularity,
           popularity_change: popularity_change,
           ctr: ctr,

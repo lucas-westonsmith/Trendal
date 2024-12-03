@@ -339,17 +339,61 @@
   <% elsif @trend.platform == 'tiktok' && @trend.tiktok_page == 'keyword' %>
     <div class="trend-details text-start">
       <h2 class="trend-title"><%= @trend.title %></h2>
-        <p><strong>Popularity:</strong> <%= @trend.formatted_count(@trend.popularity) %></p>
-        <p><strong>Popularity change:</strong> +<%= @trend.popularity_change %>%</p>
-        <p><strong>CTR:</strong> <%= @trend.ctr %>%</p>
-        <p><strong>CVR:</strong> <%= @trend.cvr %>%</p>
-        <p><strong>CPA:</strong> <%= @trend.cpa %> USD</p>
-        <p><strong>Cost:</strong> <%= @trend.formatted_count(@trend.cost) %> USD</p>
-        <p><strong>Impressions:</strong> <%= @trend.formatted_count(@trend.impression_count) %></p>
-        <p><strong>6s view rate:</strong> <%= @trend.view_rate_6s %>%</p>
-        <p><strong>Likes:</strong> <%= @trend.formatted_count(@trend.like_count) %></p>
-        <p><strong>Shares:</strong> <%= @trend.formatted_count(@trend.share_count) %></p>
-        <p><strong>Comments:</strong> <%= @trend.formatted_count(@trend.comment_count) %></p>
+    </div>
+        <div class="statistics-grid">
+    <div class="stat-box">
+      <div class="info-icon" data-tooltip="The number of ad creatives featuring this product or subcategory.">?</div>
+      <strong>Popularity</strong>
+      <div class="stat-value"><%= @trend.formatted_count(@trend.popularity) %></div>
+    </div>
+    <div class="stat-box">
+      <div class="info-icon" data-tooltip="The difference in number of ad creatives featuring this product or subcategory over the period you selected.">?</div>
+      <strong>Popularity change</strong>
+      <div class="stat-value">+<%= @trend.popularity_change %>%</div>
+    </div>
+    <div class="stat-box">
+      <div class="info-icon" data-tooltip="Clickthrough-rate (CTR) is the percentage of times people saw the ad and clicked on it.">?</div>
+      <strong>CTR</strong>
+      <div class="stat-value"><%= @trend.ctr %>%</div>
+    </div>
+    <div class="stat-box">
+      <div class="info-icon" data-tooltip="Conversion rate (CVR) is the percentage of results achieved out of all the clicks on the ad, based on ad objective. For example, app installs, product sales, or reach.">?</div>
+      <strong>CVR</strong>
+      <div class="stat-value"><%= @trend.cvr %>%</div>
+    </div>
+    <div class="stat-box">
+      <div class="info-icon" data-tooltip="Cost per action (CPA) is the average amount of money spent on a conversion.">?</div>
+      <strong>CPA</strong>
+      <div class="stat-value"><%= @trend.cpa %> USD</div>
+    </div>
+    <div class="stat-box">
+      <div class="info-icon" data-tooltip="The total amount of money spent on the ad during its schedule.">?</div>
+      <strong>Cost</strong>
+      <div class="stat-value"><%= @trend.formatted_count(@trend.cost) %> USD</div>
+    </div>
+    <div class="stat-box">
+      <div class="info-icon" data-tooltip="The number of times the ad has been displayed on screen.">?</div>
+      <strong>Impressions</strong>
+      <div class="stat-value"><%= @trend.formatted_count(@trend.impression_count) %></div>
+    </div>
+    <div class="stat-box">
+      <div class="info-icon" data-tooltip="The percentage of people who watched the ad for at least 6 seconds.">?</div>
+      <strong>6s view rate</strong>
+      <div class="stat-value"><%= @trend.view_rate_6s %>%</div>
+    </div>
+    <div class="stat-box">
+      <strong>Likes</strong>
+      <div class="stat-value"><%= @trend.formatted_count(@trend.like_count) %></div>
+    </div>
+    <div class="stat-box">
+      <strong>Shares</strong>
+      <div class="stat-value"><%= @trend.formatted_count(@trend.share_count) %></div>
+    </div>
+    <div class="stat-box">
+      <strong>Comments</strong>
+      <div class="stat-value"><%= @trend.formatted_count(@trend.comment_count) %></div>
+    </div>
+  </div>
 
 <!-- Period selection form -->
     <div class="container mt-4">
@@ -371,32 +415,106 @@
       <% end %>
     </div>
 
-    <h3>Keyword examples for <%= @selected_country %> - <%= @selected_period %></h3>
-    <% if @filtered_keyword_examples.any? %>
+<h3>Keyword examples for <%= @selected_country %> - <%= @selected_period %></h3>
+<% if @filtered_keyword_examples.any? %>
+  <table class="table-custom" data-controller="clickable-row">
+    <thead>
+      <tr>
+        <th>Keyword phrase</th>
+        <th>CTR</th>
+        <th>Example</th>
+      </tr>
+    </thead>
+    <tbody>
       <% @filtered_keyword_examples.each do |keyword_example| %>
-        <p>Keyword phrase: <%= keyword_example.keyword_phrase %></p>
-        <p>CTR: <%= keyword_example.ctr %></p>
-        <p>Related video views: <%= keyword_example.related_videos %></p>
+        <tr>
+          <td><%= keyword_example.keyword_phrase %></td>
+          <td><%= keyword_example.ctr %>%</td>
+          <td class="video-cell">
+            <% if keyword_example.related_videos.present? %>
+              <!-- Lien pour ouvrir la vidéo dans une pop-up -->
+              <a href="<%= keyword_example.related_videos %>" target="popup"
+                 onclick="window.open('<%= keyword_example.related_videos %>', 'popup', 'width=800,height=600'); return false;">
+                <div class="video-thumbnail">
+                  <img src="<%= keyword_example.related_videos %>" alt="Video Thumbnail">
+                </div>
+              </a>
+            <% else %>
+              No video available
+            <% end %>
+          </td>
+        </tr>
       <% end %>
-    <% else %>
-      <p>No keyword examples found for the selected country and period.</p>
-    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No keyword examples found for the selected country and period.</p>
+<% end %>
+
+
+
 
       <!-- TikTok-specific content for product -->
-  <% elsif @trend.platform == 'tiktok' && @trend.tiktok_page == 'product' %>
-    <div class="trend-details text-start">
-      <h2 class="trend-title"><%= @trend.title %></h2>
-        <p><strong>Popularity:</strong> <%= @trend.formatted_count(@trend.popularity) %></p>
-        <p><strong>Popularity change:</strong> +<%= @trend.popularity_change %>%</p>
-        <p><strong>CTR:</strong> <%= @trend.ctr %>%</p>
-        <p><strong>CVR:</strong> <%= @trend.cvr %>%</p>
-        <p><strong>CPA:</strong> <%= @trend.cpa %> USD</p>
-        <p><strong>Cost:</strong> <%= @trend.formatted_count(@trend.cost) %> USD</p>
-        <p><strong>Impressions:</strong> <%= @trend.formatted_count(@trend.impression_count) %></p>
-        <p><strong>6s view rate:</strong> <%= @trend.view_rate_6s %>%</p>
-        <p><strong>Likes:</strong> <%= @trend.formatted_count(@trend.like_count) %></p>
-        <p><strong>Shares:</strong> <%= @trend.formatted_count(@trend.share_count) %></p>
-        <p><strong>Comments:</strong> <%= @trend.formatted_count(@trend.comment_count) %></p>
+<% elsif @trend.platform == 'tiktok' && @trend.tiktok_page == 'product' %>
+  <div class="trend-details text-start">
+    <h2 class="trend-title"><%= @trend.title %></h2>
+  </div>
 
-  <% end %>
+  <div class="statistics-grid">
+    <div class="stat-box">
+      <div class="info-icon" data-tooltip="The number of ad creatives featuring this product or subcategory.">?</div>
+      <strong>Popularity</strong>
+      <div class="stat-value"><%= @trend.formatted_count(@trend.popularity) %></div>
+    </div>
+    <div class="stat-box">
+      <div class="info-icon" data-tooltip="The difference in number of ad creatives featuring this product or subcategory over the period you selected.">?</div>
+      <strong>Popularity change</strong>
+      <div class="stat-value">+<%= @trend.popularity_change %>%</div>
+    </div>
+    <div class="stat-box">
+      <div class="info-icon" data-tooltip="Clickthrough-rate (CTR) is the percentage of times people saw the ad and clicked on it.">?</div>
+      <strong>CTR</strong>
+      <div class="stat-value"><%= @trend.ctr %>%</div>
+    </div>
+    <div class="stat-box">
+      <div class="info-icon" data-tooltip="Conversion rate (CVR) is the percentage of results achieved out of all the clicks on the ad, based on ad objective. For example, app installs, product sales, or reach.">?</div>
+      <strong>CVR</strong>
+      <div class="stat-value"><%= @trend.cvr %>%</div>
+    </div>
+    <div class="stat-box">
+      <div class="info-icon" data-tooltip="Cost per action (CPA) is the average amount of money spent on a conversion.">?</div>
+      <strong>CPA</strong>
+      <div class="stat-value"><%= @trend.cpa %> USD</div>
+    </div>
+    <div class="stat-box">
+      <div class="info-icon" data-tooltip="The total amount of money spent on the ad during its schedule.">?</div>
+      <strong>Cost</strong>
+      <div class="stat-value"><%= @trend.formatted_count(@trend.cost) %> USD</div>
+    </div>
+    <div class="stat-box">
+      <div class="info-icon" data-tooltip="The number of times the ad has been displayed on screen.">?</div>
+      <strong>Impressions</strong>
+      <div class="stat-value"><%= @trend.formatted_count(@trend.impression_count) %></div>
+    </div>
+    <div class="stat-box">
+      <div class="info-icon" data-tooltip="The percentage of people who watched the ad for at least 6 seconds.">?</div>
+      <strong>6s view rate</strong>
+      <div class="stat-value"><%= @trend.view_rate_6s %>%</div>
+    </div>
+    <div class="stat-box">
+      <strong>Likes</strong>
+      <div class="stat-value"><%= @trend.formatted_count(@trend.like_count) %></div>
+    </div>
+    <div class="stat-box">
+      <strong>Shares</strong>
+      <div class="stat-value"><%= @trend.formatted_count(@trend.share_count) %></div>
+    </div>
+    <div class="stat-box">
+      <strong>Comments</strong>
+      <div class="stat-value"><%= @trend.formatted_count(@trend.comment_count) %></div>
+    </div>
+  </div>
+<% end %>
+
+
 </div>
