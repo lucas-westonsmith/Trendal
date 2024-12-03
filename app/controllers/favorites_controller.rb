@@ -5,7 +5,123 @@ class FavoritesController < ApplicationController
     @favorite = current_user.favorite || current_user.create_favorite
 
     if params[:platform].present?
-      @favorite.trends = @favorite.trends.where(platform: params[:platform])
+      @favorite_trends = @favorite.trends.where(platform: params[:platform])
+
+      if params[:platform] == 'tiktok'
+        case params[:tiktok_page]
+        when 'hashtag'
+          @favorite_tiktok_hashtags = @favorite_trends.where(tiktok_page: 'hashtag')
+        when 'keyword'
+          @favorite_tiktok_keywords = @favorite_trends.where(tiktok_page: 'keyword')
+        when 'product'
+          @favorite_tiktok_products = @favorite_trends.where(tiktok_page: 'product')
+        else
+          @favorite_tiktok_hashtags = @favorite_trends.where(tiktok_page: 'hashtag')
+        end
+      elsif params[:platform] == 'youtube'
+        @favorite_youtube_trends = @favorite_trends
+      end
+    else
+      @favorite_trends = @favorite.trends
+    end
+
+    # DATA FOR THE GRAPHS
+    # Data for hashtags
+    @tiktok_data_graph_for_hashtags_count = @favorite_tiktok_hashtags.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:count]
+    end
+
+    @tiktok_data_graph_for_hashtags_count_overall = @favorite_tiktok_hashtags.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:count_overall]
+    end
+    # Data for keywords
+    @tiktok_data_graph_for_keywords_popularity = @favorite_tiktok_keywords.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:popularity]
+    end
+
+    @tiktok_data_graph_for_keywords_popularity_change = @favorite_tiktok_keywords.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:popularity_change]
+    end
+
+    @tiktok_data_graph_for_keywords_ctr = @favorite_tiktok_keywords.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:ctr]
+    end
+
+    @tiktok_data_graph_for_keywords_cvr = @favorite_tiktok_keywords.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:cvr]
+    end
+
+    @tiktok_data_graph_for_keywords_cpa = @favorite_tiktok_keywords.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:cpa]
+    end
+
+    @tiktok_data_graph_for_keywords_cost = @favorite_tiktok_keywords.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:cost]
+    end
+
+    @tiktok_data_graph_for_keywords_impression_count = @favorite_tiktok_keywords.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:impression_count]
+    end
+
+    @tiktok_data_graph_for_keywords_view_rate_6s = @favorite_tiktok_keywords.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:view_rate_6s]
+    end
+
+    @tiktok_data_graph_for_keywords_like_count = @favorite_tiktok_keywords.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:like_count]
+    end
+
+    @tiktok_data_graph_for_keywords_share_count = @favorite_tiktok_keywords.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:share_count]
+    end
+
+    @tiktok_data_graph_for_keywords_comment_count = @favorite_tiktok_keywords.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:comment_count]
+    end
+
+    # Data for products
+    @tiktok_data_graph_for_products_popularity = @favorite_tiktok_products.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:popularity]
+    end
+
+    @tiktok_data_graph_for_products_popularity_change = @favorite_tiktok_products.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:popularity_change]
+    end
+
+    @tiktok_data_graph_for_products_ctr = @favorite_tiktok_products.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:ctr]
+    end
+
+    @tiktok_data_graph_for_products_cvr = @favorite_tiktok_products.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:cvr]
+    end
+
+    @tiktok_data_graph_for_products_cpa = @favorite_tiktok_products.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:cpa]
+    end
+
+    @tiktok_data_graph_for_products_cost = @favorite_tiktok_products.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:cost]
+    end
+
+    @tiktok_data_graph_for_products_impression_count = @favorite_tiktok_products.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:impression_count]
+    end
+
+    @tiktok_data_graph_for_products_view_rate_6s = @favorite_tiktok_products.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:view_rate_6s]
+    end
+
+    @tiktok_data_graph_for_products_like_count = @favorite_tiktok_products.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:like_count]
+    end
+
+    @tiktok_data_graph_for_products_share_count = @favorite_tiktok_products.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:share_count]
+    end
+
+    @tiktok_data_graph_for_products_comment_count = @favorite_tiktok_products.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:comment_count]
     end
   end
 

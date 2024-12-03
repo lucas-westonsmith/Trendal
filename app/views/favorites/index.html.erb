@@ -1,84 +1,241 @@
+<!-- Banner -->
 <div class="banner text-center">
   <h1 class="display-4 text-white">Your <span class="highlight">Favorites</span></h1>
   <p class="lead text-white">Browse your favorite trending topics from various platforms.</p>
 </div>
 
-<!-- Display Favorite TikTok Trends -->
-<% if @favorite.trends.present? %>
-  <div class="container my-5">
-    <h3 class="trend-metrics-title">Your favorite TikTok trends</h3> <!-- Updated title -->
-    <table class="table-custom" data-controller="clickable-row">
-      <thead>
-        <tr>
-          <th scope="col">#</th> <!-- Changed Rank to # (Favorite number) -->
-          <th scope="col">Hashtag</th>
-          <th scope="col">Industry</th>
-          <th scope="col">Posts (last 7 days)</th>
-          <th scope="col">Actions</th>
-          <th scope="col"></th> <!-- New "Remove" column (empty title) -->
-        </tr>
-      </thead>
-      <tbody>
-        <% @favorite.trends.each_with_index do |trend, index| %>
-          <% if trend.platform == 'tiktok' %>
-            <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
-              <td>#<%= index + 1 %></td> <!-- Display the favorite number -->
+<!-- Selectors / Filters -->
+<div class="container">
+  <%= form_with url: favorites_path(anchor: "results"), method: :get, local: true, class: "form-inline custom-form" do %>
+    <div class="form-group">
+      <%= label_tag :platform, 'Select Platform:', class: 'mr-2' %>
+      <%= select_tag :platform,
+                     options_for_select([['TikTok', 'tiktok'], ['YouTube', 'youtube']],
+                     selected: params[:platform]),
+                     class: 'form-control custom-select',
+                     onchange: 'this.form.submit();' %>
+    </div>
+    <% if params[:platform] == 'tiktok' %>
+      <div class="form-group ml-3">
+        <%= label_tag :tiktok_page, 'Select Category:', class: 'mr-2' %>
+        <%= select_tag :tiktok_page,
+                       options_for_select([['Hashtags', 'hashtag'],
+                                           ['Keywords', 'keyword'],
+                                           ['Products', 'product']],
+                                           selected: params[:tiktok_page]),
+                       class: 'form-control custom-select',
+                       onchange: 'this.form.submit();' %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<!-- TikTok -->
+<% if params[:platform] == 'tiktok' %>
+
+  <!-- TikTok hashtags -->
+  <% if @favorite_tiktok_hashtags.present? %>
+  <!-- ADD HERE IF PLATFORM IS LIST -->
+    <div class="container my-5">
+      <h3>Your Favorite TikTok Hashtags</h3>
+      <table class="table-custom">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Hashtag</th>
+            <th>Industry</th>
+            <th>Posts</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @favorite_tiktok_hashtags.each_with_index do |trend, index| %>
+            <tr>
+              <td><%= index + 1 %></td>
               <td><%= trend.title %></td>
-              <td><%= trend.industry.present? ? trend.industry : 'N/A' %></td>
-              <td><%= trend.formatted_count(trend.count) if trend.count.present? %></td>
+              <td><%= trend.industry || 'N/A' %></td>
+              <td><%= trend.formatted_count(trend.count) %></td>
               <td>
-                <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %> <!-- See analytics button -->
-              </td>
-              <td>
+                <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
                 <%= button_to 'Remove',
                       favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
                       method: :delete,
-                      class: 'btn btn-danger btn-sm custom-btn-remove' %> <!-- Remove button -->
+                      class: 'btn btn-danger btn-sm custom-btn-remove' %>
               </td>
             </tr>
           <% end %>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+        </tbody>
+      </table>
+    </div>
+      <!-- ADD HERE IF PLATFORM IS DASHBOARD -->
+        <%= column_chart @tiktok_data_graph_for_hashtags_count, height: "500px", colors: ["#3498db"] %>
+        <h3>Last 7 days, all regions</h3>
+        <%= column_chart @tiktok_data_graph_for_hashtags_count_overall, height: "500px", colors: ["#3498db"] %>
+        <h3>Overall</h3>
+  <% end %>
 
-  <!-- Display Favorite YouTube Trends -->
-  <div class="container my-5">
-    <h3 class="trend-metrics-title">Your favorite YouTube trends</h3> <!-- Updated title -->
-    <table class="table-custom" data-controller="clickable-row">
-      <thead>
-        <tr>
-          <th scope="col">#</th> <!-- Changed Rank to # (Favorite number) -->
-          <th scope="col">Title</th>
-          <th scope="col">Views</th>
-          <th scope="col">Likes</th>
-          <th scope="col">Actions</th>
-          <th scope="col"></th> <!-- New "Remove" column (empty title) -->
-        </tr>
-      </thead>
-      <tbody>
-        <% @favorite.trends.each_with_index do |trend, index| %>
-          <% if trend.platform == 'youtube' %>
-            <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
-              <td>#<%= index + 1 %></td> <!-- Display the favorite number -->
+  <!-- TikTok keywords -->
+  <% if @favorite_tiktok_keywords.present? %>
+    <!-- ADD HERE IF PLATFORM IS LIST -->
+    <div class="container my-5">
+      <h3>Your Favorite TikTok Keywords</h3>
+      <table class="table-custom">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Keyword</th>
+            <th>Impressions</th>
+            <th>Likes</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @favorite_tiktok_keywords.each_with_index do |trend, index| %>
+            <tr>
+              <td><%= index + 1 %></td>
               <td><%= trend.title %></td>
-              <td><%= trend.formatted_count(trend.view_count) if trend.view_count.present? %></td>
+              <td><%= trend.industry || 'N/A' %></td>
+              <td><%= trend.formatted_count(trend.popularity) if trend.popularity.present? %></td>
+              <td><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
               <td><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
               <td>
-                <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %> <!-- See analytics button -->
-              </td>
-              <td>
+                <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
                 <%= button_to 'Remove',
                       favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
                       method: :delete,
-                      class: 'btn btn-danger btn-sm custom-btn-remove' %> <!-- Remove button -->
+                      class: 'btn btn-danger btn-sm custom-btn-remove' %>
               </td>
             </tr>
           <% end %>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+        </tbody>
+      </table>
+    </div>
+    <!-- ADD HERE IF PLATFORM IS DASHBOARD -->
+      <%= column_chart @tiktok_data_graph_for_keywords_popularity, height: "500px", colors: ["#3498db"] %>
+      <h3>Popularity</h3>
+      <%= column_chart @tiktok_data_graph_for_keywords_popularity_change, height: "500px", colors: ["#3498db"] %>
+      <h3>Popularity change</h3>
+      <%= column_chart @tiktok_data_graph_for_keywords_ctr, height: "500px", colors: ["#3498db"] %>
+      <h3>CTR</h3>
+      <%= column_chart @tiktok_data_graph_for_keywords_cvr, height: "500px", colors: ["#3498db"] %>
+      <h3>CVR</h3>
+      <%= column_chart @tiktok_data_graph_for_keywords_cpa, height: "500px", colors: ["#3498db"] %>
+      <h3>CPA</h3>
+      <%= column_chart @tiktok_data_graph_for_keywords_cost, height: "500px", colors: ["#3498db"] %>
+      <h3>Cost</h3>
+      <%= column_chart @tiktok_data_graph_for_keywords_impression_count, height: "500px", colors: ["#3498db"] %>
+      <h3>Impression count</h3>
+      <%= column_chart @tiktok_data_graph_for_keywords_view_rate_6s, height: "500px", colors: ["#3498db"] %>
+      <h3>View rate 6s</h3>
+      <%= column_chart @tiktok_data_graph_for_keywords_like_count, height: "500px", colors: ["#3498db"] %>
+      <h3>Likes</h3>
+      <%= column_chart @tiktok_data_graph_for_keywords_share_count, height: "500px", colors: ["#3498db"] %>
+      <h3>Shares</h3>
+      <%= column_chart @tiktok_data_graph_for_keywords_comment_count, height: "500px", colors: ["#3498db"] %>
+      <h3>Comments</h3>
+  <% end %>
+
+  <!-- TikTok products -->
+  <% if @favorite_tiktok_products.present? %>
+    <!-- ADD HERE IF PLATFORM IS LIST -->
+    <div class="container my-5">
+      <h3>Your Favorite TikTok Products</h3>
+      <table class="table-custom">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Keyword</th>
+            <th>Industry</th>
+            <th>Impressions</th>
+            <th>Likes</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @favorite_tiktok_hashtags.each_with_index do |trend, index| %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= trend.title %></td>
+              <td><%= trend.industry || 'N/A' %></td>
+              <td><%= trend.formatted_count(trend.popularity) if trend.popularity.present? %></td>
+              <td><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
+              <td><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
+              <td>
+                <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
+                <%= button_to 'Remove',
+                      favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
+                      method: :delete,
+                      class: 'btn btn-danger btn-sm custom-btn-remove' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <!-- ADD HERE IF PLATFORM IS DASHBOARD -->
+      <%= column_chart @tiktok_data_graph_for_products_popularity, height: "500px", colors: ["#3498db"] %>
+      <h3>Popularity</h3>
+      <%= column_chart @tiktok_data_graph_for_products_popularity_change, height: "500px", colors: ["#3498db"] %>
+      <h3>Popularity change</h3>
+      <%= column_chart @tiktok_data_graph_for_products_ctr, height: "500px", colors: ["#3498db"] %>
+      <h3>CTR</h3>
+      <%= column_chart @tiktok_data_graph_for_products_cvr, height: "500px", colors: ["#3498db"] %>
+      <h3>CVR</h3>
+      <%= column_chart @tiktok_data_graph_for_products_cpa, height: "500px", colors: ["#3498db"] %>
+      <h3>CPA</h3>
+      <%= column_chart @tiktok_data_graph_for_products_cost, height: "500px", colors: ["#3498db"] %>
+      <h3>Cost</h3>
+      <%= column_chart @tiktok_data_graph_for_products_impression_count, height: "500px", colors: ["#3498db"] %>
+      <h3>Impression count</h3>
+      <%= column_chart @tiktok_data_graph_for_products_view_rate_6s, height: "500px", colors: ["#3498db"] %>
+      <h3>View rate 6s</h3>
+      <%= column_chart @tiktok_data_graph_for_products_like_count, height: "500px", colors: ["#3498db"] %>
+      <h3>Likes</h3>
+      <%= column_chart @tiktok_data_graph_for_products_share_count, height: "500px", colors: ["#3498db"] %>
+      <h3>Shares</h3>
+      <%= column_chart @tiktok_data_graph_for_products_comment_count, height: "500px", colors: ["#3498db"] %>
+      <h3>Comments</h3>
+  <% end %>
+
+<!-- Youtube -->
+<% elsif params[:platform] == 'youtube' %>
+  <% if @favorite_youtube_trends.present? %>
+    <!-- ADD HERE IF PLATFORM IS LIST -->
+    <div class="container my-5">
+      <h3>Your Favorite YouTube Trends</h3>
+      <table class="table-custom">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Views</th>
+            <th>Likes</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @favorite_youtube_trends.each_with_index do |trend, index| %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= trend.title %></td>
+              <td><%= trend.formatted_count(trend.view_count) %></td>
+              <td><%= trend.formatted_count(trend.like_count) %></td>
+              <td>
+                <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
+                <%= button_to 'Remove',
+                      favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
+                      method: :delete,
+                      class: 'btn btn-danger btn-sm custom-btn-remove' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <!-- ADD HERE IF PLATFORM IS DASHBOARD -->
+  <% end %>
+
+<!-- If no favorites -->
 <% else %>
   <div class="container my-5">
     <h2>Uh-oh, your collection is feeling lonely! 😔</h2>
