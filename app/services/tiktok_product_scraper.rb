@@ -13,7 +13,7 @@ class TiktokProductScraper
 
     puts "Checking old trends for deletion or update..."
 
-    # Filtrer uniquement les tendances TikTok et avec tiktok_page = 'product'
+    # Filtrer uniquement les tendances TikTok avec tiktok_page = 'keyword'
     Trend.where(platform: 'tiktok', tiktok_page: 'product').find_each do |trend|
       if trend.favorites.exists?
         # Si la tendance est dans les favoris, mais n'est pas dans la nouvelle liste scrappée
@@ -21,16 +21,12 @@ class TiktokProductScraper
           trend.update(display: false)
           puts "Trend ##{trend.id} (#{trend.title}) is in favorites but no longer in scraped list, display set to false."
         else
-          puts "Trend ##{trend.id} (#{trend.title}) is in favorites, no action needed."
+          puts "Trend ##{trend.id} (#{trend.title}) is in favorites. Replacing information inside of it"
         end
       else
         # Si la tendance n'est pas dans les favoris
-        if !scraped_trend_titles.include?(trend.title)
           trend.destroy
           puts "Trend ##{trend.id} (#{trend.title}) has been deleted as it is not in favorites and no longer in scraped list."
-        else
-          puts "Trend ##{trend.id} (#{trend.title}) is up to date, skipping deletion."
-        end
       end
     end
 
@@ -78,27 +74,27 @@ class TiktokProductScraper
         cost = convert_to_numeric(cost_text)
         puts "Cost: #{cost}"
 
-        impression_text = row.at_css('.byted-Table-Cell:nth-child(10)')&.text&.strip
+        impression_text = row.at_css('.byted-Table-Cell:nth-child(11)')&.text&.strip
         puts "Impression Text: #{impression_text}" if impression_text
         impression_count = convert_to_numeric(impression_text)
         puts "Impression Count: #{impression_count}"
 
-        view_rate_6s_text = row.at_css('.byted-Table-Cell:nth-child(11)')&.text&.strip
+        view_rate_6s_text = row.at_css('.byted-Table-Cell:nth-child(12)')&.text&.strip
         puts "View Rate 6s Text: #{view_rate_6s_text}" if view_rate_6s_text
         view_rate_6s = convert_to_numeric(view_rate_6s_text)
         puts "View Rate 6s: #{view_rate_6s}"
 
-        like_count_text = row.at_css('.byted-Table-Cell:nth-child(12)')&.text&.strip
+        like_count_text = row.at_css('.byted-Table-Cell:nth-child(8)')&.text&.strip
         puts "Like Count Text: #{like_count_text}" if like_count_text
         like_count = convert_to_numeric(like_count_text)
         puts "Like Count: #{like_count}"
 
-        share_count_text = row.at_css('.byted-Table-Cell:nth-child(8)')&.text&.strip
+        share_count_text = row.at_css('.byted-Table-Cell:nth-child(9)')&.text&.strip
         puts "Share Count Text: #{share_count_text}" if share_count_text
         share_count = convert_to_numeric(share_count_text)
         puts "Share Count: #{share_count}"
 
-        comment_count_text = row.at_css('.byted-Table-Cell:nth-child(9)')&.text&.strip
+        comment_count_text = row.at_css('.byted-Table-Cell:nth-child(10)')&.text&.strip
         puts "Comment Count Text: #{comment_count_text}" if comment_count_text
         comment_count = convert_to_numeric(comment_count_text)
         puts "Comment Count: #{comment_count}"
@@ -107,6 +103,7 @@ class TiktokProductScraper
 
         if trend
           trend.assign_attributes(
+            title: product,
             popularity: popularity,
             popularity_change: popularity_change,
             ctr: ctr,

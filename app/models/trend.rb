@@ -7,10 +7,9 @@ class Trend < ApplicationRecord
   has_many :users, through: :favorite_trends
   has_many :videos, through: :counts
   has_many :related_interests, through: :counts
-  validates :title, presence: true
   validates :platform, presence: true
   validates :industry, presence: false
-  has_many :keyword_examples
+  has_many :keyword_examples, dependent: :destroy
 
   def formatted_count(count)
     return "NA" if count.nil?
