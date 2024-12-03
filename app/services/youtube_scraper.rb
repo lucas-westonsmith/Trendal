@@ -13,7 +13,7 @@ class YoutubeScraper
   def call
     # Construct API URL based on the presence of a keyword
     url = if @keyword
-            "https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=#{@keyword}&regionCode=PT&maxResults=50&key=#{API_KEY}"
+            "https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=#{@keyword}&regionCode=US&maxResults=50&key=#{API_KEY}"
           else
             API_URL
           end
@@ -80,8 +80,13 @@ class YoutubeScraper
   # Helper method to format video duration from ISO 8601 format
   def format_duration(duration)
     return "0:00" if duration.nil? || duration.empty?
+
     # Example: PT15M33S -> 15:33
     match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/)
+
+    # If the match is nil, return a default value
+    return "0:00" if match.nil?
+
     hours = match[1].to_i if match[1]
     minutes = match[2].to_i if match[2]
     seconds = match[3].to_i if match[3]
@@ -99,4 +104,5 @@ class YoutubeScraper
       "0:00"
     end
   end
+
 end
