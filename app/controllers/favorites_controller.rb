@@ -2,6 +2,7 @@ class FavoritesController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @dashboard_mode = params[:dashboard_mode] == 'true'
     @favorite = current_user.favorite || current_user.create_favorite
 
     if params[:platform].blank?
