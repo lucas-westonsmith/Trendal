@@ -31,8 +31,6 @@ class FavoritesController < ApplicationController
 
     # DATA FOR THE GRAPHS
     # Data for hashtags
-    Rails.logger.info "Favorite Trends: #{@favorite_trends.inspect}"
-    Rails.logger.info "Favorite TikTok Hashtags: #{@favorite_tiktok_hashtags.inspect}"
     @tiktok_data_graph_for_hashtags_count = @favorite_tiktok_hashtags.each_with_object({}) do |trend, data|
       data[trend[:title]] = trend[:count]
     end
@@ -40,28 +38,18 @@ class FavoritesController < ApplicationController
     @tiktok_data_graph_for_hashtags_count_overall = @favorite_tiktok_hashtags.each_with_object({}) do |trend, data|
       data[trend[:title]] = trend[:count_overall]
     end
-    # Data for keywords
 
-    @bubble_chart_one = @favorite_tiktok_keywords.map do |trend|
+    # Data for keywords
+    @bubble_chart_keyword_one = @favorite_tiktok_keywords.map do |trend|
       { x: trend[:ctr], y: trend[:cpa], r: trend[:impression_count] / 1000.0, label: trend[:title] }
     end
 
-    @tiktok_bubble_chart_data_number_two = @favorite_tiktok_keywords.map do |trend|
-      {
-        x: trend[:impression_count],
-        y: trend[:cvr],
-        r: trend[:cost] / 1000.0,
-        label: trend[:title]
-      }
+    @bubble_chart_keyword_two = @favorite_tiktok_keywords.map do |trend|
+      { x: trend[:impression_count], y: trend[:cvr], r: trend[:cost] / 1000.0, label: trend[:title] }
     end
 
-    @tiktok_bubble_chart_data_number_three = @favorite_tiktok_keywords.map do |trend|
-      {
-        x: trend[:like_count],
-        y: trend[:share_count],
-        r: trend[:comment_count] / 1000.0,
-        label: trend[:title]
-      }
+    @bubble_chart_keyword_three = @favorite_tiktok_keywords.map do |trend|
+      { x: trend[:like_count], y: trend[:share_count], r: trend[:comment_count] / 1000.0, label: trend[:title] }
     end
 
     @tiktok_data_graph_for_keywords_popularity = @favorite_tiktok_keywords.each_with_object({}) do |trend, data|
@@ -109,6 +97,18 @@ class FavoritesController < ApplicationController
     end
 
     # Data for products
+    @bubble_chart_product_one = @favorite_tiktok_products.map do |trend|
+      { x: trend[:ctr], y: trend[:cpa], r: trend[:impression_count] / 1000.0, label: trend[:title] }
+    end
+
+    @bubble_chart_product_two = @favorite_tiktok_products.map do |trend|
+      { x: trend[:impression_count], y: trend[:cvr], r: trend[:cost] / 1000.0, label: trend[:title] }
+    end
+
+    @bubble_chart_product_three = @favorite_tiktok_products.map do |trend|
+      { x: trend[:like_count], y: trend[:share_count], r: trend[:comment_count] / 1000.0, label: trend[:title] }
+    end
+
     @tiktok_data_graph_for_products_popularity = @favorite_tiktok_products.each_with_object({}) do |trend, data|
       data[trend[:title]] = trend[:popularity]
     end

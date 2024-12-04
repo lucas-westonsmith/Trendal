@@ -113,8 +113,8 @@
     <!-- ADD HERE IF PLATFORM IS DASHBOARD -->
       <!-- Bubble chart n°1 -->
       <div>
-        <h3>CTR vs CPA</h3>
         <canvas id="bubbleChart1" width="400" height="400"></canvas>
+        <h3>CTR vs CPA</h3>
       </div>
 
       <script>
@@ -124,7 +124,7 @@
           const data1 = {
             datasets: [{
               label: 'Keywords CTR vs CPA',
-              data: <%= raw @bubble_chart_one.to_json %>,
+              data: <%= raw @bubble_chart_keyword_one.to_json %>,
               backgroundColor: 'rgba(75, 192, 192, 0.6)'
             }]
           };
@@ -146,6 +146,82 @@
           };
 
           new Chart(ctx1, { type: 'bubble', data: data1, options: options1 });
+        });
+      </script>
+
+      <!-- Bubble chart n°2 -->
+      <div>
+        <canvas id="bubbleChart2" width="400" height="400"></canvas>
+        <h3>Impressions vs CVR</h3>
+      </div>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const ctx2 = document.getElementById("bubbleChart2").getContext("2d");
+
+          const data2 = {
+            datasets: [{
+              label: 'Keywords Impressions vs CVR',
+              data: <%= raw @bubble_chart_keyword_two.to_json %>,
+              backgroundColor: 'rgba(75, 192, 192, 0.6)'
+            }]
+          };
+          const options2 = {
+            scales: {
+              x: { title: { display: true, text: 'Impressions' }, beginAtZero: true },
+              y: { title: { display: true, text: 'CVR (%)' }, beginAtZero: true }
+            },
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    const dataPoint = context.raw;
+                    return `${dataPoint.label}: Impressions(${dataPoint.x}), CVR(${dataPoint.y}%), Cost(${dataPoint.r * 1000}$)`;
+                  }
+                }
+              }
+            }
+          };
+
+          new Chart(ctx2, { type: 'bubble', data: data2, options: options2 });
+        });
+      </script>
+
+      <!-- Bubble chart n°3 -->
+      <div>
+        <canvas id="bubbleChart3" width="400" height="400"></canvas>
+        <h3>Likes vs Shares</h3>
+      </div>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const ctx3 = document.getElementById("bubbleChart3").getContext("2d");
+
+          const data3 = {
+            datasets: [{
+              label: 'Keywords Likes vs Shares',
+              data: <%= raw @bubble_chart_keyword_three.to_json %>,
+              backgroundColor: 'rgba(75, 192, 192, 0.6)'
+            }]
+          };
+          const options3 = {
+            scales: {
+              x: { title: { display: true, text: 'Likes' }, beginAtZero: true },
+              y: { title: { display: true, text: 'Shares' }, beginAtZero: true }
+            },
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    const dataPoint = context.raw;
+                    return `${dataPoint.label}: Likes(${dataPoint.x}), Shares(${dataPoint.y}), Comments(${dataPoint.r * 1000})`;
+                  }
+                }
+              }
+            }
+          };
+
+          new Chart(ctx3, { type: 'bubble', data: data3, options: options3 });
         });
       </script>
 
@@ -212,6 +288,120 @@
       </table>
     </div>
     <!-- ADD HERE IF PLATFORM IS DASHBOARD -->
+          <!-- Bubble chart n°1 -->
+      <div>
+        <canvas id="bubbleChart1" width="400" height="400"></canvas>
+        <h3>CTR vs CPA</h3>
+      </div>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const ctx1 = document.getElementById("bubbleChart1").getContext("2d");
+
+          const data1 = {
+            datasets: [{
+              label: 'Products CTR vs CPA',
+              data: <%= raw @bubble_chart_product_one.to_json %>,
+              backgroundColor: 'rgba(75, 192, 192, 0.6)'
+            }]
+          };
+          const options1 = {
+            scales: {
+              x: { title: { display: true, text: 'CTR (%)' }, beginAtZero: true },
+              y: { title: { display: true, text: 'CPA ($)' }, beginAtZero: true }
+            },
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    const dataPoint = context.raw;
+                    return `${dataPoint.label}: CTR(${dataPoint.x}%), CPA(${dataPoint.y}$), Impressions(${dataPoint.r * 1000})`;
+                  }
+                }
+              }
+            }
+          };
+
+          new Chart(ctx1, { type: 'bubble', data: data1, options: options1 });
+        });
+      </script>
+
+      <!-- Bubble chart n°2 -->
+      <div>
+        <canvas id="bubbleChart2" width="400" height="400"></canvas>
+        <h3>Impressions vs CVR</h3>
+      </div>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const ctx2 = document.getElementById("bubbleChart2").getContext("2d");
+
+          const data2 = {
+            datasets: [{
+              label: 'Products Impressions vs CVR',
+              data: <%= raw @bubble_chart_product_two.to_json %>,
+              backgroundColor: 'rgba(75, 192, 192, 0.6)'
+            }]
+          };
+          const options2 = {
+            scales: {
+              x: { title: { display: true, text: 'Impressions' }, beginAtZero: true },
+              y: { title: { display: true, text: 'CVR (%)' }, beginAtZero: true }
+            },
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    const dataPoint = context.raw;
+                    return `${dataPoint.label}: Impressions(${dataPoint.x}), CVR(${dataPoint.y}%), Cost(${dataPoint.r * 1000}$)`;
+                  }
+                }
+              }
+            }
+          };
+
+          new Chart(ctx2, { type: 'bubble', data: data2, options: options2 });
+        });
+      </script>
+
+      <!-- Bubble chart n°3 -->
+      <div>
+        <canvas id="bubbleChart3" width="400" height="400"></canvas>
+        <h3>Likes vs Shares</h3>
+      </div>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const ctx3 = document.getElementById("bubbleChart3").getContext("2d");
+
+          const data3 = {
+            datasets: [{
+              label: 'Products Likes vs Shares',
+              data: <%= raw @bubble_chart_keyword_three.to_json %>,
+              backgroundColor: 'rgba(75, 192, 192, 0.6)'
+            }]
+          };
+          const options3 = {
+            scales: {
+              x: { title: { display: true, text: 'Likes' }, beginAtZero: true },
+              y: { title: { display: true, text: 'Shares' }, beginAtZero: true }
+            },
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    const dataPoint = context.raw;
+                    return `${dataPoint.label}: Likes(${dataPoint.x}), Shares(${dataPoint.y}), Comments(${dataPoint.r * 1000})`;
+                  }
+                }
+              }
+            }
+          };
+
+          new Chart(ctx3, { type: 'bubble', data: data3, options: options3 });
+        });
+      </script>
+
       <%= column_chart @tiktok_data_graph_for_products_popularity, height: "500px", colors: ["#3498db"] %>
       <h3>Popularity</h3>
       <%= column_chart @tiktok_data_graph_for_products_popularity_change, height: "500px", colors: ["#3498db"] %>
