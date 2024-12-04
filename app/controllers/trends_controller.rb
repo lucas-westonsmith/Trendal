@@ -1,5 +1,10 @@
 class TrendsController < ApplicationController
   before_action :authenticate_user!, only: [:show]
+
+  def some_action
+    params.permit(:platform)
+  end
+
   def index
     @keyword = params[:keyword]
 
