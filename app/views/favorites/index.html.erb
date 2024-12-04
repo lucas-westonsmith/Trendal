@@ -32,12 +32,26 @@
 <!-- TikTok -->
 <% if params[:platform] == 'tiktok' %>
 <%= form_with(url: favorites_path, method: :get, local: true, class: "filter-form") do %>
-  <label for="dashboard_mode">Toggle Dashboard Mode</label>
-  <select name="dashboard_mode" id="dashboard_mode" onchange="this.form.submit()">
-    <option value="false" <%= 'selected' if !@dashboard_mode %>>Trends Only</option>
-    <option value="true" <%= 'selected' if @dashboard_mode %>>Dashboard Mode</option>
-  </select>
+  <!-- Preserve the current platform, tiktok_page, and other filters -->
+  <%= hidden_field_tag :platform, params[:platform] %>
+  <%= hidden_field_tag :tiktok_page, params[:tiktok_page] %> <!-- Keeps the 'keyword' or other pages -->
+  <%= hidden_field_tag :other_filter, params[:other_filter] %> <!-- Add more if necessary -->
+
+  <!-- Dashboard Mode Toggle Icons -->
+  <label for="dashboard_mode_trends" class="dashboard-mode-toggle">
+    <input type="radio" name="dashboard_mode" value="false" id="dashboard_mode_trends"
+      <%= 'checked' if !@dashboard_mode %> onchange="this.form.submit()">
+    <i class="fas fa-chart-line"></i> <!-- Font Awesome icon for Trends Only -->
+  </label>
+
+  <label for="dashboard_mode_dashboard" class="dashboard-mode-toggle">
+    <input type="radio" name="dashboard_mode" value="true" id="dashboard_mode_dashboard"
+      <%= 'checked' if @dashboard_mode %> onchange="this.form.submit()">
+    <i class="fas fa-tachometer-alt"></i> <!-- Font Awesome icon for Dashboard Mode -->
+  </label>
+
 <% end %>
+
 
   <!-- TikTok hashtags -->
   <% if @favorite_tiktok_hashtags.present? %>
@@ -79,6 +93,7 @@
       <!-- ADD HERE IF PLATFORM IS DASHBOARD -->
       <% if @dashboard_mode %>
             <div class="container my-5">
+            <h3>Your dashboard for TikTok hashtags</h3>
         <%= column_chart @tiktok_data_graph_for_hashtags_count, height: "500px", colors: ["#3498db"] %>
         <h3>Last 7 days, all regions</h3>
         <%= column_chart @tiktok_data_graph_for_hashtags_count_overall, height: "500px", colors: ["#3498db"] %>
@@ -126,6 +141,7 @@
     <!-- ADD HERE IF PLATFORM IS DASHBOARD -->
     <% if @dashboard_mode %>
           <div class="container my-5">
+           <h3>Your dashboard for TikTok keywords</h3>
 <div class="bubble-charts-container">
   <!-- Bubble chart n°1 -->
   <div class="chart-box">
@@ -393,7 +409,7 @@
     <!-- ADD HERE IF PLATFORM IS LIST -->
     <% if !@dashboard_mode %>
               <div class="container my-5">
-      <h3>Your Favorite TikTok Products</h3>
+      <h3>Your favorite TikTok products</h3>
       <table class="table-custom">
         <thead>
           <tr>
