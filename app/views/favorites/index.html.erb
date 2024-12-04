@@ -111,6 +111,45 @@
       </table>
     </div>
     <!-- ADD HERE IF PLATFORM IS DASHBOARD -->
+      <!-- Bubble chart n°1 -->
+      <div>
+        <h3>CTR vs CPA</h3>
+        <canvas id="bubbleChart1" width="400" height="400"></canvas>
+      </div>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const ctx1 = document.getElementById("bubbleChart1").getContext("2d");
+
+          const data1 = {
+            datasets: [{
+              label: 'Keywords CTR vs CPA',
+              data: <%= raw @bubble_chart_one.to_json %>,
+              backgroundColor: 'rgba(75, 192, 192, 0.6)'
+            }]
+          };
+          const options1 = {
+            scales: {
+              x: { title: { display: true, text: 'CTR (%)' }, beginAtZero: true },
+              y: { title: { display: true, text: 'CPA ($)' }, beginAtZero: true }
+            },
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    const dataPoint = context.raw;
+                    return `${dataPoint.label}: CTR(${dataPoint.x}%), CPA(${dataPoint.y}$), Impressions(${dataPoint.r * 1000})`;
+                  }
+                }
+              }
+            }
+          };
+
+          new Chart(ctx1, { type: 'bubble', data: data1, options: options1 });
+        });
+      </script>
+
+      <!-- All column charts -->
       <%= column_chart @tiktok_data_graph_for_keywords_popularity, height: "500px", colors: ["#3498db"] %>
       <h3>Popularity</h3>
       <%= column_chart @tiktok_data_graph_for_keywords_popularity_change, height: "500px", colors: ["#3498db"] %>
