@@ -53,7 +53,7 @@
             <tr>
               <td><%= index + 1 %></td>
               <td><%= trend.title %></td>
-              <td><%= trend.industry || 'N/A' %></td>
+              <td><%= trend.industry.present? ? trend.industry : 'N/A' %></td>
               <td><%= trend.formatted_count(trend.count) %></td>
               <td>
                 <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
@@ -95,7 +95,6 @@
               <td><%= index + 1 %></td>
               <td><%= trend.title %></td>
               <td><%= trend.industry || 'N/A' %></td>
-              <td><%= trend.formatted_count(trend.popularity) if trend.popularity.present? %></td>
               <td><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
               <td><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
               <td>
