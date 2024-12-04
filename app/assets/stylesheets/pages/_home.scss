@@ -302,7 +302,7 @@ body{
 /* First scrolling banner (left to right) */
 .scrolling-banner-left {
   width: 100%;
-  background-color: #480DBE;
+  background: #7d3bff;
   color: $links_buttons;           /* Text color */      /* Adjust padding for better visual */
   overflow: hidden;       /* Hide overflow text */
   position: relative;
@@ -336,7 +336,7 @@ body{
 /* Second scrolling banner (right to left) */
 .scrolling-banner-right {
   width: 100%;
-  background-color: #480DBE;
+  background: linear-gradient(to top,rgba(0,0,0,1) 5%, #7d3bff 95% );
   color: $links_buttons;           /* Text color */
   overflow: hidden;       /* Hide overflow text */
   position: relative;
@@ -705,7 +705,7 @@ body{
 }
 
 .title-container {
-  background-color: #e0f7fa; /* Customize background color */
+  background: linear-gradient(to right, #effdf2, #e3e8fe);
   padding: 10px;
   border-radius: 5px;
   width: 500px;
@@ -715,7 +715,7 @@ body{
 }
 
 .title-container-right{
-  background-color: #e0f7fa; /* Customize background color */
+  background: linear-gradient(to right, #feeefd, #fef8e3);
   padding: 10px;
   border-radius: 5px;
   width: 500px;
