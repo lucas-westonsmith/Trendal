@@ -128,3 +128,13 @@
   width: 80%; /* Ajustez la taille */
   height: auto;
 }
+
+.column-chart-box-hashtag {
+  background-color: white;
+  border-radius: 10px; /* Coins arrondis */
+  padding: 10px;
+  width: 48%; /* Prend toute la largeur */
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;  /* Permet à l'icône d'être positionnée par rapport à ce conteneur */
+}

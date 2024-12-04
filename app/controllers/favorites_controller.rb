@@ -33,6 +33,7 @@ class FavoritesController < ApplicationController
     @favorite_tiktok_hashtags ||= []
     @favorite_tiktok_keywords ||= []
     @favorite_tiktok_products ||= []
+    @favorite_youtube_trends = @favorite_trends
 
     def get_bubble_size_one(impression_count)
       if impression_count <= 50_000_000
@@ -198,6 +199,15 @@ class FavoritesController < ApplicationController
 
     @tiktok_data_graph_for_products_comment_count = @favorite_tiktok_products.each_with_object({}) do |trend, data|
       data[trend[:title]] = trend[:comment_count]
+    end
+
+    # Data for Youtube
+    @youtube_data_graph_for_like_count = @favorite_youtube_trends.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:like_count]
+    end
+
+    @youtube_data_graph_for_view_count = @favorite_youtube_trends.each_with_object({}) do |trend, data|
+      data[trend[:title]] = trend[:view_count]
     end
   end
 

@@ -121,10 +121,18 @@
       <% if @dashboard_mode %>
             <div class="container my-5">
             <h3>Your dashboard for TikTok hashtags</h3>
-        <%= column_chart @tiktok_data_graph_for_hashtags_count, height: "500px", colors: ["#3498db"] %>
-        <h3>Last 7 days, all regions</h3>
-        <%= column_chart @tiktok_data_graph_for_hashtags_count_overall, height: "500px", colors: ["#3498db"] %>
-        <h3>Overall</h3>
+    <div class="column-charts-container">
+      <!-- Graphique n°1 -->
+      <div class="column-chart-box-hashtag">
+        <%= column_chart @tiktok_data_graph_for_hashtags_count, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+        <h3 class="column-chart-title">Count, last 7 days, all regions</h3>
+      </div>
+      <!-- Graphique n°2 -->
+      <div class="column-chart-box-hashtag">
+        <%= column_chart @tiktok_data_graph_for_hashtags_count_overall, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+        <h3 class="column-chart-title">Overall</h3>
+      </div>
+      </div>
       </div>
   <% end %>
       <% end %>
@@ -953,6 +961,21 @@
       </table>
     </div>
     <!-- ADD HERE IF PLATFORM IS DASHBOARD -->
+    <div class="container my-5">
+      <h3>Your dashboard for Youtube trends</h3>
+      <div class="column-charts-container">
+        <!-- Graphique n°1 -->
+        <div class="column-chart-box-hashtag">
+          <%= column_chart @youtube_data_graph_for_like_count, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+          <h3 class="column-chart-title">Likes</h3>
+        </div>
+        <!-- Graphique n°2 -->
+        <div class="column-chart-box-hashtag">
+          <%= column_chart @youtube_data_graph_for_view_count, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+          <h3 class="column-chart-title">Views</h3>
+        </div>
+      </div>
+    </div>
   <% end %>
 
 <!-- If no favorites -->
