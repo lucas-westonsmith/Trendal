@@ -5,30 +5,62 @@
 
 <!-- Platform Selector -->
 <div class="container">
-  <%= form_with url: trends_path(anchor: "results"), method: :get, local: true, class: "form-inline custom-form" do %>
-    <div class="form-group">
-      <%= select_tag :platform, options_for_select([['TikTok', 'tiktok'], ['YouTube', 'youtube']], selected: params[:platform]),
-           class: 'form-control custom-select', onchange: 'this.form.submit();' %>
-    </div>
+  <%= form_with url: trends_path(anchor: "results"), method: :get, local: true, class: "form-inline custom-form baixo" do %>
+  <div class="form-group platform-icons">
+    <label for="platform" class="platform-label">Platform</label>
+
+    <!-- TikTok Icon -->
+    <button type="submit" name="platform" value="tiktok" class="platform-button <%= 'active' if params[:platform] == 'tiktok' %>">
+      <i class="fa-brands fa-tiktok"></i>
+    </button>
+
+    <!-- Separator -->
+    <span class="platform-separator">/</span>
+
+    <!-- YouTube Icon -->
+    <button type="submit" name="platform" value="youtube" class="platform-button <%= 'active' if params[:platform] == 'youtube' %>">
+      <i class="fa-brands fa-youtube"></i>
+    </button>
+  </div>
   <% end %>
 </div>
 
 <!-- TikTok Hashtag or Keyword Selector -->
-<% if @tiktok_trends_hashtag.present? || @tiktok_trends_keyword.present? || @tiktok_trends_product.present?%>
+
 <div class="container">
-  <%= form_with url: trends_path(anchor: "results"), method: :get, local: true, class: "form-inline custom-form" do %>
-    <div class="form-group">
-      <%= select_tag :tiktok_page,
-                     options_for_select([['Hashtags', 'hashtag'],
-                                         ['Keywords', 'keyword'],
-                                         ['Products', 'product']],
-                                         selected: params[:tiktok_page] || 'hashtag'),
-                     class: 'form-control custom-select',
-                     onchange: 'this.form.submit();' %>
-    </div>
-  <% end %>
-</div>
+ <!-- TikTok Hashtag, Keyword, Product Selector -->
+<% if @tiktok_trends_hashtag.present? || @tiktok_trends_keyword.present? || @tiktok_trends_product.present? %>
+  <div class="container">
+    <%= form_with url: trends_path(anchor: "results"), method: :get, local: true, class: "form-inline custom-form cima" do %>
+      <div class="form-group tiktok-page-icons">
+        <!-- Hashtag Option -->
+        <label class="page-option <%= 'active' if params[:tiktok_page] == 'hashtag' || params[:tiktok_page].nil? %>">
+          <input type="radio" name="tiktok_page" value="hashtag"
+                 <%= 'checked' if params[:tiktok_page] == 'hashtag' || params[:tiktok_page].nil? %>
+                 onchange="this.form.submit();" hidden>
+          <i class="fa-solid fa-hashtag"></i> Hashtag
+        </label>
+
+        <!-- Keyword Option -->
+        <label class="page-option <%= 'active' if params[:tiktok_page] == 'keyword' %>">
+          <input type="radio" name="tiktok_page" value="keyword"
+                 <%= 'checked' if params[:tiktok_page] == 'keyword' %>
+                 onchange="this.form.submit();" hidden>
+          <i class="fa-solid fa-magnifying-glass"></i> Keyword
+        </label>
+
+        <!-- Product Option -->
+        <label class="page-option <%= 'active' if params[:tiktok_page] == 'product' %>">
+          <input type="radio" name="tiktok_page" value="product"
+                 <%= 'checked' if params[:tiktok_page] == 'product' %>
+                 onchange="this.form.submit();" hidden>
+          <i class="fa-solid fa-box"></i> Product
+        </label>
+      </div>
+    <% end %>
+  </div>
 <% end %>
+</div>
 <!-- TikTok Trends Table for Hashtag -->
 <% if @tiktok_trends_hashtag.present? %>
   <div id="results" class="container my-5">
