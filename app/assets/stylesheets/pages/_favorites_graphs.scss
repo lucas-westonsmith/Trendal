@@ -12,6 +12,7 @@
   width: 400px; /* Largeur fixe */
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;  /* Permet à l'icône d'être positionnée par rapport à ce conteneur */
 }
 
 .chart-box canvas {
@@ -42,6 +43,7 @@
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   height: 270px;
+  position: relative;  /* Permet à l'icône d'être positionnée par rapport à ce conteneur */
 }
 
 /* Faire en sorte que le canvas occupe toute la largeur de la boîte */
@@ -65,4 +67,64 @@
 /* Pour un espacement entre les lignes */
 .column-charts-container {
   margin-bottom: 30px;
+}
+
+/* Cercle d'information */
+.info-icon-favorite {
+  position: absolute;
+  bottom: 10px;  /* Positionné en bas à droite */
+  right: 10px;  /* Collé à droite du conteneur */
+  background-color: #ddd; /* Fond gris */
+  color: #fff; /* Texte blanc */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%; /* Cercle parfait */
+  font-size: 14px;
+  text-align: center;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+/* Tooltip au survol */
+.info-icon-favorite:hover::after {
+  content: attr(data-tooltip); /* Affiche le texte explicatif */
+  position: absolute;
+  top: -10px;
+  right: 0px;
+  width: 250px; /* Largeur de la boîte */
+  z-index: 9999; /* S'assurer que le tooltip est toujours au premier plan */
+  background-color: #333; /* Fond noir */
+  color: #fff; /* Texte blanc */
+  padding: 10px;
+  border-radius: 8px; /* Coins arrondis */
+  font-size: 0.9em; /* Taille du texte réduite */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  white-space: normal; /* Permet le retour à la ligne */
+  text-align: left; /* Alignement du texte */
+}
+
+.info-icon-favorite:hover::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: calc(100% / 3 - 10px); /* Flèche alignée à gauche du tooltip */
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-left-color: #333; /* Petite flèche triangulaire */
+}
+
+.special-box {
+  background-color: black; /* Définit le fond noir */
+  position: relative; /* Nécessaire pour positionner l'image en absolu */
+  color: white; /* Si du texte est ajouté dans cette boîte */
+  padding: 1em; /* Ajoute un peu d’espace intérieur, si besoin */
+  border-radius: 8px; /* Facultatif, pour un look arrondi */
+}
+.special-box .diagonal-image {
+  position: absolute;
+  top: 50%; /* Centrer verticalement */
+  left: 50%; /* Centrer horizontalement */
+  transform: translate(-50%, -50%) rotate(-15deg); /* Inclinaison diagonale */
+  width: 80%; /* Ajustez la taille */
+  height: auto;
 }
