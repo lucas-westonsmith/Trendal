@@ -352,6 +352,22 @@
 
   <!-- TikTok-specific content for keyword -->
   <% elsif @trend.platform == 'tiktok' && @trend.tiktok_page == 'keyword' %>
+      <i class="fa-solid fa-arrow-left fa-2xl back-tiktok"
+        style="color: #7d3bff; cursor: pointer; left: 0;"
+        onclick="history.back();">
+        Go back
+      </i>
+          <div class= "tiktok-favorites-icon">
+      <% if current_user.favorite.trends.exists?(id: @trend.id) %>
+        <!-- Replace the button with a clickable trash icon -->
+        <%= link_to favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),data: {turbo_method: :delete}, class: 'trash-icon-link' do %>
+          <i class="fa-solid fa-bookmark fa-2xl" style="color: #7d3bff; cursor: pointer;"></i>
+        <% end %>
+      <% else %>
+        <%= link_to favorite_add_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),data: {turbo_method: :post}, class: 'add-favorite-icon-link' do %>
+          <i class="fa-regular fa-bookmark fa-2xl wishlist" style="color: #7d3bff;"></i>
+        <% end %>
+      <% end %>
     <div class="trend-details text-start">
       <h2 class="trend-title"><%= @trend.title %></h2>
     </div>
@@ -471,6 +487,22 @@
 
       <!-- TikTok-specific content for product -->
 <% elsif @trend.platform == 'tiktok' && @trend.tiktok_page == 'product' %>
+    <i class="fa-solid fa-arrow-left fa-2xl back-tiktok"
+      style="color: #7d3bff; cursor: pointer; left: 0;"
+      onclick="history.back();">
+      Go back
+    </i>
+        <div class= "tiktok-favorites-icon">
+      <% if current_user.favorite.trends.exists?(id: @trend.id) %>
+        <!-- Replace the button with a clickable trash icon -->
+        <%= link_to favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),data: {turbo_method: :delete}, class: 'trash-icon-link' do %>
+          <i class="fa-solid fa-bookmark fa-2xl" style="color: #7d3bff; cursor: pointer;"></i>
+        <% end %>
+      <% else %>
+        <%= link_to favorite_add_trend_path(favorite_id: current_user.favorite.id, trend_id: @trend.id),data: {turbo_method: :post}, class: 'add-favorite-icon-link' do %>
+          <i class="fa-regular fa-bookmark fa-2xl wishlist" style="color: #7d3bff;"></i>
+        <% end %>
+      <% end %>
   <div class="trend-details text-start">
     <h2 class="trend-title"><%= @trend.title %></h2>
   </div>
@@ -530,7 +562,7 @@
     </div>
   </div>
 
-  
+
 <% end %>
 
 
