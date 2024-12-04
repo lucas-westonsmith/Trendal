@@ -384,6 +384,7 @@
       <table class="table-custom">
         <thead>
           <tr>
+            <th>#</th>
             <th>Keyword</th>
             <th>Industry</th>
             <th>Impressions</th>
@@ -394,6 +395,7 @@
         <tbody>
           <% @favorite_tiktok_products.each_with_index do |trend, index| %>
             <tr>
+              <td><%= index + 1 %></td>
               <td><%= trend.title %></td>
               <td><%= trend.industry.present? ? trend.industry : 'N/A' %></td>
               <td><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
@@ -595,7 +597,3 @@
     <%= link_to 'Browse trends', trends_path, class: 'btn btn-primary' %>
   </div>
 <% end %>
-
-
-
-
