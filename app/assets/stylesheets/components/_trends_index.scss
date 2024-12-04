@@ -186,3 +186,50 @@ body {
 .ok {
   margin-top: 45px;
 }
+
+
+
+
+
+
+
+
+.tiktok-page-icons {
+  display: flex;
+  gap: 20px; /* Space between options */
+  justify-content: center; /* Center align the options */
+  margin-top: 20px;
+}
+
+.page-option {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px; /* Text size */
+  color: #777; /* Default text color */
+  transition: color 0.3s, transform 0.3s;
+}
+
+.page-option i {
+  font-size: 20px; /* Icon size */
+  margin-right: 8px; /* Space between icon and text */
+}
+
+.page-option.active {
+  color: #480DBE; /* Active state color */
+  font-weight: bold;
+}
+
+.page-option:hover {
+  color: #480DBE; /* Hover effect */
+  transform: scale(1.1); /* Slight scale on hover */
+}
+
+input[type="radio"]:checked + label {
+  color: #480DBE; /* Ensure active color applies */
+}
+
+
+.linha {
+  border: 1px solid red;
+}

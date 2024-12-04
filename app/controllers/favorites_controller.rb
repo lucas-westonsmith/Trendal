@@ -7,7 +7,6 @@ class FavoritesController < ApplicationController
 
     if params[:platform].blank?
       params[:platform] = 'tiktok'
-      params[:tiktok_page] = 'hashtag'  # Default to 'hashtag' if no TikTok page is specified
     end
 
     if params[:platform].present?

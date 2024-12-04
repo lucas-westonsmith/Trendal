@@ -7,27 +7,54 @@
 <!-- Selectors / Filters -->
 <div class="container">
   <%= form_with url: favorites_path(anchor: "results"), method: :get, local: true, class: "form-inline custom-form" do %>
-    <div class="form-group">
+    <div class="form-group platform-icons">
+      <label for="platform" class="platform-label">Platform</label>
 
-      <%= select_tag :platform,
-                     options_for_select([['TikTok', 'tiktok'], ['YouTube', 'youtube']],
-                     selected: params[:platform]),
-                     class: 'form-control custom-select',
-                     onchange: 'this.form.submit();' %>
+      <!-- TikTok Icon -->
+      <button type="submit" name="platform" value="tiktok" class="platform-button <%= 'active' if params[:platform] == 'tiktok' %>">
+        <i class="fa-brands fa-tiktok"></i>
+      </button>
+
+      <!-- Separator -->
+      <span class="platform-separator">/</span>
+
+      <!-- YouTube Icon -->
+      <button type="submit" name="platform" value="youtube" class="platform-button <%= 'active' if params[:platform] == 'youtube' %>">
+        <i class="fa-brands fa-youtube"></i>
+      </button>
     </div>
+
+    <!-- Show TikTok page options if TikTok is selected -->
     <% if params[:platform] == 'tiktok' %>
-      <div class="form-group ml-3">
-        <%= select_tag :tiktok_page,
-                       options_for_select([['Hashtags', 'hashtag'],
-                                           ['Keywords', 'keyword'],
-                                           ['Products', 'product']],
-                                           selected: params[:tiktok_page]),
-                       class: 'form-control custom-select',
-                       onchange: 'this.form.submit();' %>
+      <div class="form-group tiktok-page-icons">
+        <!-- Hashtag Option -->
+        <label class="page-option <%= 'active' if params[:tiktok_page] == 'hashtag' || params[:tiktok_page].nil? %>">
+          <input type="radio" name="tiktok_page" value="hashtag"
+                 <%= 'checked' if params[:tiktok_page] == 'hashtag' || params[:tiktok_page].nil? %>
+                 onchange="this.form.submit();" hidden>
+          <i class="fa-solid fa-hashtag"></i> Hashtag
+        </label>
+
+        <!-- Keyword Option -->
+        <label class="page-option <%= 'active' if params[:tiktok_page] == 'keyword' %>">
+          <input type="radio" name="tiktok_page" value="keyword"
+                 <%= 'checked' if params[:tiktok_page] == 'keyword' %>
+                 onchange="this.form.submit();" hidden>
+          <i class="fa-solid fa-key"></i> Keyword
+        </label>
+
+        <!-- Product Option -->
+        <label class="page-option <%= 'active' if params[:tiktok_page] == 'product' %>">
+          <input type="radio" name="tiktok_page" value="product"
+                 <%= 'checked' if params[:tiktok_page] == 'product' %>
+                 onchange="this.form.submit();" hidden>
+          <i class="fa-solid fa-box"></i> Product
+        </label>
       </div>
     <% end %>
   <% end %>
 </div>
+
 
 <!-- TikTok -->
 <% if params[:platform] == 'tiktok' %>
@@ -38,16 +65,16 @@
   <%= hidden_field_tag :other_filter, params[:other_filter] %> <!-- Add more if necessary -->
 
   <!-- Dashboard Mode Toggle Icons -->
-  <label for="dashboard_mode_trends" class="dashboard-mode-toggle">
+  <label for="dashboard_mode_trends" class="dashboard-mode-toggle <%= 'active' if !@dashboard_mode %>">
     <input type="radio" name="dashboard_mode" value="false" id="dashboard_mode_trends"
-      <%= 'checked' if !@dashboard_mode %> onchange="this.form.submit()">
-    <i class="fas fa-chart-line"></i> <!-- Font Awesome icon for Trends Only -->
+           <%= 'checked' if !@dashboard_mode %> onchange="this.form.submit()" style="display:none;">
+    <i class="fa-solid fa-list"></i> <!-- Font Awesome icon for Trends Only -->
   </label>
 
-  <label for="dashboard_mode_dashboard" class="dashboard-mode-toggle">
+  <label for="dashboard_mode_dashboard" class="dashboard-mode-toggle <%= 'active' if @dashboard_mode %>">
     <input type="radio" name="dashboard_mode" value="true" id="dashboard_mode_dashboard"
-      <%= 'checked' if @dashboard_mode %> onchange="this.form.submit()">
-    <i class="fas fa-tachometer-alt"></i> <!-- Font Awesome icon for Dashboard Mode -->
+           <%= 'checked' if @dashboard_mode %> onchange="this.form.submit()" style="display:none;">
+    <i class="fas fa-chart-line"></i> <!-- Font Awesome icon for Dashboard Mode -->
   </label>
 
 <% end %>
