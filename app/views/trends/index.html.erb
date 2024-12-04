@@ -1,29 +1,30 @@
 <div class="banner text-center">
-  <h1 class="display-4 text-white">Current <span class="highlight">Trends</span></h1>
-  <p class="lead text-white">Browse what's currently <span class="highlight">trending</span></p>
+  <h1 class="display-4 text-white animate-banner">Current <span class="highlight">Trends</span></h1>
+  <p class="lead text-white animate-banner">Browse what's currently <span class="highlight">trending</span></p>
 </div>
 
 <!-- Platform Selector -->
 <div class="container">
   <%= form_with url: trends_path(anchor: "results"), method: :get, local: true, class: "form-inline custom-form baixo" do %>
   <div class="form-group platform-icons">
-    <label for="platform" class="platform-label">Platform</label>
+    <label for="platform" class="platform-label animate-banner">Platform</label>
 
     <!-- TikTok Icon -->
-    <button type="submit" name="platform" value="tiktok" class="platform-button <%= 'active' if params[:platform] == 'tiktok' %>">
+    <button type="submit" name="platform" value="tiktok" class="platform-button <%= 'active' if params[:platform] == 'tiktok' %> animate-button">
       <i class="fa-brands fa-tiktok"></i>
     </button>
 
     <!-- Separator -->
-    <span class="platform-separator">/</span>
+    <span class="platform-separator animate-banner">/</span>
 
     <!-- YouTube Icon -->
-    <button type="submit" name="platform" value="youtube" class="platform-button <%= 'active' if params[:platform] == 'youtube' %>">
+    <button type="submit" name="platform" value="youtube" class="platform-button <%= 'active' if params[:platform] == 'youtube' %> animate-button">
       <i class="fa-brands fa-youtube"></i>
     </button>
   </div>
   <% end %>
 </div>
+
 
 <!-- TikTok Hashtag or Keyword Selector -->
 

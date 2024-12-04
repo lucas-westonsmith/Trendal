@@ -382,42 +382,42 @@
   </div>
 </div>
 
-<div class="section black-background">
+<div class="section black-background" data-controller="scroll-animation" data-scroll-animation-target="section">
   <div class="content hashtag-banner">
-  <div class="text">
-    <div class="titulo">
-      <h4 class= "pb-2" style="text-align: left; color: white;">Dashboard discovery</h4>
-      <h2 style="text-align: left; color: white;">Check out what's hot on Social media</h2>
+    <div class="text">
+      <div class="titulo">
+        <h4 class="pb-2" style="text-align: left; color: white;">Dashboard discovery</h4>
+        <h2 style="text-align: left; color: white;">Check out what's hot on Social media</h2>
+      </div>
+      <div class="paragrafo">
+        <p style="text-align: left; color: white;">Stay ahead of the curve and explore what's trending across all platforms! From viral hashtags and hot topics to the most popular creators and content, our Trend Discovery feature keeps you updated on the latest buzz. Whether you're looking to gain more followers or discover fresh ideas, we’ve got the inside scoop to help you make your mark!</p>
+      </div>
     </div>
-    <div class="paragrafo">
-      <p style="text-align: left; color: white;">Stay ahead of the curve and explore what's trending across all platforms! From viral hashtags and hot topics to the most popular creators and content, our Trend Discovery feature keeps you updated on the latest buzz. Whether you're looking to gain more followers or discover fresh ideas, we’ve got the inside scoop to help you make your mark!</p>
-    </div>
-  </div>
-  <%= image_tag "dashboard.png", class: "dashboard-size" %>
-  <%= link_to "Explore now", trends_path, method: :get, class: "explore-now" %>
+    <%= image_tag "dashboard.png", class: "dashboard-size" %>
+    <%= link_to "Explore now", trends_path, method: :get, class: "explore-now" %>
   </div>
 </div>
 
 
-<div class="container-explanation">
+<div class="container-explanation" data-controller="how-to-use-it-animation">
   <div class="column-explanation">
     <div class="titles">
       <div class="title-container">
-        <h2 class="title-explanation">What you'll get</h2>
+        <h2 class="title-explanation animate-scroll" data-how-to-use-it-animation-target="animateElement">What you'll get</h2>
       </div>
       <div class="title-container-right">
-        <h2 class="title-explanation">How to use it</h2>
+        <h2 class="title-explanation animate-scroll" data-how-to-use-it-animation-target="animateElement">How to use it</h2>
       </div>
     </div>
-      <div class = "cards" >
-      <div class="item-explanation">
+    <div class="cards">
+      <div class="item-explanation animate-scroll" data-how-to-use-it-animation-target="animateElement">
         <div class="card-row">
           <div class="item-left">
             <i class="fa-solid fa-user-group fa-2xl"></i>
             <p>Real-time social media trend data across platforms.</p>
           </div>
-          <div class=arrow-1>
-            <i class="fa-solid fa-circle-arrow-right fa-2xl"style ="color:#7d3bff"></i>
+          <div class="arrow-1">
+            <i class="fa-solid fa-circle-arrow-right fa-2xl" style="color:#7d3bff"></i>
           </div>
           <div class="item">
             <i class="fa-solid fa-arrow-trend-up fa-2xl"></i>
@@ -429,8 +429,8 @@
             <i class="fa-solid fa-code-compare fa-2xl"></i>
             <p>Trend comparison features for different social networks.</p>
           </div>
-          <div class=arrow-2>
-            <i class="fa-solid fa-circle-arrow-right fa-2xl"style ="color:#7d3bff"></i>
+          <div class="arrow-2">
+            <i class="fa-solid fa-circle-arrow-right fa-2xl" style="color:#7d3bff"></i>
           </div>
           <div class="item">
             <i class="fa-solid fa-magnifying-glass-chart fa-2xl"></i>
@@ -442,8 +442,8 @@
             <i class="fa-solid fa-hashtag fa-2xl"></i>
             <p>Trending hashtag analysis for better visibility.</p>
           </div>
-          <div class=arrow-3>
-            <i class="fa-solid fa-circle-arrow-right fa-2xl"style ="color:#7d3bff"></i>
+          <div class="arrow-3">
+            <i class="fa-solid fa-circle-arrow-right fa-2xl" style="color:#7d3bff"></i>
           </div>
           <div class="item">
             <i class="fa-solid fa-podcast fa-2xl"></i>
@@ -455,8 +455,8 @@
             <i class="fa-solid fa-chart-pie fa-2xl"></i>
             <p>Engagement metrics for social media trends.</p>
           </div>
-          <div class=arrow-4>
-            <i class="fa-solid fa-circle-arrow-right fa-2xl"style ="color:#7d3bff"></i>
+          <div class="arrow-4">
+            <i class="fa-solid fa-circle-arrow-right fa-2xl" style="color:#7d3bff"></i>
           </div>
           <div class="item">
             <i class="fa-solid fa-chart-simple fa-2xl"></i>
@@ -468,8 +468,8 @@
             <i class="fa-solid fa-brain fa-2xl"></i>
             <p>Trend prediction algorithms based on past data.</p>
           </div>
-          <div class=arrow-5>
-            <i class="fa-solid fa-circle-arrow-right fa-2xl"style ="color:#7d3bff"></i>
+          <div class="arrow-5">
+            <i class="fa-solid fa-circle-arrow-right fa-2xl" style="color:#7d3bff"></i>
           </div>
           <div class="item">
             <i class="fa-regular fa-calendar fa-2xl"></i>
@@ -477,8 +477,7 @@
           </div>
         </div>
       </div>
-      <div class="item-explanation">
-      </div>
+      <div class="item-explanation"></div>
     </div>
   </div>
 </div>
