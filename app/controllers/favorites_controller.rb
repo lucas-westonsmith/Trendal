@@ -4,6 +4,11 @@ class FavoritesController < ApplicationController
   def index
     @favorite = current_user.favorite || current_user.create_favorite
 
+    if params[:platform].blank?
+      params[:platform] = 'tiktok'
+      params[:tiktok_page] = 'hashtag'  # Default to 'hashtag' if no TikTok page is specified
+    end
+
     if params[:platform].present?
       @favorite_trends = @favorite.trends.where(platform: params[:platform])
 
@@ -182,11 +187,11 @@ class FavoritesController < ApplicationController
     else
       flash[:alert] = 'This trend is not in your collection.'
     end
-
     if params[:from_action] == "index"
       redirect_to trends_path
     elsif params[:from_action] == "favorite"
-      redirect_to favorite_path(@favorite.id)
+      # Ensure the user stays on the favorite page if they are already there
+      redirect_to request.referer || favorite_path(@favorite.id)
     else
       redirect_to trend_path(@trend)
     end
