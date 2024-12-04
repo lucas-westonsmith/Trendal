@@ -1,0 +1,68 @@
+.bubble-charts-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.chart-box {
+  background-color: white;
+  border-radius: 10px; /* Coins arrondis */
+  padding: 10px;
+  width: 400px; /* Largeur fixe */
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chart-box canvas {
+  width: 100% !important; /* Faire en sorte que le canvas prenne toute la largeur de la boîte */
+  height: 300px !important; /* Fixer la hauteur à 300px */
+}
+
+.chart-title {
+  font-size: 18px;
+  margin-top: 20px;
+  color: black;
+}
+
+/* Container des graphiques à colonnes */
+.column-charts-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+/* Boîte spécifique pour chaque graphique à colonne */
+.column-chart-box {
+  background-color: white;
+  border-radius: 10px; /* Coins arrondis */
+  padding: 10px;
+  width: 22%; /* Chaque boîte prendra environ 22% de la largeur du conteneur */
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 270px;
+}
+
+/* Faire en sorte que le canvas occupe toute la largeur de la boîte */
+.column-chart-box canvas {
+  width: 100% !important;
+  height: 200px !important; /* Fixer la hauteur du canvas à 200px */
+}
+
+/* Style du titre sous chaque graphique */
+.column-chart-title {
+  font-size: 18px;
+  margin-top: 20px;
+  color: black;
+}
+
+/* Gérer l'affichage des boîtes en différentes lignes */
+.column-charts-container > .column-chart-box:nth-child(4) {
+  margin-right: 0;
+}
+
+/* Pour un espacement entre les lignes */
+.column-charts-container {
+  margin-bottom: 30px;
+}

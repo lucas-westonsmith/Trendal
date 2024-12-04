@@ -67,10 +67,12 @@
       </table>
     </div>
       <!-- ADD HERE IF PLATFORM IS DASHBOARD -->
+      <div class="container my-5">
         <%= column_chart @tiktok_data_graph_for_hashtags_count, height: "500px", colors: ["#3498db"] %>
         <h3>Last 7 days, all regions</h3>
         <%= column_chart @tiktok_data_graph_for_hashtags_count_overall, height: "500px", colors: ["#3498db"] %>
         <h3>Overall</h3>
+      </div>
   <% end %>
 
   <!-- TikTok keywords -->
@@ -108,143 +110,270 @@
       </table>
     </div>
     <!-- ADD HERE IF PLATFORM IS DASHBOARD -->
-      <!-- Bubble chart n°1 -->
-      <div>
-        <canvas id="bubbleChart1" width="400" height="400"></canvas>
-        <h3>CTR vs CPA</h3>
-      </div>
+    <div class="container my-5">
+<div class="bubble-charts-container">
+  <!-- Bubble chart n°1 -->
+  <div class="chart-box">
+    <canvas id="bubbleChart1" width="400" height="400"></canvas>
+    <h3 class="chart-title">CTR vs CPA</h3>
+  </div>
 
-      <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          const ctx1 = document.getElementById("bubbleChart1").getContext("2d");
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const ctx1 = document.getElementById("bubbleChart1").getContext("2d");
 
-          const data1 = {
-            datasets: [{
-              label: 'Keywords CTR vs CPA',
-              data: <%= raw @bubble_chart_keyword_one.to_json %>,
-              backgroundColor: 'rgba(75, 192, 192, 0.6)'
-            }]
-          };
-          const options1 = {
-            scales: {
-              x: { title: { display: true, text: 'CTR (%)' }, beginAtZero: true },
-              y: { title: { display: true, text: 'CPA ($)' }, beginAtZero: true }
-            },
-            plugins: {
-              tooltip: {
-                callbacks: {
-                  label: function(context) {
-                    const dataPoint = context.raw;
-                    return `${dataPoint.label}: CTR(${dataPoint.x}%), CPA(${dataPoint.y}$), Impressions(${dataPoint.r * 1000})`;
-                  }
-                }
+      const colors = [
+        "rgba(52, 152, 219, 0.6)", // Bleu
+        "rgba(138, 43, 226, 0.6)", // Violet
+        "rgba(255, 111, 145, 0.6)", // Rose
+        "rgba(211, 211, 211, 0.6)", // Gris clair
+        "rgba(44, 62, 80, 0.6)", // Noir léger
+        "rgba(31, 75, 143, 0.6)", // Bleu foncé
+        "rgba(122, 31, 154, 0.6)", // Violet foncé
+        "rgba(255, 76, 145, 0.6)", // Rose vif
+        "rgba(189, 195, 199, 0.6)", // Gris moyen
+        "rgba(52, 73, 94, 0.6)"  // Bleu gris
+      ];
+
+      // Fonction pour formater les grands nombres
+      function formatNumber(num) {
+        if (num >= 1000000000) {
+          return (num / 1000000000).toFixed(1) + 'B'; // "1B"
+        } else if (num >= 1000000) {
+          return (num / 1000000).toFixed(1) + 'M'; // "1M"
+        } else if (num >= 1000) {
+          return (num / 1000).toFixed(1) + 'K'; // "1K"
+        }
+        return num;
+      }
+
+      const data1 = {
+        datasets: [{
+          label: '', // Supprimer le label du graphique
+          data: <%= raw @bubble_chart_keyword_one.to_json %>,
+          backgroundColor: function(context) {
+            const index = context.dataIndex;
+            return colors[index % colors.length];
+          }
+        }]
+      };
+
+      const options1 = {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false, // Désactiver la légende
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const dataPoint = context.raw;
+                return `${dataPoint.label}: CTR(${dataPoint.x}%), CPA(${dataPoint.y}$), Impressions(${formatNumber(dataPoint.r * 1000000)})`;
               }
             }
-          };
+          }
+        },
+        scales: {
+          x: { title: { display: true, text: 'CTR (%)' }, beginAtZero: true },
+          y: { title: { display: true, text: 'CPA ($)' }, beginAtZero: true }
+        }
+      };
 
-          new Chart(ctx1, { type: 'bubble', data: data1, options: options1 });
-        });
-      </script>
+      new Chart(ctx1, { type: 'bubble', data: data1, options: options1 });
+    });
+  </script>
 
-      <!-- Bubble chart n°2 -->
-      <div>
-        <canvas id="bubbleChart2" width="400" height="400"></canvas>
-        <h3>Impressions vs CVR</h3>
-      </div>
+  <!-- Bubble chart n°2 -->
+  <div class="chart-box">
+    <canvas id="bubbleChart2" width="400" height="400"></canvas>
+    <h3 class="chart-title">Impressions vs CVR</h3>
+  </div>
 
-      <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          const ctx2 = document.getElementById("bubbleChart2").getContext("2d");
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const ctx2 = document.getElementById("bubbleChart2").getContext("2d");
 
-          const data2 = {
-            datasets: [{
-              label: 'Keywords Impressions vs CVR',
-              data: <%= raw @bubble_chart_keyword_two.to_json %>,
-              backgroundColor: 'rgba(75, 192, 192, 0.6)'
-            }]
-          };
-          const options2 = {
-            scales: {
-              x: { title: { display: true, text: 'Impressions' }, beginAtZero: true },
-              y: { title: { display: true, text: 'CVR (%)' }, beginAtZero: true }
-            },
-            plugins: {
-              tooltip: {
-                callbacks: {
-                  label: function(context) {
-                    const dataPoint = context.raw;
-                    return `${dataPoint.label}: Impressions(${dataPoint.x}), CVR(${dataPoint.y}%), Cost(${dataPoint.r * 1000}$)`;
-                  }
-                }
+      const colors = [
+        "rgba(52, 152, 219, 0.6)",
+        "rgba(138, 43, 226, 0.6)",
+        "rgba(255, 111, 145, 0.6)",
+        "rgba(211, 211, 211, 0.6)",
+        "rgba(44, 62, 80, 0.6)",
+        "rgba(31, 75, 143, 0.6)",
+        "rgba(122, 31, 154, 0.6)",
+        "rgba(255, 76, 145, 0.6)",
+        "rgba(189, 195, 199, 0.6)",
+        "rgba(52, 73, 94, 0.6)"
+      ];
+
+      const data2 = {
+        datasets: [{
+          label: '',
+          data: <%= raw @bubble_chart_keyword_two.to_json %>,
+          backgroundColor: function(context) {
+            const index = context.dataIndex;
+            return colors[index % colors.length];
+          }
+        }]
+      };
+
+      const options2 = {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false,
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const dataPoint = context.raw;
+                return `${dataPoint.label}: Impressions(${formatNumber(dataPoint.x)}), CVR(${dataPoint.y}%), Cost(${formatNumber(dataPoint.r * 1000000)}$)`;
               }
             }
-          };
+          }
+        },
+        scales: {
+          x: { title: { display: true, text: 'Impressions' }, beginAtZero: true },
+          y: { title: { display: true, text: 'CVR (%)' }, beginAtZero: true }
+        }
+      };
 
-          new Chart(ctx2, { type: 'bubble', data: data2, options: options2 });
-        });
-      </script>
+      new Chart(ctx2, { type: 'bubble', data: data2, options: options2 });
+    });
+  </script>
 
-      <!-- Bubble chart n°3 -->
-      <div>
-        <canvas id="bubbleChart3" width="400" height="400"></canvas>
-        <h3>Likes vs Shares</h3>
-      </div>
+  <!-- Bubble chart n°3 -->
+  <div class="chart-box">
+    <canvas id="bubbleChart3" width="400" height="400"></canvas>
+    <h3 class="chart-title">Likes vs Shares</h3>
+  </div>
 
-      <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          const ctx3 = document.getElementById("bubbleChart3").getContext("2d");
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const ctx3 = document.getElementById("bubbleChart3").getContext("2d");
 
-          const data3 = {
-            datasets: [{
-              label: 'Keywords Likes vs Shares',
-              data: <%= raw @bubble_chart_keyword_three.to_json %>,
-              backgroundColor: 'rgba(75, 192, 192, 0.6)'
-            }]
-          };
-          const options3 = {
-            scales: {
-              x: { title: { display: true, text: 'Likes' }, beginAtZero: true },
-              y: { title: { display: true, text: 'Shares' }, beginAtZero: true }
-            },
-            plugins: {
-              tooltip: {
-                callbacks: {
-                  label: function(context) {
-                    const dataPoint = context.raw;
-                    return `${dataPoint.label}: Likes(${dataPoint.x}), Shares(${dataPoint.y}), Comments(${dataPoint.r * 1000})`;
-                  }
-                }
+      const colors = [
+        "rgba(52, 152, 219, 0.6)",
+        "rgba(138, 43, 226, 0.6)",
+        "rgba(255, 111, 145, 0.6)",
+        "rgba(211, 211, 211, 0.6)",
+        "rgba(44, 62, 80, 0.6)",
+        "rgba(31, 75, 143, 0.6)",
+        "rgba(122, 31, 154, 0.6)",
+        "rgba(255, 76, 145, 0.6)",
+        "rgba(189, 195, 199, 0.6)",
+        "rgba(52, 73, 94, 0.6)"
+      ];
+
+      const data3 = {
+        datasets: [{
+          label: '',
+          data: <%= raw @bubble_chart_keyword_three.to_json %>,
+          backgroundColor: function(context) {
+            const index = context.dataIndex;
+            return colors[index % colors.length];
+          }
+        }]
+      };
+
+      const options3 = {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false,
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const dataPoint = context.raw;
+                return `${dataPoint.label}: Likes(${formatNumber(dataPoint.x)}), Shares(${formatNumber(dataPoint.y)}), Comments(${formatNumber(dataPoint.r * 1000)})`;
               }
             }
-          };
+          }
+        },
+        scales: {
+          x: { title: { display: true, text: 'Likes' }, beginAtZero: true },
+          y: { title: { display: true, text: 'Shares' }, beginAtZero: true }
+        }
+      };
 
-          new Chart(ctx3, { type: 'bubble', data: data3, options: options3 });
-        });
-      </script>
+      new Chart(ctx3, { type: 'bubble', data: data3, options: options3 });
+    });
+  </script>
+</div>
+
+
+
+
+
 
       <!-- All column charts -->
-      <%= column_chart @tiktok_data_graph_for_keywords_popularity, height: "500px", colors: ["#3498db"] %>
-      <h3>Popularity</h3>
-      <%= column_chart @tiktok_data_graph_for_keywords_popularity_change, height: "500px", colors: ["#3498db"] %>
-      <h3>Popularity change</h3>
-      <%= column_chart @tiktok_data_graph_for_keywords_ctr, height: "500px", colors: ["#3498db"] %>
-      <h3>CTR</h3>
-      <%= column_chart @tiktok_data_graph_for_keywords_cvr, height: "500px", colors: ["#3498db"] %>
-      <h3>CVR</h3>
-      <%= column_chart @tiktok_data_graph_for_keywords_cpa, height: "500px", colors: ["#3498db"] %>
-      <h3>CPA</h3>
-      <%= column_chart @tiktok_data_graph_for_keywords_cost, height: "500px", colors: ["#3498db"] %>
-      <h3>Cost</h3>
-      <%= column_chart @tiktok_data_graph_for_keywords_impression_count, height: "500px", colors: ["#3498db"] %>
-      <h3>Impression count</h3>
-      <%= column_chart @tiktok_data_graph_for_keywords_view_rate_6s, height: "500px", colors: ["#3498db"] %>
-      <h3>View rate 6s</h3>
-      <%= column_chart @tiktok_data_graph_for_keywords_like_count, height: "500px", colors: ["#3498db"] %>
-      <h3>Likes</h3>
-      <%= column_chart @tiktok_data_graph_for_keywords_share_count, height: "500px", colors: ["#3498db"] %>
-      <h3>Shares</h3>
-      <%= column_chart @tiktok_data_graph_for_keywords_comment_count, height: "500px", colors: ["#3498db"] %>
-      <h3>Comments</h3>
+    <div class="column-charts-container">
+      <!-- Graphique n°1 -->
+      <div class="column-chart-box">
+        <%= column_chart @tiktok_data_graph_for_keywords_popularity, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+        <h3 class="column-chart-title">Popularity</h3>
+      </div>
+      <!-- Graphique n°2 -->
+      <div class="column-chart-box">
+        <%= column_chart @tiktok_data_graph_for_keywords_popularity_change, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+        <h3 class="column-chart-title">Popularity change (%)</h3>
+      </div>
+      <!-- Graphique n°3 -->
+      <div class="column-chart-box">
+        <%= column_chart @tiktok_data_graph_for_keywords_ctr, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+        <h3 class="column-chart-title">CTR (%)</h3>
+      </div>
+      <!-- Graphique n°4 -->
+      <div class="column-chart-box">
+        <%= column_chart @tiktok_data_graph_for_keywords_cvr, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+        <h3 class="column-chart-title">CVR (%)</h3>
+      </div>
+    </div>
+
+    <!-- Deuxième ligne de graphiques à colonnes (4 boîtes) -->
+    <div class="column-charts-container">
+      <!-- Graphique n°5 -->
+      <div class="column-chart-box">
+        <%= column_chart @tiktok_data_graph_for_keywords_cpa, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+        <h3 class="column-chart-title">CPA (USD)</h3>
+      </div>
+      <!-- Graphique n°6 -->
+      <div class="column-chart-box">
+        <%= column_chart @tiktok_data_graph_for_keywords_cost, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+        <h3 class="column-chart-title">Cost (USD)</h3>
+      </div>
+      <!-- Graphique n°7 -->
+      <div class="column-chart-box">
+        <%= column_chart @tiktok_data_graph_for_keywords_impression_count, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+        <h3 class="column-chart-title">Impression count</h3>
+      </div>
+      <!-- Graphique n°8 -->
+      <div class="column-chart-box">
+        <%= column_chart @tiktok_data_graph_for_keywords_view_rate_6s, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+        <h3 class="column-chart-title">View rate 6s (%)</h3>
+      </div>
+    </div>
+
+    <!-- Troisième ligne de graphiques à colonnes (3 boîtes) -->
+    <div class="column-charts-container">
+      <!-- Graphique n°9 -->
+      <div class="column-chart-box">
+        <%= column_chart @tiktok_data_graph_for_keywords_like_count, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+        <h3 class="column-chart-title">Likes</h3>
+      </div>
+      <!-- Graphique n°10 -->
+      <div class="column-chart-box">
+        <%= column_chart @tiktok_data_graph_for_keywords_share_count, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+        <h3 class="column-chart-title">Shares</h3>
+      </div>
+      <!-- Graphique n°11 -->
+      <div class="column-chart-box">
+        <%= column_chart @tiktok_data_graph_for_keywords_comment_count, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+        <h3 class="column-chart-title">Comments</h3>
+      </div>
+    </div>
+  </div>
   <% end %>
 
   <!-- TikTok products -->
@@ -294,7 +423,7 @@
 
           const data1 = {
             datasets: [{
-              label: 'Products CTR vs CPA',
+              label: 'CTR vs CPA',
               data: <%= raw @bubble_chart_product_one.to_json %>,
               backgroundColor: 'rgba(75, 192, 192, 0.6)'
             }]
@@ -332,7 +461,7 @@
 
           const data2 = {
             datasets: [{
-              label: 'Products Impressions vs CVR',
+              label: 'Impressions vs CVR',
               data: <%= raw @bubble_chart_product_two.to_json %>,
               backgroundColor: 'rgba(75, 192, 192, 0.6)'
             }]
@@ -370,7 +499,7 @@
 
           const data3 = {
             datasets: [{
-              label: 'Products Likes vs Shares',
+              label: 'Likes vs Shares',
               data: <%= raw @bubble_chart_keyword_three.to_json %>,
               backgroundColor: 'rgba(75, 192, 192, 0.6)'
             }]

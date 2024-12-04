@@ -46,11 +46,11 @@ class FavoritesController < ApplicationController
 
     # Data for keywords
     @bubble_chart_keyword_one = @favorite_tiktok_keywords.map do |trend|
-      { x: trend[:ctr], y: trend[:cpa], r: trend[:impression_count] / 1000.0, label: trend[:title] }
+      { x: trend[:ctr], y: trend[:cpa], r: trend[:impression_count] / 10_000_000.0, label: trend[:title] }
     end
 
     @bubble_chart_keyword_two = @favorite_tiktok_keywords.map do |trend|
-      { x: trend[:impression_count], y: trend[:cvr], r: trend[:cost] / 1000.0, label: trend[:title] }
+      { x: trend[:impression_count], y: trend[:cvr], r: trend[:cost] / 100_000.0, label: trend[:title] }
     end
 
     @bubble_chart_keyword_three = @favorite_tiktok_keywords.map do |trend|
