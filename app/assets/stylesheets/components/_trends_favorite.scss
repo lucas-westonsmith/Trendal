@@ -100,14 +100,7 @@ input[type="radio"]:checked + .dashboard-mode-toggle i {
 }
 
 
-
-
-
-
-
-
 .platform-icons {
-  display: flex;
   align-items: center;
   gap: 10px; /* Space between label and icons */
 }
@@ -119,40 +112,3 @@ input[type="radio"]:checked + .dashboard-mode-toggle i {
   color: #333;
 }
 
-.platform-separator {
-  font-size: 18px;
-  margin: 0 10px;
-  color: #333;
-}
-
-.platform-button {
-  cursor: pointer;
-  font-size: 30px; /* Adjust icon size */
-  background-color: transparent; /* No background by default */
-  border: none; /* Remove border */
-  padding: 10px;
-  transition: background-color 0.3s, color 0.3s;
-  color: #333; /* Default icon color */
-}
-
-.platform-button i {
-  transition: color 0.3s;
-}
-
-/* Hover effect */
-.platform-button:hover {
-  background-color: #f0f0f0; /* Light gray background */
-}
-
-.platform-button:hover i {
-  color: #480DBE; /* Purple color on hover */
-}
-
-/* Active state */
-.platform-button.active {
-  color: #480DBE; /* White icon for active platform */
-}
-
-.platform-button.active i {
-  color: #480DBE; /* Ensure icon color stays white */
-}

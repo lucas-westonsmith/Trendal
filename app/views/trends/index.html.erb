@@ -8,20 +8,17 @@
   <%= form_with url: trends_path(anchor: "results"), method: :get, local: true, class: "form-inline custom-form baixo" do %>
   <div class="form-group platform-icons">
     <label for="platform" class="platform-label animate-banner">Platform</label>
-
+    <div class="plaform-options">
     <!-- TikTok Icon -->
-    <button type="submit" name="platform" value="tiktok" class="platform-button <%= 'active' if params[:platform] == 'tiktok' %> animate-button">
-      <i class="fa-brands fa-tiktok"></i>
-    </button>
+      <%= link_to url_for(platform: 'tiktok'), class: "platform-button #{'active' if params[:platform] == 'tiktok'}" do %>
+        <i class="fa-brands fa-tiktok"></i>
+      <% end %>
 
-    <!-- Separator -->
-    <span class="platform-separator animate-banner">/</span>
-
-    <!-- YouTube Icon -->
-    <button type="submit" name="platform" value="youtube" class="platform-button <%= 'active' if params[:platform] == 'youtube' %> animate-button">
-      <i class="fa-brands fa-youtube"></i>
-    </button>
-  </div>
+      <!-- YouTube Icon -->
+      <%= link_to url_for(platform: 'youtube'), class: "platform-button #{'active' if params[:platform] == 'youtube'}" do %>
+        <i class="fa-brands fa-youtube"></i>
+      <% end %>
+    </div>
   <% end %>
 </div>
 
@@ -35,28 +32,22 @@
     <%= form_with url: trends_path(anchor: "results"), method: :get, local: true, class: "form-inline custom-form cima" do %>
       <div class="form-group tiktok-page-icons">
         <!-- Hashtag Option -->
-        <label class="page-option <%= 'active' if params[:tiktok_page] == 'hashtag' || params[:tiktok_page].nil? %>">
-          <input type="radio" name="tiktok_page" value="hashtag"
-                 <%= 'checked' if params[:tiktok_page] == 'hashtag' || params[:tiktok_page].nil? %>
-                 onchange="this.form.submit();" hidden>
-          <i class="fa-solid fa-hashtag"></i> Hashtag
-        </label>
-
+        <div>
+          <%= link_to trends_path(anchor: "results", tiktok_page: 'hashtag'), class: "page-option #{'active' if params[:tiktok_page] == 'hashtag' || params[:tiktok_page].nil?}" do %>
+            <i class="fa-solid fa-hashtag"></i> Hashtag
+          <% end %>
+        </div>
         <!-- Keyword Option -->
-        <label class="page-option <%= 'active' if params[:tiktok_page] == 'keyword' %>">
-          <input type="radio" name="tiktok_page" value="keyword"
-                 <%= 'checked' if params[:tiktok_page] == 'keyword' %>
-                 onchange="this.form.submit();" hidden>
-          <i class="fa-solid fa-magnifying-glass"></i> Keyword
-        </label>
-
-        <!-- Product Option -->
-        <label class="page-option <%= 'active' if params[:tiktok_page] == 'product' %>">
-          <input type="radio" name="tiktok_page" value="product"
-                 <%= 'checked' if params[:tiktok_page] == 'product' %>
-                 onchange="this.form.submit();" hidden>
-          <i class="fa-solid fa-box"></i> Product
-        </label>
+        <div>
+          <%= link_to trends_path(anchor: "results", tiktok_page: 'keyword'), class: "page-option #{'active' if params[:tiktok_page] == 'keyword'}" do %>
+            <i class="fa-solid fa-magnifying-glass"></i> Keyword
+          <% end %>
+        </div>
+        <div>
+          <%= link_to trends_path(anchor: "results", tiktok_page: 'product'), class: "page-option #{'active' if params[:tiktok_page] == 'product'}" do %>
+            <i class="fa-solid fa-box"></i> Product
+          <% end %>
+        </div>
       </div>
     <% end %>
   </div>

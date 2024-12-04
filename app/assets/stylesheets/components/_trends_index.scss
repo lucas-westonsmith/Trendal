@@ -101,9 +101,9 @@ body {
   border-radius: 15px; /* Rounded corners */
   float: left; /* Align to the left */
   margin-top: 20px; /* Add some top margin if needed */
-  display: flex; /* Use flexbox for side-by-side layout */
+  display: flex;
+  flex-direction: column;/* Use flexbox for side-by-side layout */
   align-items: center; /* Vertically align items */
-  gap: 30px; /* Space between select and button */
   margin-bottom: 10px;
 }
 
@@ -113,13 +113,13 @@ body {
 .custom-form .form-group {
   margin-bottom: 0; /* Remove bottom margin */
   flex-grow: 1; /* Allow the select to take up available space */
-  gap: 30px;
 }
 
 .custom-form label {
   font-size: 32px;
   margin-right: 10px;
   margin-bottom: 10px;
+  padding-left: 15px;
 }
 
 .custom-select {
@@ -187,9 +187,17 @@ body {
   margin-top: 45px;
 }
 
+.plaform-options{
+  display: flex;
+  justify-content: space-around;
+}
 
-
-
+.form-group.platform-icons{
+  border-style: solid;
+  border-bottom: none;
+  border-left: none;
+  border-top: none;
+}
 
 
 
@@ -232,4 +240,32 @@ input[type="radio"]:checked + label {
 
 .linha {
   border: 1px solid red;
+}
+.platform-button {
+  cursor: pointer;
+  font-size: 30px; /* Adjust icon size */
+  background-color: transparent; /* No background by default */
+  border: none; /* Remove border */
+  padding: 10px;
+  transition: transform 0.3s;
+  color: #808080; /* Default icon color */
+}
+
+
+/* Hover effect */
+.platform-button:hover {
+  transform: scale(1.2);
+}
+
+.platform-button:hover i {
+  color: #480DBE; /* Purple color on hover */
+}
+
+/* Active state */
+.platform-button.active {
+  color: #480DBE; /* White icon for active platform */
+}
+
+.platform-button.active i {
+  color: #480DBE; /* Ensure icon color stays white */
 }
