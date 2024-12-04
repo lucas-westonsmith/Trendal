@@ -7,7 +7,6 @@
 <div class="container">
   <%= form_with url: trends_path(anchor: "results"), method: :get, local: true, class: "form-inline custom-form" do %>
     <div class="form-group">
-      <%= label_tag :platform, 'Select Platform:', class: 'mr-2' %>
       <%= select_tag :platform, options_for_select([['TikTok', 'tiktok'], ['YouTube', 'youtube']], selected: params[:platform]),
            class: 'form-control custom-select', onchange: 'this.form.submit();' %>
     </div>
@@ -19,7 +18,6 @@
 <div class="container">
   <%= form_with url: trends_path(anchor: "results"), method: :get, local: true, class: "form-inline custom-form" do %>
     <div class="form-group">
-      <%= label_tag :tiktok_page, 'Select hashtags, keywords, or products:', class: 'mr-2' %>
       <%= select_tag :tiktok_page,
                      options_for_select([['Hashtags', 'hashtag'],
                                          ['Keywords', 'keyword'],
