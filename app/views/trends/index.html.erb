@@ -79,7 +79,6 @@
             <td><%= trend.title %></td>
             <td><%= trend.formatted_count(trend.popularity) if trend.popularity.present? %></td>
             <td><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
-            <td><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
             <td><%= link_to "Analytics", trend_path(trend), class: 'btn btn-primary ml-2 custom-btn override' %></td>
           </tr>
         <% end %>
