@@ -229,13 +229,8 @@ class FavoritesController < ApplicationController
     else
       flash[:alert] = 'This trend is not in your collection.'
     end
-    if params[:from_action] == "index"
-      redirect_to trends_path
-    elsif params[:from_action] == "favorite"
-      # Ensure the user stays on the favorite page if they are already there
-      redirect_to request.referer || favorite_path(@favorite.id)
-    else
-      redirect_to trend_path(@trend)
-    end
+
+    # Redirect back to the referer URL (the page the user was on before the request)
+    redirect_back(fallback_location: root_path)
   end
 end

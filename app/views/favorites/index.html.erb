@@ -104,11 +104,15 @@
               <td><%= trend.industry.present? ? trend.industry : 'N/A' %></td>
               <td><%= trend.formatted_count(trend.count) %></td>
               <td>
-                <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
-                <%= button_to 'Remove',
-                      favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
-                      method: :delete,
-                      class: 'btn btn-danger btn-sm custom-btn-remove' %>
+                <div class="d-flex">
+  <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
+  <%= button_to favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
+                method: :delete,
+                class: 'btn btn-link p-0' do %>
+  <i class="fa-solid fa-bookmark fa-2xl" style="color: #7d3bff; cursor: pointer;"></i> <!-- Font Awesome Bookmark Icon -->
+<% end %>
+</div>
+
               </td>
             </tr>
           <% end %>
@@ -153,11 +157,14 @@
               <td><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
               <td><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
               <td>
-                <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
-                <%= button_to 'Remove',
-                      favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
-                      method: :delete,
-                      class: 'btn btn-danger btn-sm custom-btn-remove' %>
+                <div class="d-flex">
+  <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
+  <%= button_to favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
+                method: :delete,
+                class: 'btn btn-link p-0' do %>
+  <i class="fa-solid fa-bookmark fa-2xl" style="color: #7d3bff; cursor: pointer;"></i> <!-- Font Awesome Bookmark Icon -->
+<% end %>
+</div>
               </td>
             </tr>
           <% end %>
@@ -547,11 +554,14 @@
               <td><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
               <td><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
               <td>
-                <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
-                <%= button_to 'Remove',
-                      favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
-                      method: :delete,
-                      class: 'btn btn-danger btn-sm custom-btn-remove' %>
+                <div class="d-flex">
+  <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
+  <%= button_to favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
+                method: :delete,
+                class: 'btn btn-link p-0' do %>
+  <i class="fa-solid fa-bookmark fa-2xl" style="color: #7d3bff; cursor: pointer;"></i> <!-- Font Awesome Bookmark Icon -->
+<% end %>
+</div>
               </td>
             </tr>
           <% end %>
