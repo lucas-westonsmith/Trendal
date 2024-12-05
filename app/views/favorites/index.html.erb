@@ -101,6 +101,7 @@
             <th>Hashtag</th>
             <th>Industry</th>
             <th>Posts</th>
+            <th>Overall</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -111,6 +112,7 @@
               <td><%= trend.title %></td>
               <td><%= trend.industry.present? ? trend.industry : 'N/A' %></td>
               <td><%= trend.formatted_count(trend.count) %></td>
+              <td><%= trend.formatted_count(trend.count_overall) %></td>
               <td>
                 <div class="d-flex">
   <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
