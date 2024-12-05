@@ -451,29 +451,17 @@
   <table class="table-custom" data-controller="clickable-row">
     <thead>
       <tr>
+        <th>#</th>
         <th>Keyword phrase</th>
         <th>CTR</th>
-        <th>Example</th>
       </tr>
     </thead>
     <tbody>
-      <% @filtered_keyword_examples.each do |keyword_example| %>
+      <% @filtered_keyword_examples.each_with_index do |keyword_example, index| %>
         <tr>
+          <td><%= index + 1 %></td>
           <td><%= keyword_example.keyword_phrase %></td>
           <td><%= keyword_example.ctr %>%</td>
-          <td class="video-cell">
-            <% if keyword_example.related_videos.present? %>
-              <!-- Lien pour ouvrir la vidéo dans une pop-up -->
-              <a href="<%= keyword_example.related_videos %>" target="popup"
-                 onclick="window.open('<%= keyword_example.related_videos %>', 'popup', 'width=800,height=600'); return false;">
-                <div class="video-thumbnail">
-                  <img src="<%= keyword_example.related_videos %>" alt="Video Thumbnail">
-                </div>
-              </a>
-            <% else %>
-              No video available
-            <% end %>
-          </td>
         </tr>
       <% end %>
     </tbody>
