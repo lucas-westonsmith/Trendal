@@ -112,3 +112,14 @@ input[type="radio"]:checked + .dashboard-mode-toggle i {
   color: #333;
 }
 
+.container.my-5.charts{
+  height: 1500px;
+}
+
+.column-charts-container.hashtag{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+}

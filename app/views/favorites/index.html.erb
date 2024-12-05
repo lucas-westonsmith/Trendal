@@ -6,6 +6,15 @@
 
 <!-- Selectors / Filters -->
 <div class="container">
+  <% if  @favorite_tiktok_hashtags.present? %>
+    <h3>Your Favorite TikTok Hashtags</h3>
+  <% elsif @favorite_tiktok_keywords.present? %>
+    <h3>Your Favorite TikTok Keywords</h3>
+  <% elsif @favorite_youtube_trends.present? %>
+    <h3>Your Favorite Youtube Trends</h3>
+  <% else @favorite_tiktok_products.present? %>
+    <h3>Your Favorite TikTok Products</h3>
+  <% end %>
   <%= form_with url: favorites_path(anchor: "results"), method: :get, local: true, class: "form-inline custom-form" do %>
     <div class="form-group platform-icons">
       <label for="platform" class="platform-label">Platform</label>
@@ -85,7 +94,6 @@
   <!-- ADD HERE IF PLATFORM IS LIST -->
 <% if !@dashboard_mode %>
    <div class="container my-5">
-      <h3>Your Favorite TikTok Hashtags</h3>
       <table class="table-custom">
         <thead>
           <tr>
@@ -118,35 +126,31 @@
           <% end %>
         </tbody>
       </table>
-    </div>
-<% end %>
 
+<% end %>
+    </div>
       <!-- ADD HERE IF PLATFORM IS DASHBOARD -->
       <% if @dashboard_mode %>
-            <div class="container my-5">
-            <h3>Your dashboard for TikTok hashtags</h3>
-    <div class="column-charts-container">
-      <!-- Graphique n°1 -->
-      <div class="column-chart-box-hashtag">
-        <%= column_chart @tiktok_data_graph_for_hashtags_count, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
-        <h3 class="column-chart-title">Count, last 7 days, all regions</h3>
-      </div>
-      <!-- Graphique n°2 -->
-      <div class="column-chart-box-hashtag">
-        <%= column_chart @tiktok_data_graph_for_hashtags_count_overall, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
-        <h3 class="column-chart-title">Overall</h3>
-      </div>
-      </div>
-      </div>
-  <% end %>
-      <% end %>
+        <div class="column-charts-container hashtag">
+          <!-- Graphique n°1 -->
+          <div class="column-chart-box-hashtag">
+            <%= column_chart @tiktok_data_graph_for_hashtags_count, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+            <h3 class="column-chart-title">Count, last 7 days, all regions</h3>
+          </div>
+          <!-- Graphique n°2 -->
+          <div class="column-chart-box-hashtag">
+            <%= column_chart @tiktok_data_graph_for_hashtags_count_overall, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+            <h3 class="column-chart-title">Overall</h3>
+          </div>
+          <% end %>
+          <% end %>
+    </div>
 
   <!-- TikTok keywords -->
   <% if @favorite_tiktok_keywords.present? %>
     <!-- ADD HERE IF PLATFORM IS LIST -->
     <% if !@dashboard_mode %>
-      <div class="container my-5">
-      <h3>Your Favorite TikTok Keywords</h3>
+      <div class="container my-5 charts">
       <table class="table-custom">
         <thead>
           <tr>
@@ -182,366 +186,362 @@
     <% end %>
     <!-- ADD HERE IF PLATFORM IS DASHBOARD -->
     <% if @dashboard_mode %>
-          <div class="container my-5">
-           <h3>Your dashboard for TikTok keywords</h3>
-<div class="bubble-charts-container">
-  <!-- Bubble chart n°1 -->
-  <div class="chart-box">
-    <canvas id="bubbleChart1" width="400" height="400"></canvas>
-    <h3 class="chart-title">CTR vs CPA</h3>
-    <div class="info-icon-favorite" data-tooltip="Comparison of Click-Through Rate (CTR) and Cost per Action (CPA) to highlight trends with high engagement and low cost. Bubble size reflects Impressions, showing the scale of each campaign. Focus on cost-effective trends with strong performance.">?</div>
-  </div>
+<div class="container my-5 charts">
+  <div class="bubble-charts-container">
+    <!-- Bubble chart n°1 -->
+    <div class="chart-box">
+      <canvas id="bubbleChart1" width="400" height="400"></canvas>
+      <h3 class="chart-title">CTR vs CPA</h3>
+      <div class="info-icon-favorite" data-tooltip="Comparison of Click-Through Rate (CTR) and Cost per Action (CPA) to highlight trends with high engagement and low cost. Bubble size reflects Impressions, showing the scale of each campaign. Focus on cost-effective trends with strong performance.">?</div>
+    </div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const ctx1 = document.getElementById("bubbleChart1").getContext("2d");
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const ctx1 = document.getElementById("bubbleChart1").getContext("2d");
 
-      const colors = [
-        "rgba(52, 152, 219, 0.6)", // Bleu
-        "rgba(138, 43, 226, 0.6)", // Violet
-        "rgba(255, 111, 145, 0.6)", // Rose
-        "rgba(211, 211, 211, 0.6)", // Gris clair
-        "rgba(44, 62, 80, 0.6)", // Noir léger
-        "rgba(31, 75, 143, 0.6)", // Bleu foncé
-        "rgba(122, 31, 154, 0.6)", // Violet foncé
-        "rgba(255, 76, 145, 0.6)", // Rose vif
-        "rgba(189, 195, 199, 0.6)", // Gris moyen
-        "rgba(52, 73, 94, 0.6)"  // Bleu gris
-      ];
+        const colors = [
+          "rgba(52, 152, 219, 0.6)", // Bleu
+          "rgba(138, 43, 226, 0.6)", // Violet
+          "rgba(255, 111, 145, 0.6)", // Rose
+          "rgba(211, 211, 211, 0.6)", // Gris clair
+          "rgba(44, 62, 80, 0.6)", // Noir léger
+          "rgba(31, 75, 143, 0.6)", // Bleu foncé
+          "rgba(122, 31, 154, 0.6)", // Violet foncé
+          "rgba(255, 76, 145, 0.6)", // Rose vif
+          "rgba(189, 195, 199, 0.6)", // Gris moyen
+          "rgba(52, 73, 94, 0.6)"  // Bleu gris
+        ];
 
-      // Fonction pour formater les grands nombres
-      function formatNumber(num) {
-        if (num >= 1000000000) {
-          return (num / 1000000000).toFixed(1) + 'B'; // "1B"
-        } else if (num >= 1000000) {
-          return (num / 1000000).toFixed(1) + 'M'; // "1M"
-        } else if (num >= 1000) {
-          return (num / 1000).toFixed(1) + 'K'; // "1K"
-        }
-        return num;
-      }
-
-      const data1 = {
-        datasets: [{
-          label: '', // Supprimer le label du graphique
-          data: <%= raw @bubble_chart_keyword_one.to_json %>,
-          backgroundColor: function(context) {
-            const index = context.dataIndex;
-            return colors[index % colors.length];
+        // Fonction pour formater les grands nombres
+        function formatNumber(num) {
+          if (num >= 1000000000) {
+            return (num / 1000000000).toFixed(1) + 'B'; // "1B"
+          } else if (num >= 1000000) {
+            return (num / 1000000).toFixed(1) + 'M'; // "1M"
+          } else if (num >= 1000) {
+            return (num / 1000).toFixed(1) + 'K'; // "1K"
           }
-        }]
-      };
+          return num;
+        }
 
-      // Appliquer un facteur d'échelle pour la taille des bulles
-      const scaleFactor = 2; // Facteur pour ajuster la taille des bulles
-      const options1 = {
-        responsive: true,
-        plugins: {
-          legend: {
-            display: false, // Désactiver la légende
+        const data1 = {
+          datasets: [{
+            label: '', // Supprimer le label du graphique
+            data: <%= raw @bubble_chart_keyword_one.to_json %>,
+            backgroundColor: function(context) {
+              const index = context.dataIndex;
+              return colors[index % colors.length];
+            }
+          }]
+        };
+
+        // Appliquer un facteur d'échelle pour la taille des bulles
+        const scaleFactor = 2; // Facteur pour ajuster la taille des bulles
+        const options1 = {
+          responsive: true,
+          plugins: {
+            legend: {
+              display: false, // Désactiver la légende
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const dataPoint = context.raw;
+                  return `${dataPoint.label}: CTR(${dataPoint.x}%), CPA(${dataPoint.y}$), Impressions(${formatNumber(dataPoint.impression_count)})`;
+                }
+              }
+            }
           },
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                const dataPoint = context.raw;
-                return `${dataPoint.label}: CTR(${dataPoint.x}%), CPA(${dataPoint.y}$), Impressions(${formatNumber(dataPoint.impression_count)})`;
+          interaction: {
+            mode: 'nearest',
+            intersect: false,
+            axis: 'xy',
+          },
+          scales: {
+            x: { title: { display: true, text: 'CTR (%)' }, beginAtZero: true },
+            y: { title: { display: true, text: 'CPA ($)' }, beginAtZero: true }
+          },
+          // Modifie l'échelle de la taille des bulles
+          elements: {
+            point: {
+              radius: function(context) {
+                // Appliquer le facteur d'échelle à la taille des bulles
+                const radius = context.raw.r;
+                return radius * scaleFactor; // Échelle plus grande pour les bulles
               }
             }
           }
-        },
-        interaction: {
-          mode: 'nearest',
-          intersect: false,
-          axis: 'xy',
-        },
-        scales: {
-          x: { title: { display: true, text: 'CTR (%)' }, beginAtZero: true },
-          y: { title: { display: true, text: 'CPA ($)' }, beginAtZero: true }
-        },
-        // Modifie l'échelle de la taille des bulles
-        elements: {
-          point: {
-            radius: function(context) {
-              // Appliquer le facteur d'échelle à la taille des bulles
-              const radius = context.raw.r;
-              return radius * scaleFactor; // Échelle plus grande pour les bulles
+        };
+
+        new Chart(ctx1, { type: 'bubble', data: data1, options: options1 });
+      });
+    </script>
+
+    <!-- Bubble chart n°2 -->
+    <div class="chart-box">
+      <canvas id="bubbleChart2" width="400" height="400"></canvas>
+      <h3 class="chart-title">Impressions vs CVR</h3>
+      <div class="info-icon-favorite" data-tooltip="Relationship between Impressions and Conversion Rate (CVR), with bubble size representing Cost. Identify trends that achieve high conversions efficiently or require further optimization. Spot campaigns balancing reach and conversion success.">?</div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const ctx2 = document.getElementById("bubbleChart2").getContext("2d");
+
+        const colors = [
+          "rgba(52, 152, 219, 0.6)", // Bleu
+          "rgba(138, 43, 226, 0.6)", // Violet
+          "rgba(255, 111, 145, 0.6)", // Rose
+          "rgba(211, 211, 211, 0.6)", // Gris clair
+          "rgba(44, 62, 80, 0.6)", // Noir léger
+          "rgba(31, 75, 143, 0.6)", // Bleu foncé
+          "rgba(122, 31, 154, 0.6)", // Violet foncé
+          "rgba(255, 76, 145, 0.6)", // Rose vif
+          "rgba(189, 195, 199, 0.6)", // Gris moyen
+          "rgba(52, 73, 94, 0.6)"  // Bleu gris
+        ];
+
+        // Fonction pour formater les grands nombres
+        function formatNumber(num) {
+          if (num >= 1000000000) {
+            return (num / 1000000000).toFixed(1) + 'B'; // "1B"
+          } else if (num >= 1000000) {
+            return (num / 1000000).toFixed(1) + 'M'; // "1M"
+          } else if (num >= 1000) {
+            return (num / 1000).toFixed(1) + 'K'; // "1K"
+          }
+          return num;
+        }
+
+        const data2 = {
+          datasets: [{
+            label: '', // Supprimer le label du graphique
+            data: <%= raw @bubble_chart_keyword_two.to_json %>,
+            backgroundColor: function(context) {
+              const index = context.dataIndex;
+              return colors[index % colors.length];
             }
-          }
-        }
-      };
+          }]
+        };
 
-      new Chart(ctx1, { type: 'bubble', data: data1, options: options1 });
-    });
-  </script>
-
-  <!-- Bubble chart n°2 -->
-  <div class="chart-box">
-    <canvas id="bubbleChart2" width="400" height="400"></canvas>
-    <h3 class="chart-title">Impressions vs CVR</h3>
-    <div class="info-icon-favorite" data-tooltip="Relationship between Impressions and Conversion Rate (CVR), with bubble size representing Cost. Identify trends that achieve high conversions efficiently or require further optimization. Spot campaigns balancing reach and conversion success.">?</div>
-  </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const ctx2 = document.getElementById("bubbleChart2").getContext("2d");
-
-      const colors = [
-        "rgba(52, 152, 219, 0.6)", // Bleu
-        "rgba(138, 43, 226, 0.6)", // Violet
-        "rgba(255, 111, 145, 0.6)", // Rose
-        "rgba(211, 211, 211, 0.6)", // Gris clair
-        "rgba(44, 62, 80, 0.6)", // Noir léger
-        "rgba(31, 75, 143, 0.6)", // Bleu foncé
-        "rgba(122, 31, 154, 0.6)", // Violet foncé
-        "rgba(255, 76, 145, 0.6)", // Rose vif
-        "rgba(189, 195, 199, 0.6)", // Gris moyen
-        "rgba(52, 73, 94, 0.6)"  // Bleu gris
-      ];
-
-      // Fonction pour formater les grands nombres
-      function formatNumber(num) {
-        if (num >= 1000000000) {
-          return (num / 1000000000).toFixed(1) + 'B'; // "1B"
-        } else if (num >= 1000000) {
-          return (num / 1000000).toFixed(1) + 'M'; // "1M"
-        } else if (num >= 1000) {
-          return (num / 1000).toFixed(1) + 'K'; // "1K"
-        }
-        return num;
-      }
-
-      const data2 = {
-        datasets: [{
-          label: '', // Supprimer le label du graphique
-          data: <%= raw @bubble_chart_keyword_two.to_json %>,
-          backgroundColor: function(context) {
-            const index = context.dataIndex;
-            return colors[index % colors.length];
-          }
-        }]
-      };
-
-      // Appliquer un facteur d'échelle pour la taille des bulles
-      const scaleFactor = 2; // Facteur pour ajuster la taille des bulles
-      const options2 = {
-        responsive: true,
-        plugins: {
-          legend: {
-            display: false, // Désactiver la légende
+        // Appliquer un facteur d'échelle pour la taille des bulles
+        const scaleFactor = 2; // Facteur pour ajuster la taille des bulles
+        const options2 = {
+          responsive: true,
+          plugins: {
+            legend: {
+              display: false, // Désactiver la légende
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const dataPoint = context.raw;
+                  return `${dataPoint.label}: Impressions(${formatNumber(dataPoint.x)}), CVR(${dataPoint.y}$), Cost(${formatNumber(dataPoint.cost)})`;
+                }
+              }
+            }
           },
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                const dataPoint = context.raw;
-                return `${dataPoint.label}: Impressions(${formatNumber(dataPoint.x)}), CVR(${dataPoint.y}$), Cost(${formatNumber(dataPoint.cost)})`;
+          interaction: {
+            mode: 'nearest',
+            intersect: false,
+            axis: 'xy',
+          },
+          scales: {
+            x: { title: { display: true, text: 'Impressions' }, beginAtZero: true },
+            y: { title: { display: true, text: 'CVR (%)' }, beginAtZero: true }
+          },
+          // Modifie l'échelle de la taille des bulles
+          elements: {
+            point: {
+              radius: function(context) {
+                // Appliquer le facteur d'échelle à la taille des bulles
+                const radius = context.raw.r;
+                return radius * scaleFactor; // Échelle plus grande pour les bulles
               }
             }
           }
-        },
-        interaction: {
-          mode: 'nearest',
-          intersect: false,
-          axis: 'xy',
-        },
-        scales: {
-          x: { title: { display: true, text: 'Impressions' }, beginAtZero: true },
-          y: { title: { display: true, text: 'CVR (%)' }, beginAtZero: true }
-        },
-        // Modifie l'échelle de la taille des bulles
-        elements: {
-          point: {
-            radius: function(context) {
-              // Appliquer le facteur d'échelle à la taille des bulles
-              const radius = context.raw.r;
-              return radius * scaleFactor; // Échelle plus grande pour les bulles
+        };
+
+        new Chart(ctx2, { type: 'bubble', data: data2, options: options2 });
+      });
+    </script>
+
+    <!-- Bubble chart n°3 -->
+    <div class="chart-box">
+      <canvas id="bubbleChart3" width="400" height="400"></canvas>
+      <h3 class="chart-title">Likes vs Shares</h3>
+      <div class="info-icon-favorite" data-tooltip="Engagement across trends, plotting Likes against Shares with bubble size showing Comments. Explore trends driving interactions and audience engagement.">?</div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const ctx3 = document.getElementById("bubbleChart3").getContext("2d");
+
+        const colors = [
+          "rgba(52, 152, 219, 0.6)", // Bleu
+          "rgba(138, 43, 226, 0.6)", // Violet
+          "rgba(255, 111, 145, 0.6)", // Rose
+          "rgba(211, 211, 211, 0.6)", // Gris clair
+          "rgba(44, 62, 80, 0.6)", // Noir léger
+          "rgba(31, 75, 143, 0.6)", // Bleu foncé
+          "rgba(122, 31, 154, 0.6)", // Violet foncé
+          "rgba(255, 76, 145, 0.6)", // Rose vif
+          "rgba(189, 195, 199, 0.6)", // Gris moyen
+          "rgba(52, 73, 94, 0.6)"  // Bleu gris
+        ];
+
+        // Fonction pour formater les grands nombres
+        function formatNumber(num) {
+          if (num >= 1000000000) {
+            return (num / 1000000000).toFixed(1) + 'B'; // "1B"
+          } else if (num >= 1000000) {
+            return (num / 1000000).toFixed(1) + 'M'; // "1M"
+          } else if (num >= 1000) {
+            return (num / 1000).toFixed(1) + 'K'; // "1K"
+          }
+          return num;
+        }
+
+        const data3 = {
+          datasets: [{
+            label: '', // Supprimer le label du graphique
+            data: <%= raw @bubble_chart_keyword_three.to_json %>,
+            backgroundColor: function(context) {
+              const index = context.dataIndex;
+              return colors[index % colors.length];
             }
-          }
-        }
-      };
+          }]
+        };
 
-      new Chart(ctx2, { type: 'bubble', data: data2, options: options2 });
-    });
-  </script>
-
-  <!-- Bubble chart n°3 -->
-  <div class="chart-box">
-    <canvas id="bubbleChart3" width="400" height="400"></canvas>
-    <h3 class="chart-title">Likes vs Shares</h3>
-    <div class="info-icon-favorite" data-tooltip="Engagement across trends, plotting Likes against Shares with bubble size showing Comments. Explore trends driving interactions and audience engagement.">?</div>
-  </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const ctx3 = document.getElementById("bubbleChart3").getContext("2d");
-
-      const colors = [
-        "rgba(52, 152, 219, 0.6)", // Bleu
-        "rgba(138, 43, 226, 0.6)", // Violet
-        "rgba(255, 111, 145, 0.6)", // Rose
-        "rgba(211, 211, 211, 0.6)", // Gris clair
-        "rgba(44, 62, 80, 0.6)", // Noir léger
-        "rgba(31, 75, 143, 0.6)", // Bleu foncé
-        "rgba(122, 31, 154, 0.6)", // Violet foncé
-        "rgba(255, 76, 145, 0.6)", // Rose vif
-        "rgba(189, 195, 199, 0.6)", // Gris moyen
-        "rgba(52, 73, 94, 0.6)"  // Bleu gris
-      ];
-
-      // Fonction pour formater les grands nombres
-      function formatNumber(num) {
-        if (num >= 1000000000) {
-          return (num / 1000000000).toFixed(1) + 'B'; // "1B"
-        } else if (num >= 1000000) {
-          return (num / 1000000).toFixed(1) + 'M'; // "1M"
-        } else if (num >= 1000) {
-          return (num / 1000).toFixed(1) + 'K'; // "1K"
-        }
-        return num;
-      }
-
-      const data3 = {
-        datasets: [{
-          label: '', // Supprimer le label du graphique
-          data: <%= raw @bubble_chart_keyword_three.to_json %>,
-          backgroundColor: function(context) {
-            const index = context.dataIndex;
-            return colors[index % colors.length];
-          }
-        }]
-      };
-
-      // Appliquer un facteur d'échelle pour la taille des bulles
-      const scaleFactor = 2; // Facteur pour ajuster la taille des bulles
-      const options3 = {
-        responsive: true,
-        plugins: {
-          legend: {
-            display: false, // Désactiver la légende
+        // Appliquer un facteur d'échelle pour la taille des bulles
+        const scaleFactor = 2; // Facteur pour ajuster la taille des bulles
+        const options3 = {
+          responsive: true,
+          plugins: {
+            legend: {
+              display: false, // Désactiver la légende
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const dataPoint = context.raw;
+                  return `${dataPoint.label}: Likes(${formatNumber(dataPoint.x)}), Shares(${formatNumber(dataPoint.y)}), Comments(${formatNumber(dataPoint.comment_count)})`;
+                }
+              }
+            }
           },
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                const dataPoint = context.raw;
-                return `${dataPoint.label}: Likes(${formatNumber(dataPoint.x)}), Shares(${formatNumber(dataPoint.y)}), Comments(${formatNumber(dataPoint.comment_count)})`;
+          interaction: {
+            mode: 'nearest',
+            intersect: false,
+            axis: 'xy',
+          },
+          scales: {
+            x: { title: { display: true, text: 'Likes' }, beginAtZero: true },
+            y: { title: { display: true, text: 'Shares' }, beginAtZero: true }
+          },
+          // Modifie l'échelle de la taille des bulles
+          elements: {
+            point: {
+              radius: function(context) {
+                // Appliquer le facteur d'échelle à la taille des bulles
+                const radius = context.raw.r;
+                return radius * scaleFactor; // Échelle plus grande pour les bulles
               }
             }
           }
-        },
-        interaction: {
-          mode: 'nearest',
-          intersect: false,
-          axis: 'xy',
-        },
-        scales: {
-          x: { title: { display: true, text: 'Likes' }, beginAtZero: true },
-          y: { title: { display: true, text: 'Shares' }, beginAtZero: true }
-        },
-        // Modifie l'échelle de la taille des bulles
-        elements: {
-          point: {
-            radius: function(context) {
-              // Appliquer le facteur d'échelle à la taille des bulles
-              const radius = context.raw.r;
-              return radius * scaleFactor; // Échelle plus grande pour les bulles
-            }
-          }
-        }
-      };
+        };
 
-      new Chart(ctx3, { type: 'bubble', data: data3, options: options3 });
-    });
-  </script>
-</div>
-
-      <!-- All column charts -->
-    <div class="column-charts-container">
-      <!-- Graphique n°1 -->
-      <div class="column-chart-box">
-        <%= column_chart @tiktok_data_graph_for_keywords_popularity, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
-        <h3 class="column-chart-title">Popularity</h3>
-        <div class="info-icon-favorite" data-tooltip="The number of ad creatives featuring this product or subcategory.">?</div>
-      </div>
-      <!-- Graphique n°2 -->
-      <div class="column-chart-box">
-        <%= column_chart @tiktok_data_graph_for_keywords_popularity_change, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
-        <h3 class="column-chart-title">Popularity change (%)</h3>
-        <div class="info-icon-favorite" data-tooltip="The difference in number of ad creatives featuring this product or subcategory over the period you selected.">?</div>
-      </div>
-      <!-- Graphique n°3 -->
-      <div class="column-chart-box">
-        <%= column_chart @tiktok_data_graph_for_keywords_ctr, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
-        <h3 class="column-chart-title">CTR (%)</h3>
-        <div class="info-icon-favorite" data-tooltip="Clickthrough-rate (CTR) is the percentage of times people saw the ad and clicked on it.">?</div>
-      </div>
-      <!-- Graphique n°4 -->
-      <div class="column-chart-box">
-        <%= column_chart @tiktok_data_graph_for_keywords_cvr, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
-        <h3 class="column-chart-title">CVR (%)</h3>
-        <div class="info-icon-favorite" data-tooltip="Conversion rate (CVR) is the percentage of results achieved out of all the clicks on the ad, based on ad objective. For example, app installs, product sales, or reach.">?</div>
-      </div>
-    </div>
-
-    <!-- Deuxième ligne de graphiques à colonnes (4 boîtes) -->
-    <div class="column-charts-container">
-      <!-- Graphique n°5 -->
-      <div class="column-chart-box">
-        <%= column_chart @tiktok_data_graph_for_keywords_cpa, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
-        <h3 class="column-chart-title">CPA (USD)</h3>
-        <div class="info-icon-favorite" data-tooltip="Cost per action (CPA) is the average amount of money spent on a conversion.">?</div>
-      </div>
-      <!-- Graphique n°6 -->
-      <div class="column-chart-box">
-        <%= column_chart @tiktok_data_graph_for_keywords_cost, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
-        <h3 class="column-chart-title">Cost (USD)</h3>
-        <div class="info-icon-favorite" data-tooltip="The total amount of money spent on the ad during its schedule.">?</div>
-      </div>
-      <!-- Graphique n°7 -->
-      <div class="column-chart-box">
-        <%= column_chart @tiktok_data_graph_for_keywords_impression_count, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
-        <h3 class="column-chart-title">Impression count</h3>
-        <div class="info-icon-favorite" data-tooltip="The number of times the ad has been displayed on screen.">?</div>
-      </div>
-      <!-- Graphique n°8 -->
-      <div class="column-chart-box">
-        <%= column_chart @tiktok_data_graph_for_keywords_view_rate_6s, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
-        <h3 class="column-chart-title">View rate 6s (%)</h3>
-        <div class="info-icon-favorite" data-tooltip="The percentage of people who watched the ad for at least 6 seconds.">?</div>
-      </div>
-    </div>
-
-    <!-- Troisième ligne de graphiques à colonnes (3 boîtes) -->
-    <div class="column-charts-container">
-      <!-- Graphique n°9 -->
-      <div class="column-chart-box">
-        <%= column_chart @tiktok_data_graph_for_keywords_like_count, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
-        <h3 class="column-chart-title">Likes</h3>
-      </div>
-      <!-- Graphique n°10 -->
-      <div class="column-chart-box">
-        <%= column_chart @tiktok_data_graph_for_keywords_share_count, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
-        <h3 class="column-chart-title">Shares</h3>
-      </div>
-      <!-- Graphique n°11 -->
-      <div class="column-chart-box">
-        <%= column_chart @tiktok_data_graph_for_keywords_comment_count, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
-        <h3 class="column-chart-title">Comments</h3>
-      </div>
-      <!-- trendal logo -->
-      <div class="column-chart-box special-box">
-        <img src="<%= asset_path('rgba_image.png') %>" alt="Diagonal image" class="diagonal-image">
-      </div>
-    </div>
+        new Chart(ctx3, { type: 'bubble', data: data3, options: options3 });
+      });
+    </script>
   </div>
-  <% end %>
+
+        <!-- All column charts -->
+      <div class="column-charts-container">
+        <!-- Graphique n°1 -->
+        <div class="column-chart-box">
+          <%= column_chart @tiktok_data_graph_for_keywords_popularity, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+          <h3 class="column-chart-title">Popularity</h3>
+          <div class="info-icon-favorite" data-tooltip="The number of ad creatives featuring this product or subcategory.">?</div>
+        </div>
+        <!-- Graphique n°2 -->
+        <div class="column-chart-box">
+          <%= column_chart @tiktok_data_graph_for_keywords_popularity_change, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+          <h3 class="column-chart-title">Popularity change (%)</h3>
+          <div class="info-icon-favorite" data-tooltip="The difference in number of ad creatives featuring this product or subcategory over the period you selected.">?</div>
+        </div>
+        <!-- Graphique n°3 -->
+        <div class="column-chart-box">
+          <%= column_chart @tiktok_data_graph_for_keywords_ctr, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+          <h3 class="column-chart-title">CTR (%)</h3>
+          <div class="info-icon-favorite" data-tooltip="Clickthrough-rate (CTR) is the percentage of times people saw the ad and clicked on it.">?</div>
+        </div>
+        <!-- Graphique n°4 -->
+        <div class="column-chart-box">
+          <%= column_chart @tiktok_data_graph_for_keywords_cvr, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+          <h3 class="column-chart-title">CVR (%)</h3>
+          <div class="info-icon-favorite" data-tooltip="Conversion rate (CVR) is the percentage of results achieved out of all the clicks on the ad, based on ad objective. For example, app installs, product sales, or reach.">?</div>
+        </div>
+      </div>
+
+      <!-- Deuxième ligne de graphiques à colonnes (4 boîtes) -->
+      <div class="column-charts-container">
+        <!-- Graphique n°5 -->
+        <div class="column-chart-box">
+          <%= column_chart @tiktok_data_graph_for_keywords_cpa, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+          <h3 class="column-chart-title">CPA (USD)</h3>
+          <div class="info-icon-favorite" data-tooltip="Cost per action (CPA) is the average amount of money spent on a conversion.">?</div>
+        </div>
+        <!-- Graphique n°6 -->
+        <div class="column-chart-box">
+          <%= column_chart @tiktok_data_graph_for_keywords_cost, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+          <h3 class="column-chart-title">Cost (USD)</h3>
+          <div class="info-icon-favorite" data-tooltip="The total amount of money spent on the ad during its schedule.">?</div>
+        </div>
+        <!-- Graphique n°7 -->
+        <div class="column-chart-box">
+          <%= column_chart @tiktok_data_graph_for_keywords_impression_count, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+          <h3 class="column-chart-title">Impression count</h3>
+          <div class="info-icon-favorite" data-tooltip="The number of times the ad has been displayed on screen.">?</div>
+        </div>
+        <!-- Graphique n°8 -->
+        <div class="column-chart-box">
+          <%= column_chart @tiktok_data_graph_for_keywords_view_rate_6s, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+          <h3 class="column-chart-title">View rate 6s (%)</h3>
+          <div class="info-icon-favorite" data-tooltip="The percentage of people who watched the ad for at least 6 seconds.">?</div>
+        </div>
+      </div>
+
+      <!-- Troisième ligne de graphiques à colonnes (3 boîtes) -->
+      <div class="column-charts-container">
+        <!-- Graphique n°9 -->
+        <div class="column-chart-box">
+          <%= column_chart @tiktok_data_graph_for_keywords_like_count, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+          <h3 class="column-chart-title">Likes</h3>
+        </div>
+        <!-- Graphique n°10 -->
+        <div class="column-chart-box">
+          <%= column_chart @tiktok_data_graph_for_keywords_share_count, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+          <h3 class="column-chart-title">Shares</h3>
+        </div>
+        <!-- Graphique n°11 -->
+        <div class="column-chart-box">
+          <%= column_chart @tiktok_data_graph_for_keywords_comment_count, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
+          <h3 class="column-chart-title">Comments</h3>
+        </div>
+        <!-- trendal logo -->
+        <div class="column-chart-box special-box">
+          <img src="<%= asset_path('rgba_image.png') %>" alt="Diagonal image" class="diagonal-image">
+        </div>
+      </div>
     <% end %>
-
-
+      <% end %>
+</div>
   <!-- TikTok products -->
   <% if @favorite_tiktok_products.present? %>
     <!-- ADD HERE IF PLATFORM IS LIST -->
     <% if !@dashboard_mode %>
               <div class="container my-5">
-      <h3>Your favorite TikTok products</h3>
       <table class="table-custom">
         <thead>
           <tr>
@@ -963,7 +963,6 @@
     <!-- ADD HERE IF PLATFORM IS LIST -->
     <% if !@dashboard_mode %>
       <div class="container my-5">
-      <h3>Your Favorite YouTube Trends</h3>
       <table class="table-custom">
         <thead>
           <tr>
@@ -1001,7 +1000,6 @@
     <!-- ADD HERE IF PLATFORM IS DASHBOARD -->
     <% if @dashboard_mode %>
       <div class="container my-5">
-      <h3>Your dashboard for Youtube trends</h3>
       <div class="column-charts-container">
         <!-- Graphique n°1 -->
         <div class="column-chart-box-hashtag">
