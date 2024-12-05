@@ -52,7 +52,7 @@
   <!-- ADD HERE IF PLATFORM IS LIST -->
 <% if !@dashboard_mode %>
    <div class="container my-5">
-      <table class="table-custom">
+      <table class="table-custom" data-controller="clickable-row">
         <thead>
           <tr>
             <th>#</th>
@@ -64,7 +64,7 @@
         </thead>
         <tbody>
           <% @favorite_tiktok_hashtags.each_with_index do |trend, index| %>
-            <tr>
+             <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
               <td><%= index + 1 %></td>
               <td><%= trend.title %></td>
               <td><%= trend.industry.present? ? trend.industry : 'N/A' %></td>
@@ -109,7 +109,7 @@
     <!-- ADD HERE IF PLATFORM IS LIST -->
     <% if !@dashboard_mode %>
       <div class="container my-5 charts">
-      <table class="table-custom">
+    <table class="table-custom" data-controller="clickable-row">
         <thead>
           <tr>
             <th>#</th>
@@ -122,7 +122,7 @@
         </thead>
         <tbody>
           <% @favorite_tiktok_keywords.each_with_index do |trend, index| %>
-            <tr>
+             <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
               <td><%= index + 1 %></td>
               <td><%= trend.title %></td>
               <td><%= trend.formatted_count(trend.popularity) if trend.popularity.present? %></td>
@@ -502,7 +502,7 @@
     <!-- ADD HERE IF PLATFORM IS LIST -->
     <% if !@dashboard_mode %>
               <div class="container my-5">
-      <table class="table-custom">
+    <table class="table-custom" data-controller="clickable-row">
         <thead>
           <tr>
             <th>#</th>
@@ -515,7 +515,7 @@
         </thead>
         <tbody>
           <% @favorite_tiktok_products.each_with_index do |trend, index| %>
-            <tr>
+          <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
               <td><%= index + 1 %></td>
               <td><%= trend.title %></td>
               <td><%= trend.industry.present? ? trend.industry : 'N/A' %></td>
@@ -923,7 +923,7 @@
     <!-- ADD HERE IF PLATFORM IS LIST -->
     <% if !@dashboard_mode %>
       <div class="container my-5">
-      <table class="table-custom">
+    <table class="table-custom" data-controller="clickable-row">
         <thead>
           <tr>
             <th>#</th>
@@ -935,7 +935,7 @@
         </thead>
         <tbody>
           <% @favorite_youtube_trends.each_with_index do |trend, index| %>
-            <tr>
+          <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
               <td><%= index + 1 %></td>
               <td><%= trend.title %></td>
               <td><%= trend.formatted_count(trend.view_count) %></td>
