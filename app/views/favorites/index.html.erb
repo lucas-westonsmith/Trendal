@@ -7,13 +7,13 @@
 <!-- Selectors / Filters -->
 <div class="container">
   <% if  @favorite_tiktok_hashtags.present? %>
-    <h3>Your Favorite TikTok Hashtags</h3>
+    <h2>Your Favorite TikTok <strong class="tiktok-highlight roxo">Hashtags</strong></h2>
   <% elsif @favorite_tiktok_keywords.present? %>
-    <h3>Your Favorite TikTok Keywords</h3>
+    <h2>Your Favorite TikTok <strong class="tiktok-highlight roxo">Keywords</strong></h2>
   <% elsif @favorite_tiktok_products.present? %>
-    <h3>Your Favorite TikTok Products</h3>
+    <h2>Your Favorite TikTok <strong class="tiktok-highlight roxo">Products</strong></h2>
   <% else @favorite_youtube_trends.present? %>
-    <h3>Your Favorite Youtube Trends</h3>
+    <h2>Your Favorite Youtube <strong class="tiktok-highlight roxo">Trends</strong></h2>
   <% end %>
   <%= form_with url: favorites_path(anchor: "results"), method: :get, local: true, class: "form-inline custom-form" do %>
     <div class="form-group platform-icons">

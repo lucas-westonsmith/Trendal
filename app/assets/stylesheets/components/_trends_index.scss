@@ -216,6 +216,7 @@ body {
   margin-top: 38px;
   font-size: 14px;
   width: 250px;
+  margin-right: 10px;
 }
 
 .crazy {
@@ -390,4 +391,9 @@ input[type="radio"]:checked + label {
 .platforms-search{
   display: flex;
   justify-content: space-around;
+}
+
+
+.platform-button.active {
+  color: white;
 }

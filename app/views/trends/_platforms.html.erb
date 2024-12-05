@@ -4,9 +4,9 @@
       <span class="black-underline">Platform</span>
     </label>
     <div class="platform-options d-flex justify-content-center">
-      <%= link_to url_for(platform: 'tiktok'), class: "platform-button #{'active' if params[:platform] == 'tiktok'}" do %>
-        <i class="fa-brands fa-tiktok"></i>
-      <% end %>
+     <%= link_to url_for(platform: 'tiktok'), class: "platform-button #{'active' if params[:platform] == 'tiktok' || params[:platform].nil?}" do %>
+      <i class="fa-brands fa-tiktok"></i>
+    <% end %>
 
       <%= link_to url_for(platform: 'youtube'), class: "platform-button #{'active' if params[:platform] == 'youtube'}" do %>
         <i class="fa-brands fa-youtube"></i>
