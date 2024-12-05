@@ -55,6 +55,59 @@ body {
   }
 }
 
+.table-custom-youtube{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: -27px;
+  margin-bottom: 20px;
+
+  // Styling for the table header
+  thead {
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: bold;
+  }
+
+  // Make the header cells smaller by reducing padding
+  thead th {
+    padding: 20px 15px; // Reduce the padding to make header height smaller
+  }
+
+  // Table rows
+  tbody tr {
+    cursor: pointer;
+    &:hover {
+      transition: 0.3s;
+      background-color: rgba(72, 13, 191, 0.15); /* #480DBF with more transparency */
+    }
+  }
+
+  // Table cells
+  th, td {
+    font-size: 18px;
+    padding: 30px 15px;
+    text-align: left;
+  }
+
+  // Remove the bottom border from the last row
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  // Styling for the first column (Rank)
+  td:first-child {
+    font-size: 1.5rem; // Increase the font size for the "Rank" column
+    font-weight: bold; // Make the rank text bold
+  }
+
+  // Styling for the first row (headings)
+  th {
+    font-size: 20px;
+    border-top: 1px solid #dee2e6;
+    border-bottom: 2px solid #dee2e6;
+  }
+}
+
 .banner {
   background-color: black; // Replace with the actual path to your image
   background-size: cover; // Ensures the image covers the entire div
@@ -93,7 +146,9 @@ body {
 
 .form-group.search{
   margin-top: 18px;
-  margin-left: 675px;
+  width: 505px;
+  justify-content: right;
+  padding-top: 40px;
 }
 
 /* Container for the form */
@@ -330,4 +385,9 @@ input[type="radio"]:checked + label {
 
 .banner.text-center{
   margin-bottom: 75px;
+}
+
+.platforms-search{
+  display: flex;
+  justify-content: space-around;
 }
