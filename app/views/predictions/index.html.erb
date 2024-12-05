@@ -66,13 +66,13 @@
     <p class="text-center">Reading the future... 🔮 Hold on, we're consulting the crystal ball! ✨</p>
   </div>
 
-      <h3 class="text-start mx-4"><span class="trend-highlight">Step 1</span> - Select a few trends</h3>
+      <h3 class="text-start mx-4"><span class="trend-highlight roxo">Step 1</span> - Select a few trends</h3>
       <div class="form-group mx-4">
         <%= select_tag :trend_ids, options_for_select(@favorite_trends.map { |trend| [trend.title, trend.id] }, selected: params[:trend_ids]), multiple: true, class: 'form-control select2 mb-4' %>
       </div>
 
       <!-- Step 2 - Industry selection -->
-      <h3 class="text-start mx-4"><span class="trend-highlight">Step 2</span> - Select an industry</h3>
+      <h3 class="text-start mx-4"><span class="trend-highlight roxo">Step 2</span> - Select an industry</h3>
       <div class="form-group mx-4">
         <%= select_tag :industry, options_for_select([
           ["Technology", "Technology"],
@@ -103,7 +103,7 @@
         ], selected: params[:industry]), class: 'form-control select2 mb-4' %>
       </div>
 
-      <h3 class="text-start mx-4"><span class="trend-highlight">Step 3</span> - Hit the button and go viral!</h3>
+      <h3 class="text-start mx-4"><span class="trend-highlight roxo">Step 3</span> - Hit the button and go viral!</h3>
       <div class="form-group text-start mx-4">
         <%= form.submit "Generate Predictions", class: "btn btn-primary btn-lg custom-btn top" %>
       </div>

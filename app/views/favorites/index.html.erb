@@ -91,7 +91,7 @@
 
   <!-- TikTok hashtags -->
   <% if @favorite_tiktok_hashtags.present? %>
-  <!-- ADD HERE IF PLATFORM IS LIST -->
+  <!-- ADD HERE IF PLATFORM IS LIS -->
 <% if !@dashboard_mode %>
    <div class="container my-5">
       <table class="table-custom">
@@ -101,6 +101,7 @@
             <th style="text-align:center">Hashtag</th>
             <th style="text-align:center">Industry</th>
             <th style="text-align:center">Posts</th>
+            <th style="text-align:center">Overall</th>
             <th style="text-align:center">Actions</th>
           </tr>
         </thead>
@@ -111,6 +112,7 @@
               <td style="text-align:center"><%= trend.title %></td>
               <td style="text-align:center"><%= trend.industry.present? ? trend.industry : 'N/A' %></td>
               <td style="text-align:center"><%= trend.formatted_count(trend.count) %></td>
+              <td style="text-align:center"><%= trend.formatted_count(trend.count_overall) %></td>
               <td style="text-align: center; vertical-align: middle;">
                 <div class="d-flex justify-content-center align-items-center">
                   <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
