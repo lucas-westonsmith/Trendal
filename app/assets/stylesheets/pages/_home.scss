@@ -830,7 +830,7 @@ body{
     height: 0.5rem;
 
     z-index: 2; /* SVG au-dessus du texte */
-    background: url('/assets/angry-underline.svg') no-repeat center center;
+    background: asset-url('angry-underline.svg') no-repeat center center;
     background-size: cover;
   }
 
@@ -856,8 +856,9 @@ body{
     z-index: 2; /* SVG au-dessus si nécessaire */
 
     /* Utilisation de background pour le nouveau SVG */
-    background: url('/assets/angry-underline-white.svg') no-repeat center center;
+    background: asset-url('angry-underline-white.svg') no-repeat center center;
     background-size: cover;
+
   }
 
   /* Texte sous le soulignement */
