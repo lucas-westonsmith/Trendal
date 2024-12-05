@@ -152,6 +152,7 @@
           <tr>
             <th>#</th>
             <th>Keyword</th>
+            <th>Popularity</th>
             <th>Impressions</th>
             <th>Likes</th>
             <th>Actions</th>
@@ -162,6 +163,7 @@
             <tr>
               <td><%= index + 1 %></td>
               <td><%= trend.title %></td>
+              <td><%= trend.formatted_count(trend.popularity) if trend.popularity.present? %></td>
               <td><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
               <td><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
               <td>

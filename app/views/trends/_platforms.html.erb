@@ -1,6 +1,8 @@
 <div class="container-filter">
   <div class="platform-selector text-center">
-    <label class="platform-label animate-banner">Platform</label>
+    <label class="platform-label animate-banner">
+      <span class="black-underline">Platform</span>
+    </label>
     <div class="platform-options d-flex justify-content-center">
       <%= link_to url_for(platform: 'tiktok'), class: "platform-button #{'active' if params[:platform] == 'tiktok'}" do %>
         <i class="fa-brands fa-tiktok"></i>
@@ -14,7 +16,9 @@
 
   <% if @tiktok_trends_hashtag.present? || @tiktok_trends_keyword.present? || @tiktok_trends_product.present? %>
     <div class="platform-page-selector text-center mt-4">
-      <p class="page-header">Trend type</p>
+    <p class="page-header">
+      <span class="black-underline">Trend type</span>
+    </p>
       <div class="page-options d-flex justify-content-center">
         <%= link_to trends_path(anchor: "results", tiktok_page: 'hashtag'), class: "page-option #{'active' if params[:tiktok_page] == 'hashtag' || params[:tiktok_page].nil?}" do %>
           <i class="fa-solid fa-hashtag"></i> Hashtag
