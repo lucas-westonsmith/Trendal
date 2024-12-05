@@ -319,7 +319,7 @@
     </div>
     <!-- Add margin to the video section -->
     <div class="trend-videos">
-      <h3 class="idk" style="color: #480DBF;">Videos for <%= @selected_country %> - <%= @selected_period %> Days</h3>
+      <h3 class="trend-metrics-title" style="color: #480DBF;">Videos for <%= @selected_country %> - <%= @selected_period %> Days</h3>
       <div class="video-list">
         <% @filtered_videos.each do |video| %>
           <div class="video-item">
@@ -426,9 +426,9 @@
     </div>
   </div>
 
-<!-- Period selection form -->
+    <!-- Period selection form -->
     <div class="container mt-4">
-      <%= form_with url: trend_path(@trend, anchor: "graph"), method: :get, local: true, class: "form-inline custom-form" do %>
+      <%= form_with url: trend_path(@trend, anchor: "graph"), method: :get, local: true, class: "form-inline custom-form arturr" do %>
         <div class="form-group mr-3">
           <%= label_tag :period, 'Select Period:', class: 'mr-2' %>
           <%= select_tag :period, options_for_select(
@@ -446,7 +446,7 @@
       <% end %>
     </div>
 
-<h3>Keyword examples for <%= @selected_country %> - <%= @selected_period %></h3>
+<h3 class="trend-metrics-title" style="text-align: left; padding-bottom: 40px;">Keyword examples for <%= @selected_country %> - <%= @selected_period %></h3>
 <% if @filtered_keyword_examples.any? %>
   <table class="table-custom" data-controller="clickable-row">
     <thead>

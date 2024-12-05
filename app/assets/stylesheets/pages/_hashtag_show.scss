@@ -14,6 +14,7 @@
   grid-gap: 20px;
   justify-items: center; /* Pour centrer les items */
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .interest-box {
@@ -60,8 +61,8 @@
 
 .info-icon-interest {
   position: absolute;
-  top: 0;  /* Aligne le point d'interrogation avec le haut du titre */
-  left: calc(100% + 10px);  /* Place l'icône à droite du titre avec un écart de 10px */
+  top: calc(-13%);  /* Aligne le point d'interrogation avec le haut du titre */
+  left: calc(14%);  /* Place l'icône à droite du titre avec un écart de 10px */
   background-color: #ddd; /* Fond gris */
   color: #fff; /* Texte blanc */
   width: 20px;
