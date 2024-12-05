@@ -50,7 +50,6 @@
 
 /* Trend Metrics */
 .trend-metrics-title {
-  font-weight: bold;
   color: #7d3bff;
 }
 
@@ -160,7 +159,7 @@
 
 
 .idk {
-  margin-top: 170px;
+  margin-top: 40px;
   display: flex;
   justify-content: center;
 
@@ -184,4 +183,14 @@
 
 .youtube-favorites-icon{
   text-align: right;
+}
+
+
+.arturr {
+  flex-direction: inherit;
+}
+
+
+.desce {
+  margin-top: 190px;
 }

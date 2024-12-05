@@ -10,25 +10,25 @@
 <% if @predictions.present? %>
   <h2 class="text-center my-4">Generated Predictions:</h2>
 
- <div class="text-start mb-4 mx-4">
-  <div class="d-flex flex-wrap gap-2">
+  <div class="text-start mb-4 mx-4">
+    <div class="d-flex flex-wrap gap-2">
 
-    <!-- Trend Filters -->
-    <% @favorite_trends.select { |trend| params[:trend_ids].include?(trend.id.to_s) }.each do |trend| %>
+      <!-- Trend Filters -->
+      <% @favorite_trends.select { |trend| params[:trend_ids].include?(trend.id.to_s) }.each do |trend| %>
+        <div class="filter-box custom-bg rounded px-3 py-2 d-flex align-items-center">
+          <i class="bi bi-hash gradient-text me-2"></i> <!-- Hash icon -->
+          <span class="gradient-text"><%= trend.title %></span>
+        </div>
+      <% end %>
+
+      <!-- Industry Filter -->
       <div class="filter-box custom-bg rounded px-3 py-2 d-flex align-items-center">
-        <i class="bi bi-hash gradient-text me-2"></i> <!-- Hash icon -->
-        <span class="gradient-text"><%= trend.title %></span>
+        <i class="fa-solid fa-bars gradient-text me-2"></i> <!-- Default industry icon -->
+        <span class="gradient-text"><%= params[:industry].capitalize %></span>
       </div>
-    <% end %>
 
-    <!-- Industry Filter -->
-    <div class="filter-box custom-bg rounded px-3 py-2 d-flex align-items-center">
-      <i class="fa-solid fa-bars gradient-text me-2"></i> <!-- Default industry icon -->
-      <span class="gradient-text"><%= params[:industry].capitalize %></span>
     </div>
-
   </div>
-</div>
 
   <!-- Detailed Analysis Predictions -->
   <div class="row mb-3">
@@ -53,55 +53,62 @@
     <% end %>
   </div>
 
-   <!-- Back Button -->
+  <!-- Back Button -->
   <div class="text-center mb-4">
     <%= link_to "Back to Filters", predictions_path, class: "btn btn-primary ml-2 custom-btn override" %>
   </div>
 
 <% else %>
   <!-- Filters Form -->
-  <%= form_with url: predictions_path, method: :get, class: 'mb-4 margin' do |form| %>
-    <h3 class="text-start mx-4"><span class="trend-highlight">Step 1</span> - Select a few trends</h3>
-    <div class="form-group mx-4">
-      <%= select_tag :trend_ids, options_for_select(@favorite_trends.map { |trend| [trend.title, trend.id] }, selected: params[:trend_ids]), multiple: true, class: 'form-control select2 mb-4' %>
-    </div>
+  <%= form_with url: predictions_path, method: :get, class: 'mb-4 margin', data: { controller: "loading", action: "submit->loading#submit" } do |form| %>
+<div data-loading-target="loading" id="loading" class="loading-container" style="display: none;">
+  <div class="loading-spinner">
+    <i class="fa fa-spinner fa-spin fa-3x"></i>
+  </div>
+  <p class="text-center">Generating Predictions... Please Wait</p>
+</div>
 
-    <!-- Step 2 - Industry selection -->
-    <h3 class="text-start mx-4"><span class="trend-highlight">Step 2</span> - Select an industry</h3>
-    <div class="form-group mx-4">
-      <%= select_tag :industry, options_for_select([
-        ["Technology", "Technology"],
-        ["Fashion", "Fashion"],
-        ["Entertainment", "Entertainment"],
-        ["Health & Wellness", "Health & Wellness"],
-        ["Sports & Outdoor", "Sports & Outdoor"],
-        ["Food & Beverage", "Food & Beverage"],
-        ["Retail & E-commerce", "Retail & E-commerce"],
-        ["Media & Marketing", "Media & Marketing"],
-        ["Education & Training", "Education & Training"],
-        ["Finance & Insurance", "Finance & Insurance"],
-        ["Travel & Hospitality", "Travel & Hospitality"],
-        ["Real Estate", "Real Estate"],
-        ["Automotive & Transportation", "Automotive & Transportation"],
-        ["Gaming & Esports", "Gaming & Esports"],
-        ["Music & Arts", "Music & Arts"],
-        ["Consumer Goods", "Consumer Goods"],
-        ["Non-Profit & Charity", "Non-Profit & Charity"],
-        ["Science & Research", "Science & Research"],
-        ["Legal & Consulting", "Legal & Consulting"],
-        ["Construction & Engineering", "Construction & Engineering"],
-        ["Telecommunications", "Telecommunications"],
-        ["Energy & Utilities", "Energy & Utilities"],
-        ["Government & Public Sector", "Government & Public Sector"],
-        ["Photography & Events", "Photography & Events"],
-        ["Lifestyle & Leisure", "Lifestyle & Leisure"]
-      ], selected: params[:industry]), class: 'form-control select2 mb-4' %>
-    </div>
+      <h3 class="text-start mx-4"><span class="trend-highlight">Step 1</span> - Select a few trends</h3>
+      <div class="form-group mx-4">
+        <%= select_tag :trend_ids, options_for_select(@favorite_trends.map { |trend| [trend.title, trend.id] }, selected: params[:trend_ids]), multiple: true, class: 'form-control select2 mb-4' %>
+      </div>
 
-    <h3 class="text-start mx-4"><span class="trend-highlight">Step 3</span> - Hit the button and go viral!</h3>
-    <div class="form-group text-start mx-4">
-      <%= form.submit "Generate Predictions", class: "btn btn-primary btn-lg custom-btn top" %>
-    </div>
+      <!-- Step 2 - Industry selection -->
+      <h3 class="text-start mx-4"><span class="trend-highlight">Step 2</span> - Select an industry</h3>
+      <div class="form-group mx-4">
+        <%= select_tag :industry, options_for_select([
+          ["Technology", "Technology"],
+          ["Fashion", "Fashion"],
+          ["Entertainment", "Entertainment"],
+          ["Health & Wellness", "Health & Wellness"],
+          ["Sports & Outdoor", "Sports & Outdoor"],
+          ["Food & Beverage", "Food & Beverage"],
+          ["Retail & E-commerce", "Retail & E-commerce"],
+          ["Media & Marketing", "Media & Marketing"],
+          ["Education & Training", "Education & Training"],
+          ["Finance & Insurance", "Finance & Insurance"],
+          ["Travel & Hospitality", "Travel & Hospitality"],
+          ["Real Estate", "Real Estate"],
+          ["Automotive & Transportation", "Automotive & Transportation"],
+          ["Gaming & Esports", "Gaming & Esports"],
+          ["Music & Arts", "Music & Arts"],
+          ["Consumer Goods", "Consumer Goods"],
+          ["Non-Profit & Charity", "Non-Profit & Charity"],
+          ["Science & Research", "Science & Research"],
+          ["Legal & Consulting", "Legal & Consulting"],
+          ["Construction & Engineering", "Construction & Engineering"],
+          ["Telecommunications", "Telecommunications"],
+          ["Energy & Utilities", "Energy & Utilities"],
+          ["Government & Public Sector", "Government & Public Sector"],
+          ["Photography & Events", "Photography & Events"],
+          ["Lifestyle & Leisure", "Lifestyle & Leisure"]
+        ], selected: params[:industry]), class: 'form-control select2 mb-4' %>
+      </div>
+
+      <h3 class="text-start mx-4"><span class="trend-highlight">Step 3</span> - Hit the button and go viral!</h3>
+      <div class="form-group text-start mx-4">
+        <%= form.submit "Generate Predictions", class: "btn btn-primary btn-lg custom-btn top" %>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
 </div>
