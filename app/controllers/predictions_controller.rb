@@ -28,10 +28,10 @@ class PredictionsController < ApplicationController
 
     # Generate multiple prompts to get different responses
     prompts = [
-      " Avoid any AI-related disclaimers. Give me a detailed analysis of  the trend '#{trend.title}' on '#{trend.platform}', and try to guess the trend's future development in the #{industry} industry. Avoid any AI-related disclaimers or phrases like 'I predict'",
-      "Analyze the future trends stemming from '#{trend.title}' in the #{industry} industry. Listing the relevant hashtags and including a confidence score above 80%. Be straightforward and don't use any disclaimers about AI limitations.",
-      "Describe future trends emerging from '#{trend.title}' in the #{industry} industry, showing relevant hashtags. Keep the response direct and creative, giving a confidence score between 60% and 80%. Avoid any AI-related disclaimers or phrases like 'I predict'.",
-      "Based on '#{trend.title}' in the #{industry} industry, predict new trends and relevant hashtags. Provide a creative response with a confidence score between 0% and 40%. Focus on unique and fresh trends, avoiding phrases like 'I predict' or 'as an AI'."
+      " Avoid any AI-related disclaimers. Give me a detailed analysis of  the trend '#{trend.title}' on '#{trend.platform}', and try to guess the trend's future development in the #{industry} industry. Avoid any AI-related disclaimers or phrases like 'I predict' your awsners should contain all my requests in 75 words",
+      "Analyze the future trends stemming from '#{trend.title}' in the #{industry} industry. Listing the relevant hashtags and including a confidence score above 80%. Avoid any AI-related disclaimers or phrases like 'I predict'. your awsners should contain all my requests in 55 words",
+      "Describe future trends emerging from '#{trend.title}' in the #{industry} industry, showing relevant hashtags. Keep the response direct and creative, giving a confidence score between 60% and 80%. Avoid any AI-related disclaimers or phrases like 'I predict'.your awsners should contain all my requests in 55 words",
+      "Based on '#{trend.title}' in the #{industry} industry, predict new trends and relevant hashtags. Provide a creative response with a confidence score between 0% and 40%. Focus on unique and fresh trends, avoiding phrases like 'I predict' or 'as an AI'.your awsners should contain all my requests in 55 words"
     ]
 
     # Request multiple predictions from OpenAI API
@@ -40,7 +40,7 @@ class PredictionsController < ApplicationController
         parameters: {
           model: "gpt-4",
           messages: [{ role: "user", content: prompt }],
-          max_tokens: 200
+          max_tokens: 1
         }
       )
 
