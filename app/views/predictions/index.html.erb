@@ -62,11 +62,9 @@
   <!-- Filters Form -->
   <%= form_with url: predictions_path, method: :get, class: 'mb-4 margin', data: { controller: "loading", action: "submit->loading#submit" } do |form| %>
 <div data-loading-target="loading" id="loading" class="loading-container" style="display: none;">
-  <div class="loading-spinner">
-    <i class="fa fa-spinner fa-spin fa-3x"></i>
+    <div class="loader"></div>
+    <p class="text-center">Reading the future... 🔮 Hold on, we're consulting the crystal ball! ✨</p>
   </div>
-  <p class="text-center">Generating Predictions... Please Wait</p>
-</div>
 
       <h3 class="text-start mx-4"><span class="trend-highlight">Step 1</span> - Select a few trends</h3>
       <div class="form-group mx-4">
