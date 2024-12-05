@@ -3,78 +3,29 @@
   <p class="lead text-white animate-banner">Browse what's currently <span class="highlight">trending</span></p>
 </div>
 
-<!-- Platform Selector -->
-<div class="container">
-  <%= form_with url: trends_path(anchor: "results"), method: :get, local: true, class: "form-inline custom-form baixo" do %>
-  <div class="form-group platform-icons">
-    <label for="platform" class="platform-label animate-banner">Platform</label>
-    <div class="plaform-options">
-    <!-- TikTok Icon -->
-      <%= link_to url_for(platform: 'tiktok'), class: "platform-button #{'active' if params[:platform] == 'tiktok'}" do %>
-        <i class="fa-brands fa-tiktok"></i>
-      <% end %>
-
-      <!-- YouTube Icon -->
-      <%= link_to url_for(platform: 'youtube'), class: "platform-button #{'active' if params[:platform] == 'youtube'}" do %>
-        <i class="fa-brands fa-youtube"></i>
-      <% end %>
-    </div>
-  <% end %>
-</div>
-
-
-<!-- TikTok Hashtag or Keyword Selector -->
-
-<div class="container">
- <!-- TikTok Hashtag, Keyword, Product Selector -->
-<% if @tiktok_trends_hashtag.present? || @tiktok_trends_keyword.present? || @tiktok_trends_product.present? %>
-  <div class="container">
-    <%= form_with url: trends_path(anchor: "results"), method: :get, local: true, class: "form-inline custom-form cima" do %>
-      <div class="form-group tiktok-page-icons">
-        <!-- Hashtag Option -->
-        <div>
-          <%= link_to trends_path(anchor: "results", tiktok_page: 'hashtag'), class: "page-option #{'active' if params[:tiktok_page] == 'hashtag' || params[:tiktok_page].nil?}" do %>
-            <i class="fa-solid fa-hashtag"></i> Hashtag
-          <% end %>
-        </div>
-        <!-- Keyword Option -->
-        <div>
-          <%= link_to trends_path(anchor: "results", tiktok_page: 'keyword'), class: "page-option #{'active' if params[:tiktok_page] == 'keyword'}" do %>
-            <i class="fa-solid fa-magnifying-glass"></i> Keyword
-          <% end %>
-        </div>
-        <div>
-          <%= link_to trends_path(anchor: "results", tiktok_page: 'product'), class: "page-option #{'active' if params[:tiktok_page] == 'product'}" do %>
-            <i class="fa-solid fa-box"></i> Product
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-<% end %>
-</div>
 <!-- TikTok Trends Table for Hashtag -->
 <% if @tiktok_trends_hashtag.present? %>
   <div id="results" class="container my-5">
     <h2 class="esquerda">Hashtags trending on <strong>TikTok</strong></h2>
+    <%= render "platforms" %>
     <table class="table-custom" data-controller="clickable-row">
       <thead>
         <tr>
-          <th scope="col">Rank</th>
-          <th scope="col">Hashtag</th>
-          <th scope="col">Industry</th>
-          <th scope="col">Posts</th>
-          <th scope="col">Actions</th>
+          <th scope="col" style="text-align:center">Rank</th>
+          <th scope="col"style="text-align:center">Hashtag</th>
+          <th scope="col"style="text-align:center">Industry</th>
+          <th scope="col"style="text-align:center">Posts</th>
+          <th scope="col"style="text-align:center">Actions</th>
         </tr>
       </thead>
       <tbody>
         <% @tiktok_trends_hashtag.select { |trend| trend.display.nil? || trend.display == true }.each do |trend| %>
           <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
-            <td><%= trend.rank %></td>
-            <td><%= trend.title %></td>
-            <td><%= trend.industry.present? ? trend.industry : 'N/A' %></td>
-            <td><%= trend.formatted_count(trend.count) if trend.count.present? %></td>
-            <td><%= link_to "Analytics", trend_path(trend), class: 'btn btn-primary ml-2 custom-btn override' %></td>
+            <td style="text-align:center"><%= trend.rank %></td>
+            <td style="text-align:center"><%= trend.title %></td>
+            <td style="text-align:center"><%= trend.industry.present? ? trend.industry : 'N/A' %></td>
+            <td style="text-align:center"><%= trend.formatted_count(trend.count) if trend.count.present? %></td>
+            <td style="text-align:center"><%= link_to "Analytics", trend_path(trend), class: 'btn btn-primary ml-2 custom-btn override' %></td>
           </tr>
         <% end %>
       </tbody>
@@ -86,26 +37,27 @@
 <% if @tiktok_trends_keyword.present? %>
   <div id="results" class="container my-5">
     <h2 class="esquerda">Keywords trending on <strong>TikTok</strong></h2>
+    <%= render "platforms" %>
     <table class="table-custom" data-controller="clickable-row">
       <thead>
         <tr>
-          <th scope="col">Rank</th>
-          <th scope="col">Keyword</th>
-          <th scope="col">Popularity</th>
-          <th scope="col">Impressions</th>
-          <th scope="col">Likes</th>
-          <th scope="col">Actions</th>
+          <th scope="col"style="text-align:center">Rank</th>
+          <th scope="col"style="text-align:center">Keyword</th>
+          <th scope="col"style="text-align:center">Popularity</th>
+          <th scope="col"style="text-align:center">Impressions</th>
+          <th scope="col"style="text-align:center">Likes</th>
+          <th scope="col"style="text-align:center">Actions</th>
         </tr>
       </thead>
       <tbody>
         <% @tiktok_trends_keyword.select { |trend| trend.display.nil? || trend.display == true }.each do |trend| %>
           <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
-            <td><%= trend.rank %></td>
-            <td><%= trend.title %></td>
-            <td><%= trend.formatted_count(trend.popularity) if trend.popularity.present? %></td>
-            <td><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
-            <td><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
-            <td><%= link_to "Analytics", trend_path(trend), class: 'btn btn-primary ml-2 custom-btn override' %></td>
+            <td style="text-align:center"><%= trend.rank %></td>
+            <td style="text-align:center"><%= trend.title %></td>
+            <td style="text-align:center"><%= trend.formatted_count(trend.popularity) if trend.popularity.present? %></td>
+            <td style="text-align:center"><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
+            <td style="text-align:center"><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
+            <td style="text-align:center"><%= link_to "Analytics", trend_path(trend), class: 'btn btn-primary ml-2 custom-btn override' %></td>
           </tr>
         <% end %>
       </tbody>
@@ -117,28 +69,29 @@
 <% if @tiktok_trends_product.present? %>
   <div id="results" class="container my-5">
     <h2 class="esquerda">Products trending on <strong>TikTok</strong></h2>
+    <%= render "platforms" %>
     <table class="table-custom" data-controller="clickable-row">
       <thead>
         <tr>
           <th>#</th>
-          <th scope="col">Keyword</th>
-          <th scope="col">Industry</th>
-          <th scope="col">Popularity</th>
-          <th scope="col">Impressions</th>
-          <th scope="col">Likes</th>
-          <th scope="col">Actions</th>
+          <th scope="col"style="text-align:center">Keyword</th>
+          <th scope="col"style="text-align:center">Industry</th>
+          <th scope="col"style="text-align:center">Popularity</th>
+          <th scope="col"style="text-align:center">Impressions</th>
+          <th scope="col"style="text-align:center">Likes</th>
+          <th scope="col"style="text-align:center">Actions</th>
         </tr>
       </thead>
       <tbody>
         <% @tiktok_trends_product.select { |trend| trend.display.nil? || trend.display == true }.each_with_index do |trend, index| %>
           <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
-            <td><%= index + 1 %></td>
+            <td style="text-align:center"><%= index + 1 %></td>
             <td><%= trend.title %></td>
             <td><%= trend.industry.present? ? trend.industry : 'N/A' %></td>
-            <td><%= trend.formatted_count(trend.popularity) if trend.popularity.present? %></td>
-            <td><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
-            <td><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
-            <td><%= link_to "Analytics", trend_path(trend), class: 'btn btn-primary ml-2 custom-btn override' %></td>
+            <td style="text-align:center"><%= trend.formatted_count(trend.popularity) if trend.popularity.present? %></td>
+            <td style="text-align:center"><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
+            <td style="text-align:center"><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
+            <td style="text-align:center"><%= link_to "Analytics", trend_path(trend), class: 'btn btn-primary ml-2 custom-btn override' %></td>
           </tr>
         <% end %>
       </tbody>

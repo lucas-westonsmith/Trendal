@@ -170,8 +170,6 @@ body {
 
 
 .esquerda {
-  position: absolute;
-  margin-top: -50px;
   font-size: 48px;
 }
 
@@ -268,4 +266,73 @@ input[type="radio"]:checked + label {
 
 .platform-button.active i {
   color: #480DBE; /* Ensure icon color stays white */
+}
+
+.platform-options, .page-options {
+  display: flex;
+  gap: 20px; /* Space between icons */
+}
+
+.platform-button, .page-option {
+  text-decoration: none;
+  color: inherit;
+  font-size: 24px;
+  text-align: center;
+  padding: 10px;
+}
+
+.platform-button.active, .page-option.active {
+  color: #480DBE; /* Active color for selected platform */
+}
+
+.page-header {
+  font-size: 32px;
+  color: black;
+  font-weight: bold;
+  padding-top: 8px;
+  margin-bottom: 20px;
+}
+
+.page-options {
+  gap: 30px;
+}
+
+.page-option i, .platform-button i {
+  font-size: 32px; /* Icon size */
+  margin-bottom: 5px; /* Space between icon and text */
+}
+
+.page-option span, .platform-button span {
+  display: block;
+  margin-top: 5px;
+}
+
+.platform-button i {
+  color: gray; /* Default color */
+}
+
+.platform-button.active i {
+  color: #480DBE; /* Active color */
+}
+
+.container-filter{
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.platform-selector.text-center{
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  padding-top: 30px;
+}
+
+.platform-label.animate-banner{
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.banner.text-center{
+  margin-bottom: 75px;
 }
