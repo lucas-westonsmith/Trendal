@@ -115,7 +115,7 @@
     </div>
     <!-- Period selection form -->
     <div class="container mt-4">
-      <%= form_with url: trend_path(@trend, anchor: "graph"), method: :get, local: true, class: "form-inline custom-form" do %>
+      <%= form_with url: trend_path(@trend, anchor: "graph"), method: :get, local: true, class: "form-inline custom-form arturr" do %>
         <div class="form-group mr-3">
           <%= label_tag :period, 'Select Period:', class: 'mr-2' %>
           <%= select_tag :period, options_for_select(
@@ -134,7 +134,7 @@
     </div>
     <!-- Country-based performance graphs -->
     <div class="trend-country-stats mt-5">
-      <h3 id="graph" class="trend-country-title" style="color: #480DBF;">Performance by Country</h3>
+      <h3 id="graph" class="trend-country-title desce" style="color: #480DBF;">Performance by Country</h3>
       <% if @selected_period == '7' %>
         <%= bar_chart @graph_data_7_days,
         height: "300px",
