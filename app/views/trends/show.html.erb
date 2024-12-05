@@ -336,7 +336,7 @@
 
 <div class="related-interests mt-5">
   <h3 class="trend-metrics-title" style="color: #480DBF; font-size: 26px;">Related Interests for <%= @selected_country %> - <%= @selected_period %> Days</h3>
-  <p style="font-size: 24px">The top interests associated with viewers of this trend. The value represents an index score. Example: If the score is 200, the interest category is 2x as popular with viewers of this trend compared to its average popularity on TikTok worldwide.</p>
+  <div class="info-icon-interest" data-tooltip="The top interests associated with viewers of this trend. The value represents an index score. Example: If the score is 200, the interest category is 2x as popular with viewers of this trend compared to its average popularity on TikTok worldwide.">?</div>
 
   <div class="interests-container">
     <% @filtered_interests.each do |interest| %>
