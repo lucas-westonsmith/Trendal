@@ -15,7 +15,7 @@
       <div>
         <% if user_signed_in? %>
           <%= link_to favorites_path, class: "nav-link #{'active' if current_page?(favorites_path)}" do %>
-            <i class="fa-solid fa-bookmark fa-xl bookmark" style="color: #480DBF;"></i>
+            <i class="fa-solid fa-bookmark fa-xl bookmark" style="color: #480DBF; font-size: 21px; position: relative; top: -2px;"></i>
             Favorites
           <% end %>
         <% end %>
