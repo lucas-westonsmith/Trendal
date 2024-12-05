@@ -1,5 +1,6 @@
 .related-interests {
   margin-top: 50px;
+  position: relative;
 }
 
 .trend-metrics-title {
@@ -13,46 +14,39 @@
   grid-gap: 20px;
   justify-items: center; /* Pour centrer les items */
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .interest-box {
-  background-color: #480DBF; /* La couleur de fond des boîtes */
+  background-color: #480DBF; /* Couleur de fond des boîtes */
   color: white; /* Texte en blanc */
-  padding: 20px;
+  padding: 5px; /* Réduction du padding pour des boîtes plus fines */
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 20px;
   width: 100%;
   max-width: 250px; /* Limite la largeur de la boîte */
   text-align: center;
 }
 
 .interest-box .flame-icon {
-  font-size: 30px;
-  margin-right: 10px; /* Espace entre la flamme et le texte */
+  font-size: 20px;
+  margin: 0 5px; /* Ajoute un espace entre la flamme et les éléments adjacents */
   color: white;
 }
 
 .interest-title {
   font-weight: bold;
+  margin-right: 10px; /* Ajoute un espace entre le titre et les autres éléments */
 }
 
 .interest-score {
-  font-size: 24px;
-  margin-left: 5px;
+  font-size: 20px;
+  margin-left: 0; /* Pas d'espace avec la flamme */
 }
 
-/* Cas pour 5 intérêts */
-.interests-container.five-interests {
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto auto auto;
-}
-
-.interests-container.five-interests .interest-box:nth-child(3) {
-  grid-column: 1 / -1; /* Centrer l'intérêt sur la deuxième ligne */
-}
 
 /* Responsivité */
 @media (max-width: 768px) {
@@ -63,4 +57,47 @@
   .interest-box {
     max-width: 100%;
   }
+}
+
+.info-icon-interest {
+  position: absolute;
+  top: calc(-13%);  /* Aligne le point d'interrogation avec le haut du titre */
+  left: calc(14%);  /* Place l'icône à droite du titre avec un écart de 10px */
+  background-color: #ddd; /* Fond gris */
+  color: #fff; /* Texte blanc */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%; /* Cercle parfait */
+  font-size: 14px;
+  text-align: center;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+/* Tooltip au survol */
+.info-icon-interest:hover::after {
+  content: attr(data-tooltip); /* Affiche le texte explicatif */
+  position: absolute;
+  top: -10px;
+  right: 0px;
+  width: 250px; /* Largeur de la boîte */
+  z-index: 9999; /* S'assurer que le tooltip est toujours au premier plan */
+  background-color: #333; /* Fond noir */
+  color: #fff; /* Texte blanc */
+  padding: 10px;
+  border-radius: 8px; /* Coins arrondis */
+  font-size: 0.9em; /* Taille du texte réduite */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  white-space: normal; /* Permet le retour à la ligne */
+  text-align: left; /* Alignement du texte */
+}
+
+.info-icon-interest:hover::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: calc(100% / 3 - 10px); /* Flèche alignée à gauche du tooltip */
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-left-color: #333; /* Petite flèche triangulaire */
 }
