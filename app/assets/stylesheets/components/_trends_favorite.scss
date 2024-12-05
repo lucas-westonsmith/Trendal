@@ -123,3 +123,35 @@ input[type="radio"]:checked + .dashboard-mode-toggle i {
   align-items: center;
 
 }
+
+.form-group.platform-icons{
+  display:flex;
+}
+
+.trend-types{
+  display: flex;
+  flex-direction: column;
+}
+
+.trend-types-options{
+  display: flex;
+  font-size: 24px;
+}
+
+.container-filter-favorites{
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 1200px;
+}
+
+.platform-selector.text-center-favorites{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  margin-left: 150px;
+}
+
+.platform-options.d-flex.justify-content-center{
+}
