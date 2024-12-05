@@ -865,4 +865,9 @@ body{
     position: relative;
     z-index: 1;
   }
+
+.text-gradient {
+  background: linear-gradient(160deg, rgba(125,59,254,1) 34%, rgba(174,126,213,1) 73%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

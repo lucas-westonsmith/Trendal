@@ -24,7 +24,7 @@ export default class extends Controller {
         ease: "power2.out",
         scrollTrigger: {
           trigger: element,
-          start: "top 80%", // Trigger when the element reaches 80% of the viewport height
+          start: "top 95%", // Trigger earlier: when the element reaches 90% of the viewport height
           end: "top 20%",
           toggleActions: "play none none reverse", // Play animation when entering, reverse when leaving
         },
