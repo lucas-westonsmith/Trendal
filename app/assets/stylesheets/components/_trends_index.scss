@@ -171,7 +171,6 @@ body {
 }
 
 .custom-form label {
-  font-size: 32px;
   margin-right: 10px;
   margin-bottom: 10px;
   padding-left: 15px;
@@ -247,12 +246,7 @@ body {
 }
 
 
-
-
-
-
 .tiktok-page-icons {
-  display: flex;
   gap: 20px; /* Space between options */
   justify-content: center; /* Center align the options */
   margin-top: 20px;
@@ -337,6 +331,7 @@ input[type="radio"]:checked + label {
 }
 
 .page-header {
+  text-align: center;
   font-size: 32px;
   color: black;
   font-weight: bold;

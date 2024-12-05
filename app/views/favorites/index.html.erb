@@ -7,60 +7,18 @@
 <!-- Selectors / Filters -->
 <div class="container">
   <% if  @favorite_tiktok_hashtags.present? %>
-    <h2>Your Favorite TikTok <strong class="tiktok-highlight roxo">Hashtags</strong></h2>
+    <h3 style="font-size:48px">Your Favorite TikTok <strong class="tiktok-highlight roxo">Hashtags</strong></h3>
   <% elsif @favorite_tiktok_keywords.present? %>
-    <h2>Your Favorite TikTok <strong class="tiktok-highlight roxo">Keywords</strong></h2>
+    <h3 style="font-size:48px">Your Favorite TikTok <strong class="tiktok-highlight roxo">Keywords</strong></h3>
   <% elsif @favorite_tiktok_products.present? %>
-    <h2>Your Favorite TikTok <strong class="tiktok-highlight roxo">Products</strong></h2>
+    <h3 style="font-size:48px">Your Favorite TikTok <strong class="tiktok-highlight roxo">Products</strong></h3>
   <% else @favorite_youtube_trends.present? %>
-    <h2>Your Favorite Youtube <strong class="tiktok-highlight roxo">Trends</strong></h2>
+    <h3 style="font-size:48px">Your Favorite Youtube <strong class="tiktok-highlight roxo">Trends</strong></h3>
   <% end %>
   <%= form_with url: favorites_path(anchor: "results"), method: :get, local: true, class: "form-inline custom-form" do %>
     <div class="form-group platform-icons">
-      <label for="platform" class="platform-label">Platform</label>
-
-      <!-- TikTok Icon -->
-      <button type="submit" name="platform" value="tiktok" class="platform-button <%= 'active' if params[:platform] == 'tiktok' %>">
-        <i class="fa-brands fa-tiktok"></i>
-      </button>
-
-      <!-- Separator -->
-      <span class="platform-separator">/</span>
-
-      <!-- YouTube Icon -->
-      <button type="submit" name="platform" value="youtube" class="platform-button <%= 'active' if params[:platform] == 'youtube' %>">
-        <i class="fa-brands fa-youtube"></i>
-      </button>
-    </div>
-
-    <!-- Show TikTok page options if TikTok is selected -->
-    <% if params[:platform] == 'tiktok' %>
-      <div class="form-group tiktok-page-icons">
-        <!-- Hashtag Option -->
-        <label class="page-option <%= 'active' if params[:tiktok_page] == 'hashtag' || params[:tiktok_page].nil? %>">
-          <input type="radio" name="tiktok_page" value="hashtag"
-                 <%= 'checked' if params[:tiktok_page] == 'hashtag' || params[:tiktok_page].nil? %>
-                 onchange="this.form.submit();" hidden>
-          <i class="fa-solid fa-hashtag"></i> Hashtag
-        </label>
-
-        <!-- Keyword Option -->
-        <label class="page-option <%= 'active' if params[:tiktok_page] == 'keyword' %>">
-          <input type="radio" name="tiktok_page" value="keyword"
-                 <%= 'checked' if params[:tiktok_page] == 'keyword' %>
-                 onchange="this.form.submit();" hidden>
-          <i class="fa-solid fa-key"></i> Keyword
-        </label>
-
-        <!-- Product Option -->
-        <label class="page-option <%= 'active' if params[:tiktok_page] == 'product' %>">
-          <input type="radio" name="tiktok_page" value="product"
-                 <%= 'checked' if params[:tiktok_page] == 'product' %>
-                 onchange="this.form.submit();" hidden>
-          <i class="fa-solid fa-box"></i> Product
-        </label>
-      </div>
-    <% end %>
+      <%= render "platforms_favorites" %>
+      <!-- Show TikTok page options if TikTok is selected -->
   <% end %>
 </div>
 
@@ -91,35 +49,36 @@
 
   <!-- TikTok hashtags -->
   <% if @favorite_tiktok_hashtags.present? %>
-  <!-- ADD HERE IF PLATFORM IS LIS -->
+  <!-- ADD HERE IF PLATFORM IS LIST -->
 <% if !@dashboard_mode %>
    <div class="container my-5">
       <table class="table-custom">
         <thead>
           <tr>
-            <th style="text-align:center">#</th>
-            <th style="text-align:center">Hashtag</th>
-            <th style="text-align:center">Industry</th>
-            <th style="text-align:center">Posts</th>
-            <th style="text-align:center">Overall</th>
-            <th style="text-align:center">Actions</th>
+            <th>#</th>
+            <th>Hashtag</th>
+            <th>Industry</th>
+            <th>Posts</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <% @favorite_tiktok_hashtags.each_with_index do |trend, index| %>
             <tr>
-              <td style="text-align:center"><%= index + 1 %></td>
-              <td style="text-align:center"><%= trend.title %></td>
-              <td style="text-align:center"><%= trend.industry.present? ? trend.industry : 'N/A' %></td>
-              <td style="text-align:center"><%= trend.formatted_count(trend.count) %></td>
-              <td style="text-align:center"><%= trend.formatted_count(trend.count_overall) %></td>
-              <td style="text-align: center; vertical-align: middle;">
-                <div class="d-flex justify-content-center align-items-center">
-                  <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
-                  <%= button_to favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id), method: :delete, class: 'btn btn-link p-0' do %>
-                    <i class="fa-solid fa-bookmark fa-2xl" style="color: #7d3bff; cursor: pointer;"></i>
-                  <% end %>
-                </div>
+              <td><%= index + 1 %></td>
+              <td><%= trend.title %></td>
+              <td><%= trend.industry.present? ? trend.industry : 'N/A' %></td>
+              <td><%= trend.formatted_count(trend.count) %></td>
+              <td>
+                <div class="d-flex">
+  <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
+  <%= button_to favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
+                method: :delete,
+                class: 'btn btn-link p-0' do %>
+  <i class="fa-solid fa-bookmark fa-2xl" style="color: #7d3bff; cursor: pointer;"></i> <!-- Font Awesome Bookmark Icon -->
+<% end %>
+</div>
+
               </td>
             </tr>
           <% end %>
@@ -153,29 +112,31 @@
       <table class="table-custom">
         <thead>
           <tr>
-            <th style= "text-align: center">#</th>
-            <th style= "text-align: center">Keyword</th>
-            <th style= "text-align: center">Popularity</th>
-            <th style= "text-align: center">Impressions</th>
-            <th style= "text-align: center">Likes</th>
-            <th style= "text-align: center">Actions</th>
+            <th>#</th>
+            <th>Keyword</th>
+            <th>Popularity</th>
+            <th>Impressions</th>
+            <th>Likes</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <% @favorite_tiktok_keywords.each_with_index do |trend, index| %>
             <tr>
-              <td style= "text-align: center"><%= index + 1 %></td>
-              <td style= "text-align: center"><%= trend.title %></td>
-              <td style= "text-align: center"><%= trend.formatted_count(trend.popularity) if trend.popularity.present? %></td>
-              <td style= "text-align: center"><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
-              <td style= "text-align: center"><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
-              <td style= "text-align: center; vertical-align: middle;">
-                <div class="d-flex justify-content-center align-items-center">
-                  <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
-                  <%= button_to favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id), method: :delete, class: 'btn btn-link p-0' do %>
-                    <i class="fa-solid fa-bookmark fa-2xl" style="color: #7d3bff; cursor: pointer;"></i> <!-- Font Awesome Bookmark Icon -->
-                  <% end %>
-                </div>
+              <td><%= index + 1 %></td>
+              <td><%= trend.title %></td>
+              <td><%= trend.formatted_count(trend.popularity) if trend.popularity.present? %></td>
+              <td><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
+              <td><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
+              <td>
+                <div class="d-flex">
+  <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
+  <%= button_to favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
+                method: :delete,
+                class: 'btn btn-link p-0' do %>
+  <i class="fa-solid fa-bookmark fa-2xl" style="color: #7d3bff; cursor: pointer;"></i> <!-- Font Awesome Bookmark Icon -->
+<% end %>
+</div>
               </td>
             </tr>
           <% end %>
@@ -544,29 +505,31 @@
       <table class="table-custom">
         <thead>
           <tr>
-            <th style="text-align:center">#</th>
-            <th style="text-align:center">Product</th>
-            <th style="text-align:center">Industry</th>
-            <th style="text-align:center">Impressions</th>
-            <th style="text-align:center">Likes</th>
-            <th style="text-align:center">Actions</th>
+            <th>#</th>
+            <th>Product</th>
+            <th>Industry</th>
+            <th>Impressions</th>
+            <th>Likes</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <% @favorite_tiktok_products.each_with_index do |trend, index| %>
             <tr>
-              <td style="text-align:center"><%= index + 1 %></td>
-              <td style="text-align:center"><%= trend.title %></td>
+              <td><%= index + 1 %></td>
+              <td><%= trend.title %></td>
               <td><%= trend.industry.present? ? trend.industry : 'N/A' %></td>
-              <td style="text-align:center"><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
-              <td style="text-align:center"><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
-              <td style="text-align: center; vertical-align: middle;">
-                <div class="d-flex justify-content-center align-items-center">
-                  <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
-                   <%= button_to favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id), method: :delete, class: 'btn btn-link p-0' do %>
-                    <i class="fa-solid fa-bookmark fa-2xl" style="color: #7d3bff; cursor: pointer;"></i> <!-- Font Awesome Bookmark Icon -->
-                  <% end %>
-                </div>
+              <td><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
+              <td><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
+              <td>
+                <div class="d-flex">
+  <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
+  <%= button_to favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
+                method: :delete,
+                class: 'btn btn-link p-0' do %>
+  <i class="fa-solid fa-bookmark fa-2xl" style="color: #7d3bff; cursor: pointer;"></i> <!-- Font Awesome Bookmark Icon -->
+<% end %>
+</div>
               </td>
             </tr>
           <% end %>
