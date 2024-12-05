@@ -38,7 +38,7 @@
           </div>
         </div>
       </div>
-      <!-- YouTube Video and Hashtags Section -->
+      <!-- YouTube Video and Hashtag Section -->
       <div class="youtube-content">
           <div class = "youtube-favorites-icon">
             <% if current_user.favorite.trends.exists?(id: @trend.id) %>
@@ -116,15 +116,15 @@
     <!-- Period selection form -->
     <div class="container mt-4">
       <%= form_with url: trend_path(@trend, anchor: "graph"), method: :get, local: true, class: "form-inline custom-form arturr" do %>
-        <div class="form-group mr-3">
-          <%= label_tag :period, 'Select Period:', class: 'mr-2' %>
+        <div class="form-group mr-3 lucas">
+          <%= label_tag :period, 'Select period', class: 'volta' %>
           <%= select_tag :period, options_for_select(
             { '7 Days' => 7, '30 Days' => 30, '120 Days' => 120, '365 Days' => 365 },
             selected: params[:period] || 7
-          ), class: 'form-control custom-select', onchange: 'this.form.submit()' %>
+          ), class: 'form-control custom-select rafael', onchange: 'this.form.submit()' %>
         </div>
-        <div class="form-group mr-3">
-          <%= label_tag :country, 'Select Country:', class: 'mr-2' %>
+        <div class="form-group mr-3 lucas">
+          <%= label_tag :country, 'Select country', class: 'volta' %>
           <%= select_tag :country, options_for_select(
             Count::COUNTRY_MAPPING.map { |code, (name, flag)| ["#{name} #{flag}", code] },
             selected: params[:country] || 'US'
@@ -429,15 +429,15 @@
     <!-- Period selection form -->
     <div class="container mt-4">
       <%= form_with url: trend_path(@trend, anchor: "graph"), method: :get, local: true, class: "form-inline custom-form arturr" do %>
-        <div class="form-group mr-3">
-          <%= label_tag :period, 'Select Period:', class: 'mr-2' %>
+        <div class="form-group mr-3 lucas">
+          <%= label_tag :period, 'Select period', class: 'volta' %>
           <%= select_tag :period, options_for_select(
             { '7 Days' => 7, '30 Days' => 30, '120 Days' => 120, '365 Days' => 365 },
             selected: params[:period] || 7
-          ), class: 'form-control custom-select', onchange: 'this.form.submit()' %>
+          ), class: 'form-control custom-select rafael', onchange: 'this.form.submit()' %>
         </div>
-        <div class="form-group mr-3">
-          <%= label_tag :country, 'Select Country:', class: 'mr-2' %>
+        <div class="form-group mr-3 lucas">
+          <%= label_tag :country, 'Select country', class: 'volta' %>
           <%= select_tag :country, options_for_select(
             Count::COUNTRY_MAPPING.map { |code, (name, flag)| ["#{name} #{flag}", code] },
             selected: params[:country] || 'US'
@@ -446,9 +446,10 @@
       <% end %>
     </div>
 
+
 <h3 class="trend-metrics-title" style="text-align: left; padding-bottom: 40px;">Keyword examples for <%= Count::COUNTRY_MAPPING[@selected_country][0] %> <%= Count::COUNTRY_MAPPING[@selected_country][1] %> - last <%= @selected_period %> days</h3>
 <% if @filtered_keyword_examples.any? %>
-  <table class="table-custom" data-controller="clickable-row">
+  <table class="table-custom sobe" data-controller="clickable-row">
     <thead>
       <tr>
         <th>#</th>
