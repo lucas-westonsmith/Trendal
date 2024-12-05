@@ -70,11 +70,31 @@
     <h3 class="text-start mx-4"><span class="trend-highlight">Step 2</span> - Select an industry</h3>
     <div class="form-group mx-4">
       <%= select_tag :industry, options_for_select([
-        ["Technology", "technology"],
-        ["Fashion", "fashion"],
-        ["Entertainment", "entertainment"],
-        ["Health", "health"],
-        ["Sports", "sports"]
+        ["Technology", "Technology"],
+        ["Fashion", "Fashion"],
+        ["Entertainment", "Entertainment"],
+        ["Health & Wellness", "Health & Wellness"],
+        ["Sports & Outdoor", "Sports & Outdoor"],
+        ["Food & Beverage", "Food & Beverage"],
+        ["Retail & E-commerce", "Retail & E-commerce"],
+        ["Media & Marketing", "Media & Marketing"],
+        ["Education & Training", "Education & Training"],
+        ["Finance & Insurance", "Finance & Insurance"],
+        ["Travel & Hospitality", "Travel & Hospitality"],
+        ["Real Estate", "Real Estate"],
+        ["Automotive & Transportation", "Automotive & Transportation"],
+        ["Gaming & Esports", "Gaming & Esports"],
+        ["Music & Arts", "Music & Arts"],
+        ["Consumer Goods", "Consumer Goods"],
+        ["Non-Profit & Charity", "Non-Profit & Charity"],
+        ["Science & Research", "Science & Research"],
+        ["Legal & Consulting", "Legal & Consulting"],
+        ["Construction & Engineering", "Construction & Engineering"],
+        ["Telecommunications", "Telecommunications"],
+        ["Energy & Utilities", "Energy & Utilities"],
+        ["Government & Public Sector", "Government & Public Sector"],
+        ["Photography & Events", "Photography & Events"],
+        ["Lifestyle & Leisure", "Lifestyle & Leisure"]
       ], selected: params[:industry]), class: 'form-control select2 mb-4' %>
     </div>
 

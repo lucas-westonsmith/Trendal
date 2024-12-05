@@ -40,7 +40,7 @@ class PredictionsController < ApplicationController
         parameters: {
           model: "gpt-4",
           messages: [{ role: "user", content: prompt }],
-          max_tokens: 1
+          max_tokens: 200
         }
       )
 
