@@ -816,3 +816,53 @@ body{
   margin-right: 15px;
   padding-top: 25px;
 }
+
+.custom-underline {
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem; /* Ajustez pour placer le SVG à la bonne position */
+    left: -0.5rem;
+    right: -0.5rem;
+    height: 0.5rem;
+
+    z-index: 2; /* SVG au-dessus du texte */
+    background: url('/assets/angry-underline.svg') no-repeat center center;
+    background-size: cover;
+  }
+
+  /* Le texte est placé sous le SVG */
+  span {
+    position: relative;
+    z-index: 1; /* Texte en dessous du SVG */
+  }
+}
+
+.highlight-underline {
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -0.2rem; /* Ajustez pour le positionnement */
+    left: -0.5rem;
+    right: -0.5rem;
+    height: 0.5rem;
+
+    z-index: 2; /* SVG au-dessus si nécessaire */
+
+    /* Utilisation de background pour le nouveau SVG */
+    background: url('/assets/angry-underline-white.svg') no-repeat center center;
+    background-size: cover;
+  }
+
+  /* Texte sous le soulignement */
+  span {
+    position: relative;
+    z-index: 1;
+  }
+}
