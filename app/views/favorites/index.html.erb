@@ -60,7 +60,7 @@
             <th style="text-align:center">Industry</th>
             <th style="text-align:center">Posts</th>
             <th style="text-align:center">Overall</th>
-            <th>Actions</th>
+            <th style="text-align:center">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -72,7 +72,7 @@
               <td style="text-align:center"><%= trend.formatted_count(trend.count) %></td>
               <td style="text-align:center"><%= trend.formatted_count(trend.count_overall) %></td>
               <td style="text-align:center">
-                <div class="d-flex">
+                <div class="d-flex justify-content-center">
   <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
   <%= button_to favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
                 method: :delete,
@@ -118,7 +118,7 @@
             <th style="text-align:center">Popularity</th>
             <th style="text-align:center">Impressions</th>
             <th style="text-align:center">Likes</th>
-            <th>Actions</th>
+            <th style="text-align:center">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -130,7 +130,7 @@
               <td style="text-align:center"><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
               <td style="text-align:center"><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
               <td style="text-align:center">
-                <div class="d-flex">
+                <div class="d-flex justify-content-center">
   <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
   <%= button_to favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
                 method: :delete,
@@ -148,7 +148,7 @@
     <!-- ADD HERE IF PLATFORM IS DASHBOARD -->
     <% if @dashboard_mode %>
 <div class="container my-5 charts">
-  <div class="bubble-charts-container">
+  <div class="bubble-charts-container keyword">
     <!-- Bubble chart n°1 -->
     <div class="chart-box">
       <canvas id="bubbleChart1" width="400" height="400"></canvas>
@@ -511,7 +511,7 @@
             <th style="text-align:center">Industry</th>
             <th style="text-align:center">Impressions</th>
             <th style="text-align:center">Likes</th>
-            <th>Actions</th>
+            <th style="text-align:center">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -523,7 +523,7 @@
               <td style="text-align:center"><%= trend.formatted_count(trend.impression_count) if trend.impression_count.present? %></td>
               <td style="text-align:center"><%= trend.formatted_count(trend.like_count) if trend.like_count.present? %></td>
               <td style="text-align:center">
-                <div class="d-flex">
+                <div class="d-flex justify-content-center">
   <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
   <%= button_to favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
                 method: :delete,
@@ -927,22 +927,22 @@
     <table class="table-custom" data-controller="clickable-row">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Title</th>
-            <th>Views</th>
-            <th>Likes</th>
-            <th>Actions</th>
+            <th style="text-align:center">#</th>
+            <th style="text-align:center">Title</th>
+            <th style="text-align:center">Views</th>
+            <th style="text-align:center">Likes</th>
+            <th style="text-align:center">Actions</th>
           </tr>
         </thead>
         <tbody>
           <% @favorite_youtube_trends.each_with_index do |trend, index| %>
           <tr data-clickable-row-target="row" data-href="<%= trend_path(trend) %>">
-              <td><%= index + 1 %></td>
-              <td><%= trend.title %></td>
-              <td><%= trend.formatted_count(trend.view_count) %></td>
-              <td><%= trend.formatted_count(trend.like_count) %></td>
+              <td style="text-align:center"><%= index + 1 %></td>
+              <td style="text-align:center"><%= trend.title %></td>
+              <td style="text-align:center"><%= trend.formatted_count(trend.view_count) %></td>
+              <td style="text-align:center"><%= trend.formatted_count(trend.like_count) %></td>
               <td>
-                <div class="d-flex">
+                <div class="d-flex justify-content-center">
   <%= link_to 'See analytics', trend_path(trend), class: 'btn btn-primary btn-sm mr-2 custom-btn-analytics' %>
   <%= button_to favorite_remove_trend_path(favorite_id: current_user.favorite.id, trend_id: trend.id),
                 method: :delete,
@@ -961,7 +961,7 @@
     <!-- ADD HERE IF PLATFORM IS DASHBOARD -->
     <% if @dashboard_mode %>
       <div class="container my-5">
-      <div class="column-charts-container">
+      <div class="column-charts-container keyword">
         <!-- Graphique n°1 -->
         <div class="column-chart-box-hashtag">
           <%= column_chart @youtube_data_graph_for_like_count, height: "200px", colors: ["#3498DB", "#8A2BE2", "#FF6F91", "#D3D3D3", "#2C3E50", "#1F4B8F", "#7A1F9A", "#FF4C91", "#BDC3C7", "#34495E"] %>
