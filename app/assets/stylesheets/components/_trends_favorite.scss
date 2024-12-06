@@ -131,6 +131,7 @@ input[type="radio"]:checked + .dashboard-mode-toggle i {
 .trend-types{
   display: flex;
   flex-direction: column;
+  margin-right: 90px;
 }
 
 .trend-types-options{
@@ -152,6 +153,10 @@ input[type="radio"]:checked + .dashboard-mode-toggle i {
   align-items: center;
   margin-left: 150px;
 }
+.bubble-charts-container.keyword{
+  margin-top: 150px;
+}
 
-.platform-options.d-flex.justify-content-center{
+.column-charts-container.keyword{
+  margin-top: 150px;
 }
